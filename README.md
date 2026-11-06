@@ -1,6 +1,6 @@
 # 대항해 딥리서처
 
-> **바로 보기** — [대항해 리서치 해도](https://voyage-deep-researcher.onrender.com/) · [보고서 대조대](https://voyage-deep-researcher.onrender.com/compare.html)
+> **바로 보기** — [대항해 리서치 해도](https://voyage-deep-researcher.onrender.com/)
 > (무료 서버라 한동안 아무도 안 들어오면 잠듭니다. 첫 접속은 30초쯤 걸릴 수 있어요.)
 
 대항해시대 항구 문서 134건(컨텍스트의 2.58배)을 **코디네이터 하나 + 리서처 여럿**이 나눠 읽고 장문 보고서를 쓰는 LangGraph 에이전트입니다. 리서처는 세계 해도 위의 함대로, 문서는 항구로 그려집니다.
