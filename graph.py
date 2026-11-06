@@ -42,7 +42,7 @@ META: dict[str, dict] = PLACES["places"]
 REGION: dict[str, str] = PLACES["regions"]
 OUT = ROOT / "output"
 # 실행 기록에 남기는 코드 판. 소거 실험은 같은 판의 기록만 재사용한다 (프롬프트를 고친 뒤의 실행과 섞이지 않게).
-VERSION = "2026-11-06e"  # e: 읽기 프롬프트 — 관련 없음 판정 완화 (d 는 향신료 질문에 말루쿠 제도까지 버림)
+VERSION = "2026-11-06f"  # f: 여러 곳을 묻는 질문은 최소 2절 (e: 읽기 프롬프트 — 관련 없음 판정 완화)
 
 
 class BudgetExceeded(RuntimeError):
@@ -56,6 +56,34 @@ SCOPE_WORDS = re.compile(r"항구|항로|항해|무역|교역|향신료|은광|�
 
 def in_scope_hint(q: str) -> bool:
     return any(n in q for n in DOCS) or bool(SCOPE_WORDS.search(q))
+
+
+# 여러 곳·여러 갈래를 묻는 말. 이런 말이 있거나 지명이 하나로 좁혀지지 않으면 목차를 한 절로 끝내지 않는다.
+MANY_WORDS = re.compile(r"들|각각|어디어디|어느 어느|여러|모두|비교|차이|거쳐|경로|길로|어떻게 다르")
+
+
+_NATION_KO = [(r"포르투갈", r"Portug"), (r"스페인|에스파냐", r"Spani|Spain|Castil"), (r"네덜란드|VOC|동인도 회사", r"Dutch|VOC|Netherlands"),
+              (r"영국|잉글랜드", r"English|British|Britain"), (r"프랑스", r"French|France")]
+
+
+def region_hint(q: str, per_region: int = 3, regions: int = 5) -> str:
+    """질문에 나온 나라를 자주 언급하는 문서를 권역별로 몇 건씩 짚어 준다 (되묻기용). 나라가 없으면 빈 문자열."""
+    pats = [en for ko, en in _NATION_KO if re.search(ko, q)]
+    if not pats:
+        return ""
+    by_region: dict[str, list[tuple[int, str]]] = {}
+    for name, text in DOCS.items():
+        n = sum(len(re.findall(p, text)) for p in pats)
+        if n >= 3:
+            by_region.setdefault(META[name]["region"], []).append((n, name))
+    ranked = sorted(by_region.items(), key=lambda kv: -sum(n for n, _ in kv[1]))[:regions]
+    lines = [f"- {REGION[r]}: " + ", ".join(nm for _, nm in sorted(v, reverse=True)[:per_region]) for r, v in ranked]
+    return "\n[권역별 후보 — 질문의 나라를 자주 언급하는 문서]\n" + "\n".join(lines)
+
+
+def single_ok(q: str) -> bool:
+    """한 절로 답해도 되는 질문인가: 코퍼스 지명이 딱 하나 나오고, 여러 곳을 묻는 말이 없을 때만 (예: '믈라카는 어떤 항구였나?')."""
+    return sum(n in q for n in DOCS) == 1 and not MANY_WORDS.search(q)
 
 
 # ───────────────────────── 기록 · 비용 ─────────────────────────
@@ -281,7 +309,9 @@ CARD_HEAD = ("[문서 카드 — 지명 (권역): [그 문서에 자주 나오�
 def plan_prompt(q: str, k: int) -> tuple[str, str]:
     roster = "\n".join(f"- {r}: {d}" for r, d in CFG["roster"].items())
     sys_ = ("너는 대항해시대 리서치 팀의 코디네이터다. 질문에 답하는 보고서의 목차를 짜고 절마다 리서처 에이전트 하나를 맡긴다.\n"
-            f"절은 1개 이상 {k}개 이하. 답이 문서 한 건에 거의 다 있는 질문이면 절을 하나만 둬라.\n"
+            f"절은 1개 이상 {k}개 이하. 답이 문서 한 건에 거의 다 있는 질문(항구 하나를 묻는 질문)이면 절을 하나만 둬라. "
+            "'항구들', '어디어디', '각각'처럼 여러 곳을 묻거나, 한 대상을 여러 구간에 걸쳐 따라가거나, 둘 이상을 견주는 질문이면 반드시 2절 이상으로 나눠라. "
+            "여러 곳을 묻는 질문은 권역(바다)별로 나누고, 절마다 서로 다른 권역의 시작 문서를 배정하라. 절 제목은 서로 달라야 한다.\n"
             "문서 카드는 각 문서에서 뽑은 문장 하나뿐이다. 본문에는 대항해시대의 항해·무역·식민 이야기가 훨씬 많이 들어 있으니, "
             "카드에 질문의 말이 그대로 안 보인다는 이유로 범위 밖이라 판단하지 마라. 질문이 대항해시대(15~18세기)의 항해·무역·식민이나 "
             "이 지명들과 아예 무관할 때만(예: 다른 지역·다른 시대·현대 문제) 목차를 빈 배열로 두고 '범위밖'에 이유를 한 문장으로 적어라.\n"
@@ -368,6 +398,18 @@ class Pipeline:
             self.rec("fix", what="범위밖", given=str(obj.get("범위밖") or "빈 목차"), used="되묻기")
             prompt = (prompt[0], prompt[1] + "\n[다시 확인] 이 질문은 코퍼스의 지명·나라·무역을 다루므로 범위 안이다. 범위밖을 비우고 목차를 짜라.")
             obj = jload(self.ask("plan", prompt, True, question=s["question"], names=names, max=self.k), {})
+        spread = lambda o: len({META[str(t.get("시작문서"))]["region"] for t in (o.get("목차") or []) if str(t.get("시작문서")) in DOCS})
+        n_sec = len(obj.get("목차") or [])
+        if n_sec and self.k > 1 and self.sw["assign"] and not single_ok(s["question"]) and (n_sec == 1 or spread(obj) <= 1):
+            # 여러 곳을 묻는데 한 절로 짜거나 모든 절을 한 권역에서 시작하면 한 번 되묻는다. 그대로 두면 서브에이전트가 하나뿐이거나
+            # 모두 같은 바다만 읽어 분업이 일어나지 않는다 (판 d 소거 실험에서 멀티 실행 40회 중 20회가 한 절로 끝났다).
+            # 프롬프트만으로는 gpt-4o-mini 가 잘 따르지 않아서, 질문에 나온 나라를 자주 언급하는 문서를 권역별로 짚어 준다.
+            self.rec("fix", what="절 수", given=f"{n_sec}절 · 권역 {spread(obj)}곳", used="되묻기")
+            prompt = (prompt[0], prompt[1] + f"\n[다시 확인] 이 질문은 여러 항구·권역·나라·구간에 걸친 질문이다. 권역(바다)별로 2절 이상 {self.k}절 이하로 나누고, "
+                      f"절마다 서로 다른 권역의 시작 문서와 서로 다른 제목을 줘라. '맥락·배경·의의' 같은 형식으로 나누지 마라.{region_hint(s['question'])}")
+            again = jload(self.ask("plan", prompt, True, question=s["question"], names=names, max=self.k), {})
+            if (len(again.get("목차") or []), spread(again)) > (n_sec, spread(obj)):
+                obj = again
         toc, taken = [], set()
         for item in (obj.get("목차") or [])[: self.k]:
             seed = str(item.get("시작문서") or "")
@@ -380,7 +422,10 @@ class Pipeline:
             if seed:
                 taken.add(seed)
             role = item.get("역할", "")
-            toc.append({"절": item.get("절", "무제"), "지시": item.get("지시", s["question"]),
+            title, n = str(item.get("절") or "무제"), 2
+            while any(t["절"] == title for t in toc):  # 같은 제목이 둘이면 원고가 서로 덮어쓴다 (latest 는 제목으로 묶는다)
+                title = f"{item.get('절') or '무제'} ({n})"; n += 1
+            toc.append({"절": title, "지시": item.get("지시", s["question"]),
                         "역할": role if (self.sw["roles"] and role in CFG["roster"]) else CFG["default_role"],
                         "시작문서": seed, "예산": self.budget})
         if not toc:  # 코퍼스로 답할 수 없는 질문: 아무 문서나 읽혀 그럴듯한 글을 짓지 않고, 범위 밖이라고 보고한다

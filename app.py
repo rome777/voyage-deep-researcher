@@ -105,7 +105,7 @@ class Handler(SimpleHTTPRequestHandler):
             return super().do_GET()
         if u.path == "/api/health":
             used = PER_IP.get((self.client_ip(), today()), 0)
-            return self.send_json({"live": live(), "busy": bool(BUSY["run_id"]), "today_won": today_won(), "daily_won": DAILY_WON,
+            return self.send_json({"live": live(), "version": graph.VERSION, "busy": bool(BUSY["run_id"]), "today_won": today_won(), "daily_won": DAILY_WON,
                                    "runs_left": max(0, RUNS_PER_IP - used), "run_cap_won": graph.CFG["run_cap_won"]})
         if u.path == "/api/runs":
             return self.send_json(B.load_runs())

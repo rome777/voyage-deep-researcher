@@ -1,5 +1,5 @@
 {
- "total_won": 404.19,
+ "total_won": 412.8,
  "runs": [
   {
    "run_id": "20261106-150957-live-Q4",
@@ -576,6 +576,38 @@
    "tok_in": 6285,
    "tok_cached": 0,
    "tok_out": 45
+  },
+  {
+   "run_id": "manual-plan-probe",
+   "won": 2.56,
+   "calls": 3,
+   "tok_in": 18937,
+   "tok_cached": 18432,
+   "tok_out": 616
+  },
+  {
+   "run_id": "manual-plan-probe-f",
+   "won": 2.18,
+   "calls": 2,
+   "tok_in": 12733,
+   "tok_cached": 6272,
+   "tok_out": 193
+  },
+  {
+   "run_id": "manual-plan-probe-f2",
+   "won": 1.45,
+   "calls": 1,
+   "tok_in": 6415,
+   "tok_cached": 0,
+   "tok_out": 117
+  },
+  {
+   "run_id": "manual-plan-probe-f3",
+   "won": 2.42,
+   "calls": 2,
+   "tok_in": 13040,
+   "tok_cached": 6272,
+   "tok_out": 407
   }
  ]
 }
