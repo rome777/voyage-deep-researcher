@@ -1193,7 +1193,7 @@ async function watch(runId, q){
   ST.hqBubble = say('목차 짜는 중…', 600000);
   log(`질문 접수: ${q}`, 'k'); log('실제 LLM(gpt-4o-mini)으로 조사합니다. 사건이 기록되는 대로 해도에 그립니다.');
   const t0 = performance.now(), END = {type:'end'}, Q = new Map(), WQ = new Map(), busy = new Set();
-  let workers = [], applied = 0, finished = null;
+  let workers = [], applied = 0, finished = null, lastNew = performance.now(), lastLen = 0;
   const nap = ms => new Promise(r => setTimeout(r, ms));
   const push = (i, e) => { if (!Q.has(i)) Q.set(i, []); Q.get(i).push(e); const w = WQ.get(i); if (w){ WQ.delete(i); w(); } };
   const next = async i => { for (;;){ const a = Q.get(i); if (a && a.length) return a.shift(); await new Promise(r => WQ.set(i, r)); } };
@@ -1257,7 +1257,11 @@ async function watch(runId, q){
   })();
   while (my === RUN){
     while (applied < evs.length && my === RUN) await apply(evs[applied++]);
-    $('judge').innerHTML = `<b>실제 LLM 실행 중</b> · ${Math.round((performance.now() - t0)/1000)}초 · 받은 사건 ${evs.length}개 · 실행 <code>${esc(runId)}</code>`;
+    if (evs.length !== lastLen){ lastLen = evs.length; lastNew = performance.now(); }
+    const quiet = Math.round((performance.now() - lastNew)/1000);
+    // 새 사건이 한동안 없으면 화면이 멈춘 게 아니라 모델 응답을 기다리는 중이라고 알린다 (호출 하나는 45초에 끊고 한 번 더 시도)
+    $('judge').innerHTML = `<b>실제 LLM 실행 중</b> · ${Math.round((performance.now() - t0)/1000)}초 · 받은 사건 ${evs.length}개` +
+      (quiet >= 12 && !finished ? ` · <b style="color:#f0c76a">마지막 사건 ${quiet}초 전 — 모델 응답을 기다리는 중</b>` : '') + ` · 실행 <code>${esc(runId)}</code>`;
     if (finished && applied >= evs.length) break;
     await nap(300);
   }

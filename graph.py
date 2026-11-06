@@ -187,7 +187,7 @@ class Meter:
 class OpenAIModel:
     def __init__(self, meter: Meter):
         from langchain_openai import ChatOpenAI
-        self.llm = ChatOpenAI(model=CFG["model"], temperature=CFG["temperature"], timeout=90, max_retries=0)
+        self.llm = ChatOpenAI(model=CFG["model"], temperature=CFG["temperature"], timeout=45, max_retries=0)  # 응답이 멈추면 오래 묶이지 않게 (전에는 90초 × 4번)
         self.meter = meter
         import tiktoken
         self.enc = tiktoken.get_encoding("o200k_base")
@@ -196,13 +196,13 @@ class OpenAIModel:
         est = len(self.enc.encode(system + user))
         self.meter.guard(est)
         msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
-        for attempt in range(4):
+        for attempt in range(2):  # 일시 오류만 한 번 더 시도
             try:
                 res = self.llm.invoke(msgs)
                 break
             except Exception as e:  # 동시에 부르면 속도 제한에 걸릴 수 있다
                 transient = any(k in type(e).__name__ for k in ("RateLimit", "APIConnection", "Timeout", "InternalServer"))
-                if attempt == 3 or not transient:
+                if attempt == 1 or not transient:
                     raise
                 time.sleep(2 ** attempt)
         u = getattr(res, "usage_metadata", None) or {}

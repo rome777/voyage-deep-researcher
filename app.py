@@ -64,18 +64,34 @@ def live() -> bool:
     return bool(os.getenv("OPENAI_API_KEY"))
 
 
+RUN_TIMEOUT = int(os.getenv("RUN_TIMEOUT", "300"))  # 실행 하나가 이보다 오래 걸리면 실패로 보고 다음 질문을 받는다 (초)
+
+
+def finish(run_id: str, **kw) -> None:
+    """실행을 끝낸다. 이미 시간 초과로 끝낸 실행이면 결과를 덮어쓰지 않는다."""
+    with LOCK:
+        if JOBS[run_id]["status"] == "running":
+            JOBS[run_id].update(**kw)
+        if BUSY["run_id"] == run_id:
+            BUSY["run_id"] = None
+
+
+def reap() -> None:
+    """모델 응답이 오지 않아 멈춘 실행을 시간 초과로 끝내고 자리를 비운다 (스레드는 멈출 수 없어 결과만 버린다)."""
+    rid = BUSY["run_id"]
+    if rid and dt.datetime.now().timestamp() - JOBS[rid]["t0"] > RUN_TIMEOUT:
+        finish(rid, status="error", error=f"{RUN_TIMEOUT // 60}분이 지나도 끝나지 않아 멈췄습니다 (모델 응답 지연). 다시 시도해 주세요.")
+
+
 def worker(run_id: str, question: str) -> None:
     try:
         sw = {k: True for k in graph.CFG["switches"]}
         graph.run(question, QUESTIONS.get(question), False, sw, graph.CFG["max_sections"], graph.CFG["section_budget"], run_id=run_id)
-        JOBS[run_id]["status"] = "done"
+        finish(run_id, status="done")
     except graph.BudgetExceeded as e:
-        JOBS[run_id].update(status="error", error=f"비용 상한에 걸려 멈췄습니다 — {e}")
+        finish(run_id, status="error", error=f"비용 상한에 걸려 멈췄습니다 — {e}")
     except Exception as e:  # 모델 오류·네트워크 오류는 화면에 그대로 알린다 (키는 메시지에 들어가지 않는다)
-        JOBS[run_id].update(status="error", error=f"{type(e).__name__}: {str(e)[:300]}")
-    finally:
-        with LOCK:
-            BUSY["run_id"] = None
+        finish(run_id, status="error", error=f"{type(e).__name__}: {str(e)[:300]}")
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -99,6 +115,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        reap()
         u = urlparse(self.path)
         if u.path == "/":
             self.path = "/voyage-map.html"
@@ -122,10 +139,12 @@ class Handler(SimpleHTTPRequestHandler):
                 names = set(graph.DOCS)
                 import metrics
                 rec = B.run_record(path, summaries, lambda rep, reads: metrics.evaluate(rep, reads, names)["근거율"])
-            return self.send_json({"status": job["status"], "error": job.get("error", ""), "events": events, "record": rec})
+            return self.send_json({"status": job["status"], "error": job.get("error", ""), "events": events, "record": rec,
+                                   "elapsed": round(dt.datetime.now().timestamp() - job["t0"], 1)})
         return super().do_GET()
 
     def do_POST(self):
+        reap()
         u = urlparse(self.path)
         if u.path != "/api/ask":
             return self.send_json({"error": "없는 주소"}, HTTPStatus.NOT_FOUND)
@@ -151,7 +170,7 @@ class Handler(SimpleHTTPRequestHandler):
             run_id = graph.new_run_id("-live" + (f"-{qid}" if qid else ""))
             BUSY["run_id"] = run_id
             PER_IP[(ip, day)] = PER_IP.get((ip, day), 0) + 1
-            JOBS[run_id] = {"status": "running", "question": q, "ip": ip}
+            JOBS[run_id] = {"status": "running", "question": q, "ip": ip, "t0": dt.datetime.now().timestamp()}
             graph.append_line(APP_RUNS, {"run_id": run_id, "day": day})
         threading.Thread(target=worker, args=(run_id, q), daemon=True).start()
         return self.send_json({"run_id": run_id, "question": q}, HTTPStatus.ACCEPTED)
