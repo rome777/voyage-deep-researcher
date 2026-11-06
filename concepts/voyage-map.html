@@ -1178,26 +1178,107 @@ async function ask(q){
   if (!r.ok){ await refreshHealth(); $('liveNote').innerHTML = `<b style="color:#ff9b86">${esc(j.error || '실행을 시작하지 못했습니다.')}</b>`; return; }
   watch(j.run_id, q);
 }
+// 실시간 실행: 서버의 실행 기록 파일에 사건이 들어오는 대로 해도를 움직인다.
+// 기획 사건이 오면 함대를 띄우고, 읽기·원고 사건은 그 함대의 줄에 넣어 차례로 항해·조사·집필한다.
+// 점검·종합·평가는 함대들이 앞선 사건을 다 그린 뒤에 보여 준다 (화면과 단계 표시가 어긋나지 않게).
 async function watch(runId, q){
   RUN++; const my = RUN; waiters = []; simT = 0;
-  CUR = {...plan(q), q, sections:[], type:'실행 중', why:''}; newState(CUR); ST.replay = null;
+  const stub = evs => ({run_id:runId, live:true, question:q, mode:'gpt-4o-mini', events:evs, report:''});
+  const evs = [];
+  CUR = {...plan(q), q, sections:[], type:'실행 중', why:''}; newState(CUR); ST.replay = stub(evs);
   $('log').innerHTML = ''; $('event').hidden = true; $('doc').hidden = true; $('openDoc').hidden = true;
   setStage(1); renderFleets(); renderRes(); renderMetrics(); dirty = true;
   selQ = q; renderQList(); $('runlist').innerHTML = '';
+  if (speed < 2){ speed = 2; document.querySelectorAll('.speed button').forEach(x => x.setAttribute('aria-pressed', x.dataset.s === '2' ? 'true' : 'false')); }
   ST.hqBubble = say('목차 짜는 중…', 600000);
-  log(`질문 접수: ${q}`, 'k'); log('실제 LLM(gpt-4o-mini)으로 조사합니다. 끝나면 이 실행 기록을 해도에서 그대로 재생합니다.');
-  const t0 = performance.now(); let seen = 0;
+  log(`질문 접수: ${q}`, 'k'); log('실제 LLM(gpt-4o-mini)으로 조사합니다. 사건이 기록되는 대로 해도에 그립니다.');
+  const t0 = performance.now(), END = {type:'end'}, Q = new Map(), WQ = new Map(), busy = new Set();
+  let workers = [], applied = 0, finished = null;
+  const nap = ms => new Promise(r => setTimeout(r, ms));
+  const push = (i, e) => { if (!Q.has(i)) Q.set(i, []); Q.get(i).push(e); const w = WQ.get(i); if (w){ WQ.delete(i); w(); } };
+  const next = async i => { for (;;){ const a = Q.get(i); if (a && a.length) return a.shift(); await new Promise(r => WQ.set(i, r)); } };
+  const idle = async () => { while (my === RUN && ([...Q.values()].some(a => a.length) || busy.size)) await nap(200); };
+  const fleetLoop = async f => {
+    let k = 0, round = 0;
+    for (;;){
+      const e = await next(f.i); if (e === END || my !== RUN) return;
+      busy.add(f.i);
+      try {
+        if (e.round !== round){ round = e.round; k = 0; f.used = 0; f.budget = ST.plan.sections[f.i].budget; f.sec.status = round > 1 ? '재조사' : '조사 중'; }
+        if (e.type === 'read' && P.has(e.doc)){
+          const nm = P.get(e.doc).name;
+          if (e.assigned) log(`  ${f.name} 배정받은 «${nm}»${ro(nm)} 직행${P.get(e.doc).links.length ? '' : ' (링크 없는 문서)'}`);
+          await sail(my, f, e.doc);
+          await readDoc(my, f, e.doc, round, k++, e.assigned);
+          if (e.irrelevant){ f.bubble = say('관련 없음', 1800); log(`   ${f.name}: «${nm}» 문서는 지시와 관련 없음으로 판단`, 'w'); }
+        } else if (e.type === 'write'){
+          f.status = '집필'; f.bubble = say('✍ 항해일지 작성', 1500); renderFleets(); await W8(my, 1100);
+          f.sec.status = e.enough ? '충분' : '부족'; f.status = e.enough ? '보고 완료' : '부족 신고'; f.sec.why = e.gap || '';
+          log(`  ${f.name} 원고 ${e.chars.toLocaleString()}자 · 인용 ${e.cites}곳 · ${e.enough ? '충분' : `부족 — ${e.gap}`}`, e.cites ? '' : 'w');
+          ST.scrolls.push({from:{...f.b}, to:'hq', t0:simT, dur:1300, color:f.color});
+          f.bubble = say(e.enough ? '충분 ✓' : '부족 ✗', 2600); renderFleets(); await W8(my, 1300);
+        }
+      } catch (err){ if (err === CANCEL) return; console.error(err); }
+      finally { busy.delete(f.i); }
+    }
+  };
+  const apply = async e => {
+    if (e.type === 'plan'){
+      if (e.out_of_scope){ ST.hqBubble = say('출항하지 않음', 5000); log(`① 기획 판단: 범위 밖 — ${e.out_of_scope}`, 'w'); showEvent('출항하지 않음', e.out_of_scope); return; }
+      CUR = planFromRun({question:q, mode:'gpt-4o-mini', events:evs}); newState(CUR); ST.replay = stub(evs);
+      setStage(2); renderFleets(); renderRes(); renderMetrics(); dirty = true;
+      log(`① 기획 목차 ${CUR.sections.length}절 · ` + CUR.sections.map(s => `${s.role}→«${s.seed ? P.get(s.seed).name : '자율'}»`).join(' · '), 'k');
+      log(`② 배치 · 명령서 발송: ${P.get(HQ).name} → ${ST.fleets.map(f => `${f.name}(${P.get(f.base).name})`).join(', ')}`, 'k');
+      for (const f of ST.fleets){ if (f.sec.seed) ST.port.get(f.sec.seed).pin = f.i; f.sec.status = '출항'; ST.scrolls.push({from:{...P.get(HQ).b}, toB:{...P.get(f.base).b}, t0:simT, dur:1400, color:f.color, out:true}); }
+      ST.hqBubble = say(`함대 ${ST.fleets.length}척 출항 명령`, 2400); renderFleets();
+      await W8(my, 1450); setStage(3);
+      workers = ST.fleets.map(f => fleetLoop(f));
+    } else if (e.type === 'fix') log(`   코드가 바로잡음 (${e.what || '시작문서'}): «${String(e.given).slice(0, 60)}» → «${e.used || '없음'}»`, 'w');
+    else if (e.type === 'read' || e.type === 'write'){ if (ST.stage !== 3) setStage(3); push(e.sec ?? 0, e); }
+    else if (e.type === 'recite') log(`  ${(e.sec ?? 0) + 1}절 인용이 빠진 원고를 한 번 되돌려 씀 (${e.before} → ${e.after})`);
+    else if (e.type === 'review'){
+      await idle(); setStage(4);
+      if (e.gaps.length){ log(`④ 점검 — 부족 신고 ${e.gaps.length}절 재위임: ` + e.gaps.map(i => `«${(ST.plan.sections[i] || {}).title}»`).join(', '), 'w');
+        showEvent('재출항 명령', e.gaps.map(i => `${(ST.fleets[i] || {}).name}: ${(e.why || {})[i] || '근거 부족'}`).join(' · ')); ST.hqBubble = say('재출항!', 1800); }
+      else { log(`④ 점검 — ${e.reason} → 종합으로`); ST.hqBubble = say('점검 끝 — 종합으로', 1800); }
+    } else if (e.type === 'synth'){ await idle(); setStage(5); ST.hqBubble = say('종합 중…', 600000); log(`⑤ 종합 — 절 원고를 이어 붙이고 편집자가 머리말·맺음말을 씀 (${e.chars}자)`, 'k'); }
+    else if (e.type === 'evaluate'){ await idle(); setStage(6); ST.hqBubble = say('평가 중…', 600000); }
+    else if (e.type === 'abort') log(`멈춤: ${e.reason}`, 'w');
+  };
+  // 서버에서 사건을 받아 오는 쪽과 해도에 그리는 쪽을 따로 돌린다
+  (async () => {
+    while (my === RUN && !finished){
+      await nap(1200); if (my !== RUN) return;
+      let j; try { j = await (await fetch('api/job?run_id=' + encodeURIComponent(runId), {cache:'no-store'})).json(); } catch { continue; }
+      for (const e of (j.events || []).slice(evs.length)) evs.push(e);
+      if (j.status === 'done' && j.record) finished = {ok:true, record:j.record};
+      else if (j.status === 'error') finished = {ok:false, error:j.error};
+    }
+  })();
   while (my === RUN){
-    await new Promise(res => setTimeout(res, 1200));
-    if (my !== RUN) break;
-    let j; try { j = await (await fetch('api/job?run_id=' + encodeURIComponent(runId), {cache:'no-store'})).json(); } catch { continue; }
-    for (const e of (j.events || []).slice(seen)) liveLine(e);
-    seen = (j.events || []).length;
-    $('judge').innerHTML = `<b>실제 LLM 실행 중</b> · ${Math.round((performance.now() - t0)/1000)}초 · 기록된 사건 ${seen}개 · 실행 <code>${esc(runId)}</code>`;
-    if (j.status === 'done' && j.record){ RUNS = [j.record, ...RUNS.filter(x => x.run_id !== j.record.run_id)]; await refreshHealth(); start(j.record); return; }
-    if (j.status === 'error'){ log(`실행 실패: ${j.error}`, 'w'); $('judge').innerHTML = `<b>실행 실패</b> · ${esc(j.error)}`; ST.hqBubble = null; await refreshHealth(); return; }
+    while (applied < evs.length && my === RUN) await apply(evs[applied++]);
+    $('judge').innerHTML = `<b>실제 LLM 실행 중</b> · ${Math.round((performance.now() - t0)/1000)}초 · 받은 사건 ${evs.length}개 · 실행 <code>${esc(runId)}</code>`;
+    if (finished && applied >= evs.length) break;
+    await nap(300);
   }
-  refreshHealth();
+  if (my !== RUN) return;
+  for (const f of ST.fleets) push(f.i, END);
+  await Promise.all(workers); if (my !== RUN) return;
+  if (!finished.ok){ log(`실행 실패: ${finished.error}`, 'w'); $('judge').innerHTML = `<b>실행 실패</b> · ${esc(finished.error)}`; ST.hqBubble = null; await refreshHealth(); return; }
+  // 끝: 기록 그대로 지표·보고서를 보여 주고, 실행 목록에 더한다 (다시 재생도 가능)
+  const R = finished.record, end = R.events.find(x => x.type === 'run_end') || {}, evl = R.events.find(x => x.type === 'evaluate') || {}, m = evl.metrics || {};
+  RUNS = [R, ...RUNS.filter(x => x.run_id !== R.run_id)]; ST.replay = R; R.report = R.report || '';
+  if (ST.fleets.length){
+    ST.metrics = {ground:m['근거율'], fake:(m['허위인용'] || []).length, unused:(m['읽고안쓴'] || []).length, bias:m['편중'], dup:m['중복률'], iso:m['격리율']};
+    ST.fleets.forEach(f => { f.sec.status = '완료'; });
+    log(`⑥ 평가 근거율 ${m['근거율']}% · 허위 ${(m['허위인용'] || []).length} · 엉뚱 ${(m['엉뚱한인용'] || []).length} · 읽고 안 쓴 ${(m['읽고안쓴'] || []).length}건 · 편중 ${m['편중']}% · 중복 ${m['중복률']}% · 격리율 ${m['격리율']}%`, 'k');
+    for (const al of (evl.alarms || [])) log(`🚨 ${al}`, 'w');
+  }
+  ST.calls = end.calls || 0; ST.won = end.won || 0; ST.hqBubble = say('보고서 완성', 2500);
+  renderRes(); renderMetrics(); renderFleets();
+  $('judge').innerHTML = `<b>실제 LLM 실행 끝</b> · ${esc(R.cond || '전체')} · 비용 ₩${end.won ?? '?'} · LLM ${end.calls ?? '?'}회 · ${end.seconds ?? '?'}초. 실행 목록에 저장됐고, 누르면 다시 재생할 수 있습니다.`;
+  renderDoc(); $('doc').hidden = false; $('openDoc').hidden = false;
+  await refreshHealth(); renderQList(); renderRunList();
 }
 
 $('qlist').addEventListener('click', e => { const b = e.target.closest('.preset'); if (!b) return; const x = qKeys()[+b.dataset.q]; selQ = x.q; $('ask').value = x.q;
