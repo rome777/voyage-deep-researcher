@@ -1,0 +1,17 @@
+# 비밀값 — API 키는 절대 올리지 않는다
+.env
+*.env
+
+# 파이썬
+.venv/
+__pycache__/
+*.pyc
+
+# 실행 중 잠금 파일
+output/.output.lock
+
+# 주제를 고르던 단계의 시안 (프로젝트와 무관)
+concepts/topic-sims.html
+
+# 이 PC 전용 Claude Code 설정
+.claude/

@@ -1,0 +1,21 @@
+{"t": 0.0, "type": "run_start", "run_id": "20261106-161923-live-Q4-off-assign", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.949, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "", "예산": 3}], "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}}
+{"t": 2.964, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 3.576, "type": "pick", "sec": 1, "cand": 134, "frontier": false, "chose": "브리스틀"}
+{"t": 3.852, "type": "pick", "sec": 0, "cand": 134, "frontier": false, "chose": "암스테르담"}
+{"t": 6.824, "type": "read", "sec": 0, "doc": "암스테르담", "chars": 16128, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 7.735, "type": "pick", "sec": 0, "cand": 15, "frontier": true, "chose": "안트베르펜"}
+{"t": 8.985, "type": "read", "sec": 1, "doc": "브리스틀", "chars": 12292, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 9.544, "type": "pick", "sec": 1, "cand": 3, "frontier": true, "chose": "광저우"}
+{"t": 11.42, "type": "read", "sec": 0, "doc": "안트베르펜", "chars": 10897, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 12.359, "type": "pick", "sec": 0, "cand": 15, "frontier": true, "chose": "미델뷔르흐"}
+{"t": 13.154, "type": "read", "sec": 0, "doc": "미델뷔르흐", "chars": 3381, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 14.852, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 15.498, "type": "pick", "sec": 1, "cand": 17, "frontier": true, "chose": "닝보"}
+{"t": 18.603, "type": "read", "sec": 1, "doc": "닝보", "chars": 6770, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 22.473, "type": "write", "sec": 0, "chars": 706, "cites": 12, "enough": true, "gap": "", "round": 1}
+{"t": 28.265, "type": "write", "sec": 1, "chars": 718, "cites": 12, "enough": true, "gap": "", "round": 1}
+{"t": 28.266, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 30.833, "type": "synth", "chars": 1784, "sections": 2}
+{"t": 30.835, "type": "evaluate", "metrics": {"문장수": 28, "근거율": 78.6, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["미델뷔르흐"], "편중": 25.0, "중복률": 0.0, "인용수": 24, "보고서자수": 1784, "격리율": 31.1, "LLM호출": 16, "원": 7.83}, "alarms": []}
+{"t": 30.836, "type": "run_end", "seconds": 30.8, "calls": 16, "won": 7.83, "tok_in": 27769, "tok_out": 2379}

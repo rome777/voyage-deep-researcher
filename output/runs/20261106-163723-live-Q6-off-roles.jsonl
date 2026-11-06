@@ -1,0 +1,23 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163723-live-Q6-off-roles", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "switches": {"roles": false, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.275, "type": "plan", "title": "향신료의 유럽 도착 항구", "toc": [{"절": "향신료의 주요 항구", "지시": "향신료가 유럽에 도달하기 위해 거쳐간 주요 항구들을 정리한다.", "역할": "큰그림 담당", "시작문서": "말루쿠 제도", "예산": 3}], "switches": {"roles": false, "assign": true, "zones": true, "redelegate": true}}
+{"t": 2.289, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 3.571, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 4.268, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": "고아"}
+{"t": 6.058, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 6.678, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": "바타비아"}
+{"t": 10.305, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 16.475, "type": "write", "sec": 0, "chars": 400, "cites": 6, "enough": false, "gap": "문장 수", "round": 1}
+{"t": 16.476, "type": "review", "gaps": [0], "reason": "자기신고 부족", "round": 1, "why": {"0": "문장 수"}}
+{"t": 16.477, "type": "dispatch", "round": 2, "sections": [0]}
+{"t": 17.189, "type": "pick", "sec": 0, "cand": 42, "frontier": true, "chose": "딜리"}
+{"t": 17.739, "type": "read", "sec": 0, "doc": "딜리", "chars": 20125, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 18.6, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "리스본"}
+{"t": 19.351, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 19.95, "type": "pick", "sec": 0, "cand": 56, "frontier": true, "chose": "마카오"}
+{"t": 20.592, "type": "read", "sec": 0, "doc": "마카오", "chars": 8227, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 37.6, "type": "recite", "sec": 0, "before": "0/10", "after": "1/1", "kept": "새 원고", "round": 2}
+{"t": 37.6, "type": "write", "sec": 0, "chars": 505, "cites": 8, "enough": true, "gap": "", "round": 2}
+{"t": 37.601, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 39.839, "type": "synth", "chars": 727, "sections": 1}
+{"t": 39.841, "type": "evaluate", "metrics": {"문장수": 5, "근거율": 20.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["고아", "딜리", "리스본", "마카오", "말루쿠 제도"], "편중": 100.0, "중복률": 0.0, "인용수": 8, "보고서자수": 727, "격리율": 21.3, "LLM호출": 16, "원": 4.42}, "alarms": []}
+{"t": 39.844, "type": "run_end", "seconds": 39.8, "calls": 16, "won": 4.42, "tok_in": 25035, "tok_cached": 19200, "tok_out": 1400}

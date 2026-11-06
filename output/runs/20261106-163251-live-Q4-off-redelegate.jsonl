@@ -1,0 +1,19 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163251-live-Q4-off-redelegate", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}, "sections": 5, "budget": 3}
+{"t": 3.697, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "질란디아 요새", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "제임스타운", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}}
+{"t": 3.711, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 4.698, "type": "read", "sec": 1, "doc": "제임스타운", "chars": 24000, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 5.538, "type": "pick", "sec": 1, "cand": 3, "frontier": true, "chose": "플리머스"}
+{"t": 9.066, "type": "read", "sec": 1, "doc": "플리머스", "chars": 10576, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 9.371, "type": "read", "sec": 0, "doc": "질란디아 요새", "chars": 3136, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 9.891, "type": "pick", "sec": 1, "cand": 5, "frontier": true, "chose": "런던"}
+{"t": 10.701, "type": "pick", "sec": 0, "cand": 1, "frontier": true, "chose": "바타비아"}
+{"t": 11.272, "type": "read", "sec": 1, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 15.642, "type": "write", "sec": 1, "chars": 479, "cites": 7, "enough": false, "gap": "다른 항구에 대한 정보가 부족함.", "round": 1}
+{"t": 16.235, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 16.911, "type": "pick", "sec": 0, "cand": 19, "frontier": true, "chose": "마닐라"}
+{"t": 25.814, "type": "read", "sec": 0, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 40.303, "type": "write", "sec": 0, "chars": 565, "cites": 8, "enough": true, "gap": "", "round": 1}
+{"t": 40.304, "type": "review", "gaps": [], "reason": "재위임 꺼짐", "round": 1}
+{"t": 43.58, "type": "synth", "chars": 1389, "sections": 2}
+{"t": 43.582, "type": "evaluate", "metrics": {"문장수": 22, "근거율": 68.2, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["런던", "제임스타운"], "편중": 46.7, "중복률": 0.0, "인용수": 15, "보고서자수": 1389, "격리율": 28.6, "LLM호출": 14, "원": 7.58}, "alarms": []}
+{"t": 43.582, "type": "run_end", "seconds": 43.6, "calls": 14, "won": 7.58, "tok_in": 28627, "tok_out": 1872}

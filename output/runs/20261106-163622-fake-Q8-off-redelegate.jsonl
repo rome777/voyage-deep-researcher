@@ -1,0 +1,13 @@
+{"t": 0.0, "type": "run_start", "run_id": "20261106-163622-fake-Q8-off-redelegate", "qid": "Q8", "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "mode": "fake", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}, "sections": 5, "budget": 3}
+{"t": 0.016, "type": "plan", "title": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "toc": [{"절": "유럽의 거점", "지시": "유럽에서 질문과 관련된 항구를 정리한다", "역할": "항로 담당", "시작문서": "포르투", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}}
+{"t": 0.018, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 0.021, "type": "read", "sec": 0, "doc": "포르투", "chars": 4875, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 0.022, "type": "pick", "sec": 0, "cand": 14, "frontier": true, "chose": "나가사키"}
+{"t": 0.023, "type": "read", "sec": 0, "doc": "나가사키", "chars": 14389, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.024, "type": "pick", "sec": 0, "cand": 17, "frontier": true, "chose": "가고시마"}
+{"t": 0.025, "type": "read", "sec": 0, "doc": "가고시마", "chars": 4755, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.026, "type": "write", "sec": 0, "chars": 289, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.027, "type": "review", "gaps": [], "reason": "재위임 꺼짐", "round": 1}
+{"t": 0.029, "type": "synth", "chars": 391, "sections": 1}
+{"t": 0.03, "type": "evaluate", "metrics": {"문장수": 5, "근거율": 60.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": [], "편중": 33.3, "중복률": 0.0, "인용수": 3, "보고서자수": 391, "격리율": 42.8, "LLM호출": 8, "원": 0.0}, "alarms": []}
+{"t": 0.031, "type": "run_end", "seconds": 0.0, "calls": 8, "won": 0.0, "tok_in": 15253, "tok_cached": 0, "tok_out": 1600}

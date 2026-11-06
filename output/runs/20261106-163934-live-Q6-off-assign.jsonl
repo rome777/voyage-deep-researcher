@@ -1,0 +1,23 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163934-live-Q6-off-assign", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 1.91, "type": "plan", "title": "향신료의 유럽 도착 항구", "toc": [{"절": "향신료의 주요 항구", "지시": "향신료가 유럽에 도달하기 위해 거쳐간 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "", "예산": 3}], "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}}
+{"t": 1.912, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 2.833, "type": "pick", "sec": 0, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 7.38, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 8.156, "type": "pick", "sec": 0, "cand": 21, "frontier": true, "chose": "베네치아"}
+{"t": 8.715, "type": "read", "sec": 0, "doc": "베네치아", "chars": 15822, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 9.721, "type": "pick", "sec": 0, "cand": 21, "frontier": true, "chose": "암스테르담"}
+{"t": 10.36, "type": "read", "sec": 0, "doc": "암스테르담", "chars": 16128, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 15.767, "type": "write", "sec": 0, "chars": 355, "cites": 6, "enough": false, "gap": "베네치아, 암스테르담에 대한 내용이 부족함.", "round": 1}
+{"t": 15.768, "type": "review", "gaps": [0], "reason": "자기신고 부족", "round": 1, "why": {"0": "베네치아, 암스테르담에 대한 내용이 부족함."}}
+{"t": 15.769, "type": "dispatch", "round": 2, "sections": [0]}
+{"t": 16.573, "type": "pick", "sec": 0, "cand": 25, "frontier": true, "chose": "안트베르펜"}
+{"t": 26.901, "type": "read", "sec": 0, "doc": "안트베르펜", "chars": 10897, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 27.628, "type": "pick", "sec": 0, "cand": 25, "frontier": true, "chose": "제노바"}
+{"t": 28.415, "type": "read", "sec": 0, "doc": "제노바", "chars": 14408, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 29.348, "type": "pick", "sec": 0, "cand": 28, "frontier": true, "chose": "브뤼허"}
+{"t": 33.737, "type": "read", "sec": 0, "doc": "브뤼허", "chars": 9284, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 42.609, "type": "write", "sec": 0, "chars": 745, "cites": 11, "enough": false, "gap": "베네치아, 암스테르담에 대한 내용이 부족함.", "round": 2}
+{"t": 42.61, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 45.479, "type": "synth", "chars": 958, "sections": 1}
+{"t": 45.482, "type": "evaluate", "metrics": {"문장수": 16, "근거율": 68.8, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["베네치아", "암스테르담", "제노바"], "편중": 36.4, "중복률": 0.0, "인용수": 11, "보고서자수": 958, "격리율": 17.7, "LLM호출": 16, "원": 5.01}, "alarms": []}
+{"t": 45.483, "type": "run_end", "seconds": 45.5, "calls": 16, "won": 5.01, "tok_in": 29004, "tok_cached": 22656, "tok_out": 1550}

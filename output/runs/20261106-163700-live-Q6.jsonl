@@ -1,0 +1,22 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163700-live-Q6", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.383, "type": "plan", "title": "향신료의 유럽 도착 항구", "toc": [{"절": "향신료의 주요 항구", "지시": "향신료가 유럽에 도착하기 위해 거쳐간 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "말루쿠 제도", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}}
+{"t": 2.384, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 3.017, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 3.865, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": "고아"}
+{"t": 4.719, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 5.637, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": "마카사르"}
+{"t": 10.228, "type": "read", "sec": 0, "doc": "마카사르", "chars": 7521, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 12.863, "type": "write", "sec": 0, "chars": 395, "cites": 7, "enough": false, "gap": "다른 항구에 대한 정보가 부족함.", "round": 1}
+{"t": 12.864, "type": "review", "gaps": [0], "reason": "자기신고 부족", "round": 1, "why": {"0": "다른 항구에 대한 정보가 부족함."}}
+{"t": 12.864, "type": "dispatch", "round": 2, "sections": [0]}
+{"t": 13.599, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": "딜리"}
+{"t": 14.08, "type": "read", "sec": 0, "doc": "딜리", "chars": 20125, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 14.778, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "리스본"}
+{"t": 15.432, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 16.203, "type": "pick", "sec": 0, "cand": 52, "frontier": true, "chose": "광저우"}
+{"t": 17.36, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 20.457, "type": "write", "sec": 0, "chars": 460, "cites": 7, "enough": false, "gap": "다른 항구에 대한 정보가 부족함.", "round": 2}
+{"t": 20.458, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 22.903, "type": "synth", "chars": 703, "sections": 1}
+{"t": 22.903, "type": "evaluate", "metrics": {"문장수": 13, "근거율": 53.8, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["고아", "광저우", "딜리", "리스본", "말루쿠 제도"], "편중": 100.0, "중복률": 0.0, "인용수": 7, "보고서자수": 703, "격리율": 19.2, "LLM호출": 15, "원": 4.2}, "alarms": []}
+{"t": 22.904, "type": "run_end", "seconds": 22.9, "calls": 15, "won": 4.2, "tok_in": 26841, "tok_cached": 22272, "tok_out": 1073}

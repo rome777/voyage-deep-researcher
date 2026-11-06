@@ -1,0 +1,9 @@
+{"t": 0.0, "type": "run_start", "run_id": "20261106-163622-fake-Q3-single", "qid": "Q3", "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?", "mode": "fake", "agent": "단일 에이전트", "budget": 3, "sections": 1, "reference": "20261106-163621-fake-Q3"}
+{"t": 0.001, "type": "read", "sec": 0, "doc": "포르투", "chars": 4875, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 0.003, "type": "pick", "sec": 0, "cand": 14, "frontier": true, "chose": "나가사키", "forced": false}
+{"t": 0.004, "type": "read", "sec": 0, "doc": "나가사키", "chars": 14389, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.007, "type": "pick", "sec": 0, "cand": 17, "frontier": true, "chose": "마카오", "forced": false}
+{"t": 0.008, "type": "read", "sec": 0, "doc": "마카오", "chars": 8227, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.009, "type": "write", "sec": 0, "chars": 402, "cites": 6, "enough": true, "gap": "", "round": 1}
+{"t": 0.01, "type": "evaluate", "metrics": {"문장수": 7, "근거율": 71.4, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": [], "편중": 33.3, "중복률": 0.0, "인용수": 6, "보고서자수": 402, "격리율": 100.0, "LLM호출": 7, "원": 0.0}, "alarms": []}
+{"t": 0.01, "type": "run_end", "seconds": 0.0, "calls": 7, "won": 0.0, "tok_in": 16221, "tok_cached": 0, "tok_out": 1630}

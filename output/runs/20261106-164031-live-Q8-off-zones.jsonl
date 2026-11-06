@@ -1,0 +1,19 @@
+{"t": 0.003, "type": "run_start", "run_id": "20261106-164031-live-Q8-off-zones", "qid": "Q8", "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.714, "type": "plan", "title": "포르투갈과 네덜란드의 아시아 거점 운영 비교", "toc": [{"절": "포르투갈의 아시아 거점 운영", "지시": "포르투갈이 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "고아", "예산": 3}, {"절": "네덜란드의 아시아 거점 운영", "지시": "네덜란드가 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "바타비아", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}}
+{"t": 2.729, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 7.872, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 8.774, "type": "read", "sec": 1, "doc": "바타비아", "chars": 5977, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 8.95, "type": "pick", "sec": 0, "cand": 2, "frontier": true, "chose": "무스카트"}
+{"t": 10.276, "type": "pick", "sec": 1, "cand": 19, "frontier": true, "chose": "마닐라"}
+{"t": 10.955, "type": "read", "sec": 1, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 12.146, "type": "pick", "sec": 1, "cand": 25, "frontier": true, "chose": "마드라스"}
+{"t": 13.476, "type": "read", "sec": 0, "doc": "무스카트", "chars": 6548, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.065, "type": "read", "sec": 1, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.288, "type": "pick", "sec": 0, "cand": 7, "frontier": true, "chose": "딜리"}
+{"t": 19.112, "type": "read", "sec": 0, "doc": "딜리", "chars": 20125, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 22.056, "type": "write", "sec": 1, "chars": 628, "cites": 9, "enough": true, "gap": "", "round": 1}
+{"t": 28.22, "type": "write", "sec": 0, "chars": 730, "cites": 8, "enough": true, "gap": "", "round": 1}
+{"t": 28.22, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 31.684, "type": "synth", "chars": 1692, "sections": 2}
+{"t": 31.687, "type": "evaluate", "metrics": {"문장수": 24, "근거율": 62.5, "허위인용": [], "엉뚱한인용": ["고아, 무스카트, 딜리\n\n## 2. 네덜란드의 아시아 거점 운영\n네덜란드는 17세기 초, 자바의 자야카르타를 점령한 후 바타비아라는 이름으로 아시아 본부를 설립하였다. 바타비아는 방어벽이 있는 운하 도시로 발전하였으며, VOC의 주요 행정 중심지이자 중요한 무역 항구로 기능하였다 «바타비아"], "읽은문서": 6, "읽고안쓴": ["마닐라"], "편중": 31.2, "중복률": 0.0, "인용수": 16, "보고서자수": 1692, "격리율": 21.6, "LLM호출": 14, "원": 4.72}, "alarms": ["코퍼스에 없는 인용 1건: 고아, 무스카트, 딜리\n\n## 2. 네덜란드의 아시아 거점 운영\n네덜란드는 17세기 초, 자바의 자야카르타를 점령한 후 바타비아라는 이름으로 아시아 본부를 설립하였다. 바타비아는 방어벽이 있는 운하 도시로 발전하였으며, VOC의 주요 행정 중심지이자 중요한 무역 항구로 기능하였다 «바타비아"]}
+{"t": 31.688, "type": "run_end", "seconds": 31.7, "calls": 14, "won": 4.72, "tok_in": 23999, "tok_cached": 20864, "tok_out": 2233}

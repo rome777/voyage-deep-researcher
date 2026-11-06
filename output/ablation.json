@@ -1,0 +1,1868 @@
+[
+ {
+  "run_id": "20261106-163638-live-Q4",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 42.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 22,
+   "근거율": 81.8,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 8,
+   "읽고안쓴": [
+    "닝보",
+    "마닐라",
+    "마카사르",
+    "마카오"
+   ],
+   "편중": 44.4,
+   "중복률": 11.1,
+   "인용수": 18,
+   "보고서자수": 1451,
+   "격리율": 15.6,
+   "LLM호출": 23,
+   "원": 8.93
+  },
+  "condition": "전체",
+  "reads": 9,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163724-live-Q4",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 32.6,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 20,
+   "근거율": 85.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 8,
+   "읽고안쓴": [
+    "닝보",
+    "마카오",
+    "샤먼"
+   ],
+   "편중": 31.6,
+   "중복률": 11.1,
+   "인용수": 19,
+   "보고서자수": 1388,
+   "격리율": 15.8,
+   "LLM호출": 22,
+   "원": 6.24
+  },
+  "condition": "전체",
+  "reads": 9,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163757-live-Q4-off-roles",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 27.4,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 19,
+   "근거율": 84.2,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 31.2,
+   "중복률": 0.0,
+   "인용수": 16,
+   "보고서자수": 1455,
+   "격리율": 22.5,
+   "LLM호출": 14,
+   "원": 4.29
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163824-live-Q4-off-roles",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 42.2,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 19,
+   "근거율": 84.2,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 31.2,
+   "중복률": 0.0,
+   "인용수": 16,
+   "보고서자수": 1482,
+   "격리율": 22.5,
+   "LLM호출": 14,
+   "원": 4.35
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163907-live-Q4-off-assign",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 33.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 20,
+   "근거율": 95.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "브리스틀"
+   ],
+   "편중": 31.6,
+   "중복률": 0.0,
+   "인용수": 19,
+   "보고서자수": 1414,
+   "격리율": 21.3,
+   "LLM호출": 16,
+   "원": 4.91
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163940-live-Q4-off-assign",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 35.8,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 23,
+   "근거율": 95.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "브리스틀"
+   ],
+   "편중": 26.1,
+   "중복률": 0.0,
+   "인용수": 23,
+   "보고서자수": 1649,
+   "격리율": 21.3,
+   "LLM호출": 16,
+   "원": 4.82
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164016-live-Q4-off-zones",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 38.4,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 18,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 8,
+   "읽고안쓴": [
+    "닝보",
+    "마카오",
+    "샤먼"
+   ],
+   "편중": 38.1,
+   "중복률": 11.1,
+   "인용수": 21,
+   "보고서자수": 1453,
+   "격리율": 15.9,
+   "LLM호출": 21,
+   "원": 5.69
+  },
+  "condition": "구역 끔",
+  "reads": 9,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164054-live-Q4-off-zones",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 52.0,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 17,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 8,
+   "읽고안쓴": [
+    "닝보",
+    "마닐라",
+    "마카오",
+    "샤먼"
+   ],
+   "편중": 35.3,
+   "중복률": 11.1,
+   "인용수": 17,
+   "보고서자수": 1263,
+   "격리율": 15.8,
+   "LLM호출": 22,
+   "원": 5.97
+  },
+  "condition": "구역 끔",
+  "reads": 9,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164146-live-Q4-off-redelegate",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 27.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 87.5,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 5,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 42.9,
+   "중복률": 16.7,
+   "인용수": 14,
+   "보고서자수": 1319,
+   "격리율": 19.9,
+   "LLM호출": 15,
+   "원": 4.68
+  },
+  "condition": "재위임 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164214-live-Q4-off-redelegate",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 25.0,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 81.2,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 5,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 46.2,
+   "중복률": 16.7,
+   "인용수": 13,
+   "보고서자수": 1304,
+   "격리율": 20.1,
+   "LLM호출": 14,
+   "원": 4.32
+  },
+  "condition": "재위임 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164239-live-Q4-single",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 2,
+  "budget": 9,
+  "reads": 9,
+  "forced_picks": 0,
+  "reference": "20261106-163638-live-Q4",
+  "seconds": 46.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 13,
+   "근거율": 92.3,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 9,
+   "읽고안쓴": [
+    "고아",
+    "마데이라",
+    "무스카트",
+    "뭄바이",
+    "수라트",
+    "코친"
+   ],
+   "편중": 50.0,
+   "중복률": 0.0,
+   "인용수": 12,
+   "보고서자수": 1078,
+   "격리율": 100.0,
+   "LLM호출": 20,
+   "원": 5.43
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164326-live-Q4-single",
+  "qid": "Q4",
+  "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 2,
+  "budget": 9,
+  "reads": 9,
+  "forced_picks": 1,
+  "reference": "20261106-163724-live-Q4",
+  "seconds": 48.6,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 14,
+   "근거율": 92.9,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 9,
+   "읽고안쓴": [
+    "고아",
+    "마데이라",
+    "무스카트",
+    "뭄바이",
+    "수라트",
+    "코친"
+   ],
+   "편중": 46.2,
+   "중복률": 0.0,
+   "인용수": 13,
+   "보고서자수": 1124,
+   "격리율": 100.0,
+   "LLM호출": 20,
+   "원": 5.27
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163639-live-Q3",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 25.3,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 9,
+   "근거율": 88.9,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 75.0,
+   "중복률": 0.0,
+   "인용수": 8,
+   "보고서자수": 741,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 3.89
+  },
+  "condition": "전체",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163708-live-Q3",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 7,
+   "근거율": 85.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 737,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.47
+  },
+  "condition": "전체",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163730-live-Q3-off-roles",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.4,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 7,
+   "근거율": 71.4,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 60.0,
+   "중복률": 0.0,
+   "인용수": 5,
+   "보고서자수": 702,
+   "격리율": 36.1,
+   "LLM호출": 8,
+   "원": 2.4
+  },
+  "condition": "역할 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163753-live-Q3-off-roles",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 27.4,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 75.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 792,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.49
+  },
+  "condition": "역할 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163820-live-Q3-off-assign",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.3,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 10,
+   "근거율": 90.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 9,
+   "보고서자수": 770,
+   "격리율": 35.6,
+   "LLM호출": 9,
+   "원": 2.59
+  },
+  "condition": "배정 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163842-live-Q3-off-assign",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 24.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 75.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 767,
+   "격리율": 35.6,
+   "LLM호출": 9,
+   "원": 2.58
+  },
+  "condition": "배정 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163907-live-Q3-off-zones",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.0,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 7,
+   "근거율": 85.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 731,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.47
+  },
+  "condition": "구역 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163929-live-Q3-off-zones",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.9,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 75.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 769,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.48
+  },
+  "condition": "구역 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163952-live-Q3-off-redelegate",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 7,
+   "근거율": 71.4,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 60.0,
+   "중복률": 0.0,
+   "인용수": 5,
+   "보고서자수": 737,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.47
+  },
+  "condition": "재위임 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164015-live-Q3-off-redelegate",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 7,
+   "근거율": 85.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "카디스"
+   ],
+   "편중": 66.7,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 727,
+   "격리율": 36.0,
+   "LLM호출": 8,
+   "원": 2.45
+  },
+  "condition": "재위임 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164037-live-Q3-single",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 1,
+  "budget": 3,
+  "reads": 3,
+  "forced_picks": 0,
+  "reference": "20261106-163639-live-Q3",
+  "seconds": 30.4,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 11,
+   "근거율": 90.9,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "루안다",
+    "포르투"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 10,
+   "보고서자수": 996,
+   "격리율": 100.0,
+   "LLM호출": 8,
+   "원": 3.45
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164108-live-Q3-single",
+  "qid": "Q3",
+  "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 1,
+  "budget": 3,
+  "reads": 3,
+  "forced_picks": 0,
+  "reference": "20261106-163708-live-Q3",
+  "seconds": 29.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 10,
+   "근거율": 50.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "루안다",
+    "포르투"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 5,
+   "보고서자수": 886,
+   "격리율": 100.0,
+   "LLM호출": 8,
+   "원": 2.7
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163639-live-Q6",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 17.3,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 87.5,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "고아",
+    "말루쿠 제도"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 7,
+   "보고서자수": 631,
+   "격리율": 46.2,
+   "LLM호출": 8,
+   "원": 3.24
+  },
+  "condition": "전체",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163700-live-Q6",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 22.9,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 87.5,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "고아",
+    "광저우",
+    "딜리",
+    "리스본",
+    "말루쿠 제도"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 7,
+   "보고서자수": 703,
+   "격리율": 19.2,
+   "LLM호출": 15,
+   "원": 4.2
+  },
+  "condition": "전체",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163723-live-Q6-off-roles",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 39.8,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "고아",
+    "딜리",
+    "리스본",
+    "마카오",
+    "말루쿠 제도"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 8,
+   "보고서자수": 727,
+   "격리율": 21.3,
+   "LLM호출": 16,
+   "원": 4.42
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163803-live-Q6-off-roles",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 40.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 6,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "고아",
+    "딜리",
+    "리스본",
+    "마카오",
+    "말루쿠 제도"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 6,
+   "보고서자수": 580,
+   "격리율": 21.3,
+   "LLM호출": 16,
+   "원": 4.29
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163844-live-Q6-off-assign",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 50.6,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 12,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "베네치아",
+    "암스테르담",
+    "제노바"
+   ],
+   "편중": 41.7,
+   "중복률": 0.0,
+   "인용수": 12,
+   "보고서자수": 983,
+   "격리율": 17.7,
+   "LLM호출": 16,
+   "원": 6.3
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163934-live-Q6-off-assign",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 45.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 12,
+   "근거율": 91.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "베네치아",
+    "암스테르담",
+    "제노바"
+   ],
+   "편중": 36.4,
+   "중복률": 0.0,
+   "인용수": 11,
+   "보고서자수": 958,
+   "격리율": 17.7,
+   "LLM호출": 16,
+   "원": 5.01
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164020-live-Q6-off-zones",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 19.2,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 1,
+   "근거율": 0.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "고아",
+    "딜리",
+    "리스본",
+    "마데이라",
+    "말루쿠 제도",
+    "무스카트"
+   ],
+   "편중": 0.0,
+   "중복률": 0.0,
+   "인용수": 0,
+   "보고서자수": 274,
+   "격리율": 20.9,
+   "LLM호출": 17,
+   "원": 3.62
+  },
+  "condition": "구역 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164039-live-Q6-off-zones",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 21.2,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 9,
+   "근거율": 44.4,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "딜리",
+    "무스카트"
+   ],
+   "편중": 25.0,
+   "중복률": 0.0,
+   "인용수": 4,
+   "보고서자수": 542,
+   "격리율": 20.9,
+   "LLM호출": 17,
+   "원": 3.54
+  },
+  "condition": "구역 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164100-live-Q6-off-redelegate",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 13.8,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 1,
+   "근거율": 0.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "고아",
+    "마데이라",
+    "말루쿠 제도"
+   ],
+   "편중": 0.0,
+   "중복률": 0.0,
+   "인용수": 0,
+   "보고서자수": 307,
+   "격리율": 43.6,
+   "LLM호출": 9,
+   "원": 1.8
+  },
+  "condition": "재위임 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164114-live-Q6-off-redelegate",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 20.2,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 8,
+   "근거율": 87.5,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "고아",
+    "말루쿠 제도"
+   ],
+   "편중": 100.0,
+   "중복률": 0.0,
+   "인용수": 7,
+   "보고서자수": 704,
+   "격리율": 46.1,
+   "LLM호출": 8,
+   "원": 2.18
+  },
+  "condition": "재위임 끔",
+  "reads": 3,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164135-live-Q6-single",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 1,
+  "budget": 3,
+  "reads": 3,
+  "forced_picks": 0,
+  "reference": "20261106-163639-live-Q6",
+  "seconds": 38.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 14,
+   "근거율": 64.3,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 3,
+   "읽고안쓴": [
+    "마데이라"
+   ],
+   "편중": 55.6,
+   "중복률": 0.0,
+   "인용수": 9,
+   "보고서자수": 828,
+   "격리율": 100.0,
+   "LLM호출": 8,
+   "원": 3.49
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164213-live-Q6-single",
+  "qid": "Q6",
+  "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 1,
+  "budget": 6,
+  "reads": 6,
+  "forced_picks": 4,
+  "reference": "20261106-163700-live-Q6",
+  "seconds": 52.8,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 14,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "고아",
+    "광저우",
+    "뭄바이"
+   ],
+   "편중": 40.0,
+   "중복률": 0.0,
+   "인용수": 15,
+   "보고서자수": 995,
+   "격리율": 100.0,
+   "LLM호출": 14,
+   "원": 4.76
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163639-live-Q8",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 46.5,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 19,
+   "근거율": 84.2,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 25.0,
+   "중복률": 0.0,
+   "인용수": 16,
+   "보고서자수": 1716,
+   "격리율": 19.2,
+   "LLM호출": 15,
+   "원": 7.1
+  },
+  "condition": "전체",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163730-live-Q8",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 53.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 81.2,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 9,
+   "읽고안쓴": [
+    "마닐라",
+    "마드라스",
+    "뭄바이",
+    "세부",
+    "코친"
+   ],
+   "편중": 46.2,
+   "중복률": 0.0,
+   "인용수": 13,
+   "보고서자수": 1420,
+   "격리율": 15.8,
+   "LLM호출": 21,
+   "원": 6.67
+  },
+  "condition": "전체",
+  "reads": 9,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163823-live-Q8-off-roles",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 30.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 93.8,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 5,
+   "읽고안쓴": [
+    "마닐라",
+    "마드라스"
+   ],
+   "편중": 40.0,
+   "중복률": 16.7,
+   "인용수": 15,
+   "보고서자수": 1447,
+   "격리율": 20.8,
+   "LLM호출": 14,
+   "원": 4.4
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-163853-live-Q8-off-roles",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": false,
+   "assign": true,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 32.0,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 19,
+   "근거율": 94.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 5,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 33.3,
+   "중복률": 16.7,
+   "인용수": 18,
+   "보고서자수": 1617,
+   "격리율": 20.5,
+   "LLM호출": 15,
+   "원": 5.08
+  },
+  "condition": "역할 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-163925-live-Q8-off-assign",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 35.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "세비야",
+    "암스테르담",
+    "퀴라소"
+   ],
+   "편중": 37.5,
+   "중복률": 0.0,
+   "인용수": 16,
+   "보고서자수": 1359,
+   "격리율": 18.4,
+   "LLM호출": 17,
+   "원": 5.92
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164000-live-Q8-off-assign",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": false,
+   "zones": true,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 30.9,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 15,
+   "근거율": 86.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "세비야",
+    "암스테르담",
+    "퀴라소"
+   ],
+   "편중": 53.8,
+   "중복률": 0.0,
+   "인용수": 13,
+   "보고서자수": 1387,
+   "격리율": 18.6,
+   "LLM호출": 16,
+   "원": 4.8
+  },
+  "condition": "배정 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164031-live-Q8-off-zones",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 31.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 19,
+   "근거율": 78.9,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 35.3,
+   "중복률": 0.0,
+   "인용수": 17,
+   "보고서자수": 1692,
+   "격리율": 21.6,
+   "LLM호출": 14,
+   "원": 4.72
+  },
+  "condition": "구역 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164103-live-Q8-off-zones",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": false,
+   "redelegate": true
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 28.9,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 16,
+   "근거율": 75.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 33.3,
+   "중복률": 0.0,
+   "인용수": 12,
+   "보고서자수": 1456,
+   "격리율": 19.4,
+   "LLM호출": 14,
+   "원": 4.91
+  },
+  "condition": "구역 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164132-live-Q8-off-redelegate",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 29.7,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 20,
+   "근거율": 95.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 31.6,
+   "중복률": 0.0,
+   "인용수": 19,
+   "보고서자수": 1593,
+   "격리율": 19.5,
+   "LLM호출": 14,
+   "원": 4.98
+  },
+  "condition": "재위임 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164202-live-Q8-off-redelegate",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "switches": {
+   "roles": true,
+   "assign": true,
+   "zones": true,
+   "redelegate": false
+  },
+  "sections": 5,
+  "budget": 3,
+  "seconds": 43.1,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 18,
+   "근거율": 77.8,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "마닐라"
+   ],
+   "편중": 31.2,
+   "중복률": 0.0,
+   "인용수": 16,
+   "보고서자수": 1601,
+   "격리율": 21.6,
+   "LLM호출": 14,
+   "원": 4.69
+  },
+  "condition": "재위임 끔",
+  "reads": 6,
+  "reused": true,
+  "rep": 2
+ },
+ {
+  "run_id": "20261106-164245-live-Q8-single",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 2,
+  "budget": 6,
+  "reads": 6,
+  "forced_picks": 0,
+  "reference": "20261106-163639-live-Q8",
+  "seconds": 52.6,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 12,
+   "근거율": 100.0,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 6,
+   "읽고안쓴": [
+    "광저우",
+    "마닐라",
+    "포르투"
+   ],
+   "편중": 58.3,
+   "중복률": 0.0,
+   "인용수": 12,
+   "보고서자수": 1067,
+   "격리율": 100.0,
+   "LLM호출": 14,
+   "원": 5.15
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 1
+ },
+ {
+  "run_id": "20261106-164337-live-Q8-single",
+  "qid": "Q8",
+  "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?",
+  "mode": "gpt-4o-mini",
+  "agent": "단일 에이전트",
+  "switches": {
+   "roles": false,
+   "assign": false,
+   "zones": false,
+   "redelegate": false
+  },
+  "sections": 2,
+  "budget": 9,
+  "reads": 9,
+  "forced_picks": 1,
+  "reference": "20261106-163730-live-Q8",
+  "seconds": 66.0,
+  "version": "2026-11-06d",
+  "metrics": {
+   "문장수": 12,
+   "근거율": 91.7,
+   "허위인용": [],
+   "엉뚱한인용": [],
+   "읽은문서": 9,
+   "읽고안쓴": [
+    "광저우",
+    "루안다",
+    "마닐라",
+    "마드라스",
+    "말루쿠 제도",
+    "포르투"
+   ],
+   "편중": 45.5,
+   "중복률": 0.0,
+   "인용수": 11,
+   "보고서자수": 1117,
+   "격리율": 100.0,
+   "LLM호출": 20,
+   "원": 6.24
+  },
+  "condition": "단일 에이전트",
+  "reused": true,
+  "rep": 2
+ }
+]

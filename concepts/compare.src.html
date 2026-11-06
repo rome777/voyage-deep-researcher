@@ -1,0 +1,347 @@
+<meta charset="utf-8">
+<title>보고서 대조대</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@400;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* 배치: 위에 질문·실행 고르기, 가운데 보고서 세 단을 나란히, 문장을 누르면 오른쪽에서 원문 대조 서랍이 나온다. 맨 아래는 내 판단 메모. */
+:root{
+  --paper:#eef0ec; --sheet:#fbfbf8; --ink:#1e2226; --muted:#5b6268; --rule:#d5d9d2;
+  --accent:#2c56ad; --accent-soft:#e3e9f6; --cite:#8f948b;
+  --flag:#93590a; --flag-bg:#f8ecd2; --bad:#a8342a; --bad-bg:#f6e0dc; --ok:#2f7a4b;
+  --f-ui:"IBM Plex Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-read:"Noto Serif KR","Nanum Myeongjo","Apple SD Gothic Neo",serif;
+  --f-src:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --shadow:0 10px 40px rgba(20,28,40,.18);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#111417; --sheet:#181b1f; --ink:#e4e6e8; --muted:#9aa1a7; --rule:#2a2f35;
+  --accent:#8eaaf0; --accent-soft:#1f2a40; --cite:#7c8288;
+  --flag:#e2ad55; --flag-bg:#33280f; --bad:#ee8a7f; --bad-bg:#3a1d19; --ok:#7fc79a;
+  --shadow:0 10px 40px rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111417; --sheet:#181b1f; --ink:#e4e6e8; --muted:#9aa1a7; --rule:#2a2f35;
+  --accent:#8eaaf0; --accent-soft:#1f2a40; --cite:#7c8288;
+  --flag:#e2ad55; --flag-bg:#33280f; --bad:#ee8a7f; --bad-bg:#3a1d19; --ok:#7fc79a;
+  --shadow:0 10px 40px rgba(0,0,0,.5); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:14px;line-height:1.5}
+.wrap{max-width:1680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:grid;gap:18px}
+h1{font-family:var(--f-read);font-weight:600;font-size:22px;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:4px 0 0;max-width:80ch}
+.qs{display:flex;flex-wrap:wrap;gap:8px}
+.qs button{font:inherit;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:6px;padding:7px 12px;cursor:pointer;text-align:left;display:grid;gap:1px;max-width:340px}
+.qs button b{font-size:12px;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.qs button span{font-size:13px}
+.qs button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.qs button[aria-pressed="true"] b{color:var(--accent)}
+.why{font-size:13px;color:var(--muted);margin:0;max-width:100ch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);align-items:center}
+.legend i{font-style:normal;display:inline-flex;gap:6px;align-items:center}
+.sw{display:inline-block;width:14px;height:10px;border-radius:2px}
+.sw.flag{background:var(--flag-bg);outline:1px solid var(--flag)}
+.sw.none{border-bottom:2px dotted var(--muted);border-radius:0;height:8px}
+.sw.focus{background:var(--accent-soft);outline:1px solid var(--accent)}
+.tabs{display:none;gap:6px}
+.tabs button{flex:1;font:inherit;font-size:13px;padding:7px 6px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:6px;cursor:pointer}
+.tabs button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);font-weight:600}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.col{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;min-width:0;display:grid}
+.col>header{padding:12px 14px 10px;border-bottom:1px solid var(--rule);display:grid;gap:8px}
+.slot{font-size:11px;letter-spacing:.08em;color:var(--muted);font-weight:600}
+select{font:inherit;font-size:13.5px;padding:6px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);width:100%}
+.nums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;font-variant-numeric:tabular-nums}
+.nums div{display:grid;gap:0}
+.nums b{font-size:15px;font-weight:600}
+.nums small{font-size:11px;color:var(--muted)}
+.meta{font-size:12px;color:var(--muted);display:grid;gap:3px}
+.meta .warn{color:var(--flag)}
+.doc{padding:6px 16px 18px;display:grid;gap:14px}
+.doc h2{font-family:var(--f-read);font-size:17px;font-weight:600;margin:6px 0 0;text-wrap:balance}
+.edit{font-size:12.5px;color:var(--muted);border-left:2px solid var(--rule);padding-left:10px}
+.edit b{font-weight:600;font-size:11px;letter-spacing:.06em;display:block}
+.sec{display:grid;gap:8px}
+.sec h3{font-family:var(--f-read);font-size:15px;font-weight:600;margin:0}
+.who{font-size:12px;color:var(--muted)}
+.reads{display:flex;flex-wrap:wrap;gap:4px}
+.chip{font-size:12px;border:1px solid var(--rule);border-radius:999px;padding:1px 8px;background:var(--paper);color:var(--ink);cursor:pointer;font-family:inherit}
+.chip.x{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--cite)}
+.chip .r2{font-size:10px;color:var(--accent);margin-left:3px}
+.chip.on{border-color:var(--accent);background:var(--accent-soft)}
+.wnote{font-size:11.5px;color:var(--muted)}
+.body{font-family:var(--f-read);font-size:14.5px;line-height:1.85;margin:0}
+.s{cursor:pointer;border-radius:3px;transition:background .12s}
+.s:hover{background:var(--accent-soft)}
+.s.none{text-decoration:underline dotted var(--muted);text-underline-offset:4px}
+.s.flag{background:var(--flag-bg);box-shadow:inset 0 -1px 0 var(--flag)}
+.s.focus{background:var(--accent-soft);box-shadow:inset 0 -2px 0 var(--accent)}
+.s.sel{outline:2px solid var(--accent);outline-offset:1px}
+.mk{font-family:var(--f-ui);font-size:10px;font-weight:600;color:var(--flag);vertical-align:super;margin-left:1px}
+.ct{font-family:var(--f-ui);font-size:.7em;color:var(--cite);vertical-align:middle;white-space:nowrap;margin:0 1px}
+.empty{color:var(--bad);font-size:13px;background:var(--bad-bg);padding:6px 9px;border-radius:5px}
+/* 원문 대조 서랍 */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--sheet);border-left:1px solid var(--rule);box-shadow:var(--shadow);display:grid;grid-template-rows:auto minmax(0,1fr);z-index:20;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer>header{padding:14px 16px 12px;border-bottom:1px solid var(--rule);display:grid;gap:8px}
+.drawer .row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.drawer h4{margin:0;font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.btn{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);border-radius:6px;padding:5px 10px;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--sheet);font-weight:600}
+.ko{font-family:var(--f-read);font-size:15px;line-height:1.7;margin:0}
+.clue{font-size:12.5px;border-radius:5px;padding:6px 9px;background:var(--flag-bg);color:var(--ink)}
+.clue b{color:var(--flag)}
+.clue.calm{background:var(--paper);color:var(--muted)}
+.scroll{overflow:auto;padding:12px 16px 24px;display:grid;gap:16px;align-content:start}
+.src{display:grid;gap:8px}
+.src .row a{font-size:12px;color:var(--accent)}
+.src h5{margin:0;font-family:var(--f-read);font-size:15px;font-weight:600}
+.ev{font-family:var(--f-src);font-size:14.5px;line-height:1.6;margin:0;padding:8px 10px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 5px 5px 0}
+.ev mark,.full mark{background:var(--flag-bg);color:inherit;box-shadow:inset 0 -1px 0 var(--flag);padding:0 1px}
+.full{font-family:var(--f-src);font-size:13.5px;line-height:1.6;color:var(--ink);display:grid;gap:4px;max-height:none}
+.full p{margin:0}
+.full p.hit{background:var(--accent-soft)}
+.nohit{font-size:12.5px;color:var(--muted)}
+/* 내 판단 */
+.notes{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:16px;display:grid;gap:12px}
+.notes h2{font-family:var(--f-read);font-size:17px;margin:0;font-weight:600}
+.notes .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.notes label{display:grid;gap:5px;font-size:13px;font-weight:600}
+.notes label span{font-weight:400;color:var(--muted);font-size:12px}
+textarea{font:inherit;font-family:var(--f-read);font-size:14px;line-height:1.6;min-height:150px;padding:9px 10px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);resize:vertical;width:100%}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:12.5px;color:var(--muted)}
+#copyArea{width:100%;min-height:120px;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+.clues{font-size:13px;color:var(--muted);display:grid;gap:4px}
+.clues b{color:var(--ink);font-weight:600}
+button:focus-visible,select:focus-visible,textarea:focus-visible,.s:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:1100px){
+  .tabs{display:flex}
+  .cols{grid-template-columns:minmax(0,1fr)}
+  .col[data-hide="1"]{display:none}
+  .notes .grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:480px){.nums{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.s{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>보고서 대조대 — 같은 질문, 세 보고서</h1>
+    <p class="lede">소거 실험(판 <span id="ver"></span>) 기록으로 만든 보고서를 나란히 읽습니다. 문장을 누르면 그 문장이 인용한 문서의 원문(함대가 실제로 읽은 범위)이 오른쪽에 열립니다. 노란 표시는 코드가 찾은 <b>단서</b>일 뿐 판정이 아닙니다. 어느 쪽이 나은지는 직접 읽고 아래에 적어 주세요.</p>
+  </header>
+
+  <nav class="qs" id="qs" aria-label="질문 고르기"></nav>
+  <p class="why" id="why"></p>
+  <div class="clues" id="clues"></div>
+  <div class="legend">
+    <i><span class="sw flag"></span>단서: 인용 문서 원문에 없는 연도, 또는 인용 문서가 거의 말하지 않는 나라</i>
+    <i><span class="sw none"></span>인용이 없는 본문 문장</i>
+    <i><span class="sw focus"></span>고른 문서를 인용한 문장 (세 단 모두)</i>
+    <i>줄 그은 문서 = 함대가 읽고 '관련 없음'으로 버린 문서</i>
+  </div>
+
+  <div class="tabs" id="tabs" role="group" aria-label="보고서 고르기"></div>
+  <main class="cols" id="cols"></main>
+
+  <section class="notes" aria-labelledby="notesTitle">
+    <h2 id="notesTitle">내 판단 — <span id="notesQ"></span></h2>
+    <div class="grid">
+      <label for="n1">어느 쪽이 나은가, 왜<span>A·B·C 중 무엇이 질문에 더 잘 답했는지, 근거가 된 대목을 짚어서</span><textarea id="n1"></textarea></label>
+      <label for="n2">마음에 안 드는 대목과 출처<span>어느 절의 어느 문서에서 비롯됐나 — 읽은 문서 칩과 원문을 보고</span><textarea id="n2"></textarea></label>
+      <label for="n3">인용 대조<span>제자리에 붙지 않은 인용(오귀속), 원문에 없는 내용</span><textarea id="n3"></textarea></label>
+    </div>
+    <div class="bar">
+      <button type="button" class="btn primary" id="copy">네 질문 메모를 마크다운으로 복사</button>
+      <span id="saved">메모는 이 브라우저에만 저장됩니다.</span>
+    </div>
+    <textarea id="copyArea" hidden readonly aria-label="복사할 마크다운"></textarea>
+  </section>
+</div>
+
+<aside class="drawer" id="drawer" hidden aria-label="원문 대조">
+  <header>
+    <div class="row"><h4 id="dwWho">원문 대조</h4><button type="button" class="btn" id="dwClose">닫기</button></div>
+    <p class="ko" id="dwKo"></p>
+    <div id="dwClue"></div>
+  </header>
+  <div class="scroll" id="dwBody"></div>
+</aside>
+
+<script>const DATA = __DATA__;</script>
+<script>
+(() => {
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const store = {
+  get(k, d){ try { const v = localStorage.getItem('cmp:' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v){ try { localStorage.setItem('cmp:' + k, JSON.stringify(v)); return true; } catch { return false; } }
+};
+const SLOTS = ['A', 'B', 'C'];
+const runsOf = q => DATA.runs.filter(r => r.qid === q);
+const label = r => `${r.cond} #${r.rep}`;
+$('ver').textContent = DATA.version || '?';
+
+let Q = (location.hash.slice(1) && DATA.questions.some(q => q.id === location.hash.slice(1))) ? location.hash.slice(1) : store.get('q', DATA.questions.find(q => q.id === 'Q4') ? 'Q4' : DATA.questions[0].id);
+let pick = {};      // {Q4: [id, id, id]}
+let tab = 0, focusDoc = null, selKey = null;
+
+function defaults(q){
+  const rs = runsOf(q), find = (c, n) => (rs.find(r => r.cond === c && r.rep === n) || rs[0]).id;
+  return [find('전체', 1), find('재위임 끔', 1), find('단일 에이전트', 1)];
+}
+function picks(q){ const saved = store.get('pick:' + q, null); const ok = saved && saved.every(id => DATA.runs.some(r => r.id === id)); return ok ? saved : defaults(q); }
+
+function renderQs(){
+  $('qs').innerHTML = DATA.questions.map(q => `<button type="button" data-q="${q.id}" aria-pressed="${q.id === Q}"><b>${q.id} · ${esc(q.type)}</b><span>${esc(q.q)}</span></button>`).join('');
+  const q = DATA.questions.find(x => x.id === Q);
+  $('why').innerHTML = q.why ? `<b>왜 나눌 만한가</b> — ${esc(q.why)}` : '';
+  $('notesQ').textContent = `${q.id} ${q.q}`;
+}
+
+function clueLine(){
+  const rs = runsOf(Q); let sent = 0, yrs = 0, flag = 0, none = 0;
+  for (const r of rs) for (const s of r.secs) for (const x of s.s){ sent++; if (x.y.length && x.c.length) yrs++; if (x.m || x.n) flag++; if (!x.c.length) none++; }
+  const ymiss = rs.reduce((a, r) => a + r.secs.reduce((b, s) => b + s.s.filter(x => x.m).length, 0), 0);
+  $('clues').innerHTML = `<div>이 질문의 실행 ${rs.length}개 · 본문 문장 ${sent}개 중 <b>연도와 인용이 함께 있는 문장 ${yrs}개</b>는 인용 문서 원문과 연도를 대조했고, 어긋난 것 ${ymiss}개. 단서가 붙은 문장 ${flag}개, 인용이 없는 본문 문장 ${none}개.</div>
+  <div>연도가 맞아도 오귀속일 수 있습니다 (예: 스페인 항구 «마닐라»를 네덜란드 거점이라고 쓰기). 그런 건 문장과 원문을 읽어야만 잡힙니다.</div>`;
+}
+
+function sentHTML(r, si, x, xi){
+  const key = `${r.id}|${si}|${xi}`;
+  const cls = ['s', !x.c.length ? 'none' : '', (x.m || x.n) ? 'flag' : '', focusDoc && x.c.includes(focusDoc) ? 'focus' : '', selKey === key ? 'sel' : ''].filter(Boolean).join(' ');
+  // 문장 끝 인용은 작고 흐리게 (해도의 보고서와 같은 표기)
+  let t = esc(x.t).replace(/«([^»]{1,40})»/g, (_, n) => `<span class="ct">«${n}»</span>`);
+  const mk = (x.m || x.n) ? '<span class="mk" aria-label="단서">?</span>' : '';
+  return `<span class="${cls}" tabindex="0" role="button" data-k="${key}">${t}${mk}</span> `;
+}
+
+function colHTML(i, id){
+  const r = DATA.runs.find(x => x.id === id), m = r.m;
+  const opts = runsOf(Q).map(x => `<option value="${x.id}"${x.id === id ? ' selected' : ''}>${esc(label(x))} · 근거율 ${x.m.근거율}% · ₩${x.m.원}</option>`).join('');
+  const meta = [];
+  if (r.single) meta.push(`혼자서 문서 ${r.reads.length}번 읽음 — 멀티 '전체' 실행과 같은 읽기 예산`);
+  const rv = r.review.filter(v => v.gaps && v.gaps.length);
+  if (rv.length) meta.push(`재위임: ${rv.map(v => `${v.round}라운드 뒤 ${v.gaps.length}절 다시 보냄`).join(', ')}`);
+  else if (r.review.length) meta.push(`점검: ${esc(r.review[r.review.length - 1].reason)}`);
+  for (const f of r.fix) meta.push(`<span class="warn">코드가 바로잡음: ${esc(f.what)} «${esc(f.given)}» → ${esc(f.used || '없음')}</span>`);
+  const reads = list => list.map(d => `<button type="button" class="chip${d.x ? ' x' : ''}${focusDoc === d.d ? ' on' : ''}" data-doc="${esc(d.d)}" title="${d.x ? '읽고 관련 없음으로 버림' : '읽음'}${d.a ? ' · 배정받은 시작 문서' : ''}">${d.a ? '★ ' : ''}${esc(d.d)}${d.r > 1 ? '<span class="r2">2R</span>' : ''}</button>`).join('');
+  let body = `<h2>${esc(r.title)}</h2>`;
+  if (r.intro.length) body += `<div class="edit"><b>머리말 — 편집자</b>${esc(r.intro.join(' '))}</div>`;
+  if (r.single && r.reads.length) body += `<div class="sec"><div class="who">읽은 문서 (순서대로)</div><div class="reads">${reads(r.reads)}</div></div>`;
+  r.secs.forEach((s, si) => {
+    const w = s.writes.length ? s.writes.map(w => `${w.r}라운드 원고 ${w.n}자 · 인용 ${w.c} · ${w.ok ? '충분' : '부족 신고' + (w.gap ? ` (${esc(w.gap)})` : '')}`).join(' / ') : '';
+    const rc = s.recite.length ? ` · 인용 규율로 되돌려 씀: ${s.recite.map(x => `${x.b}→${x.f} (${esc(x.k)} 채택)`).join(', ')}` : '';
+    body += `<section class="sec"><h3>${esc(s.h || '본문')}</h3>
+      ${s.role ? `<div class="who">${esc(s.role)} · 지시: ${esc(s.brief)}</div>` : ''}
+      ${s.reads.length ? `<div class="reads">${reads(s.reads)}</div>` : ''}
+      ${w ? `<div class="wnote">${w}${rc}</div>` : ''}
+      ${s.s.length ? `<p class="body">${s.s.map((x, xi) => sentHTML(r, si, x, xi)).join('')}</p>` : '<div class="empty">본문이 비어 있습니다 — 함대가 읽은 문서를 모두 \'관련 없음\'으로 버려 쓸 자료가 없었습니다.</div>'}
+    </section>`;
+  });
+  if (r.outro.length) body += `<div class="edit"><b>맺음말 — 편집자</b>${esc(r.outro.join(' '))}</div>`;
+  return `<article class="col" data-i="${i}" data-hide="${i !== tab ? 1 : 0}" aria-label="보고서 ${SLOTS[i]}">
+    <header>
+      <div class="slot">보고서 ${SLOTS[i]}</div>
+      <select data-slot="${i}" aria-label="보고서 ${SLOTS[i]} 실행 고르기">${opts}</select>
+      <div class="nums">
+        <div><b>${m.근거율}%</b><small>근거율</small></div>
+        <div><b>${m.읽은문서}</b><small>읽은 문서</small></div>
+        <div><b>${m.읽고안씀}</b><small>읽고 안 씀</small></div>
+        <div><b>${m.편중}%</b><small>편중</small></div>
+        <div><b>₩${m.원}</b><small>비용 · ${m.호출}회</small></div>
+      </div>
+      <div class="meta">${meta.map(x => `<div>${x}</div>`).join('')}<div>실행 <code>${esc(r.id)}</code></div></div>
+    </header>
+    <div class="doc">${body}</div>
+  </article>`;
+}
+
+function renderCols(){
+  const ids = pick[Q];
+  $('tabs').innerHTML = ids.map((id, i) => { const r = DATA.runs.find(x => x.id === id); return `<button type="button" data-tab="${i}" aria-pressed="${i === tab}">${SLOTS[i]} · ${esc(label(r))}</button>`; }).join('');
+  $('cols').innerHTML = ids.map((id, i) => colHTML(i, id)).join('');
+}
+
+function findSent(key){
+  const [id, si, xi] = key.split('|'); const r = DATA.runs.find(x => x.id === id);
+  return {r, sec: r.secs[+si], x: r.secs[+si].s[+xi]};
+}
+
+function mark(text, years){
+  let t = esc(text);
+  for (const y of years) t = t.split(y).join(`<mark>${y}</mark>`);
+  return t;
+}
+
+function openDrawer(key){
+  selKey = key; const {r, sec, x} = findSent(key);
+  const slot = SLOTS[pick[Q].indexOf(r.id)] || '';
+  $('dwWho').textContent = `보고서 ${slot} · ${label(r)} · ${sec.h || ''}`;
+  $('dwKo').innerHTML = esc(x.t).replace(/«([^»]{1,40})»/g, (_, n) => `<span class="ct">«${n}»</span>`);
+  const clues = [];
+  if (!x.c.length) clues.push('<div class="clue calm">이 문장에는 인용이 없습니다. 어느 문서에서 왔는지 아래 절의 읽은 문서를 직접 확인해야 합니다.</div>');
+  if (x.m) clues.push(`<div class="clue"><b>연도 단서</b> — ${x.m.join(', ')}년이 인용한 문서의 읽은 범위에 없습니다.${x.a ? ` 같은 실행에서 읽은 ${x.a.map(d => `«${esc(d)}»`).join(', ')}에는 있습니다 (오귀속 후보).` : ' 함대가 읽은 다른 문서에도 없습니다 (모델이 아는 지식으로 채웠을 수 있음).'}</div>`);
+  if (x.n) clues.push(`<div class="clue"><b>나라 단서</b> — 문장은 ${x.n.join('·')}를 말하는데, 인용한 문서는 그 나라를 거의 언급하지 않습니다(2회 미만). 문서 원문에서 정말 그 나라 이야기인지 확인하세요.</div>`);
+  if (x.c.length && !x.m && !x.n) clues.push(`<div class="clue calm">${x.y.length ? `연도(${x.y.join(', ')})는 인용 문서 원문에 있습니다. ` : '연도가 없는 문장이라 코드로 대조할 단서가 없습니다. '}내용이 원문과 같은 이야기인지는 읽어서 판단해 주세요.</div>`);
+  $('dwClue').innerHTML = clues.join('');
+  const blocks = (x.c.length ? [...new Set(x.c)] : sec.reads.filter(d => !d.x).map(d => d.d)).filter(d => DATA.docs[d]);
+  $('dwBody').innerHTML = blocks.map(d => {
+    const doc = DATA.docs[d], hits = (x.e || []).filter(e => e[0] === d).map(e => e[1]);
+    const ev = hits.length ? hits.map(i => `<p class="ev">${mark(doc.s[i], x.y)}</p>`).join('') : `<p class="nohit">${x.c.length ? '연도·영문 이름으로 맞는 원문 문장을 찾지 못했습니다. 아래 원문 전체에서 확인하세요.' : '인용이 없어 원문 위치를 좁히지 못했습니다.'}</p>`;
+    return `<section class="src"><div class="row"><h5>«${esc(d)}» · ${esc(doc.title)}</h5><a href="${esc(doc.url)}" target="_blank" rel="noopener">위키백과</a></div>
+      ${ev}
+      <details><summary class="btn">원문 전체 보기 (${doc.s.length}문장 · 앞 ${DATA.cap.toLocaleString()}자)</summary>
+        <div class="full">${doc.s.map((s, i) => `<p class="${hits.includes(i) ? 'hit' : ''}">${mark(s, x.y)}</p>`).join('')}</div></details></section>`;
+  }).join('') || '<p class="nohit">대조할 원문이 없습니다.</p>';
+  $('drawer').hidden = false; $('dwBody').scrollTop = 0;
+  document.querySelectorAll('.s.sel').forEach(e => e.classList.remove('sel'));
+  document.querySelector(`.s[data-k="${CSS.escape(key)}"]`)?.classList.add('sel');
+  $('dwClose').focus({preventScroll:true});
+}
+function closeDrawer(){ $('drawer').hidden = true; const k = selKey; selKey = null; document.querySelectorAll('.s.sel').forEach(e => e.classList.remove('sel')); if (k) document.querySelector(`.s[data-k="${CSS.escape(k)}"]`)?.focus({preventScroll:true}); }
+
+function loadNotes(){ const n = store.get('notes:' + Q, {}); $('n1').value = n.a || ''; $('n2').value = n.b || ''; $('n3').value = n.c || ''; }
+function saveNotes(){ const ok = store.set('notes:' + Q, {a:$('n1').value, b:$('n2').value, c:$('n3').value}); $('saved').textContent = ok ? '이 브라우저에 저장됨' : '이 브라우저에서는 저장되지 않습니다 — 아래 복사 버튼으로 옮겨 두세요.'; }
+
+function exportMd(){
+  const out = ['## 사람 비교 메모', ''];
+  for (const q of DATA.questions){
+    const n = store.get('notes:' + q.id, {}), ids = pick[q.id] || picks(q.id);
+    if (!n.a && !n.b && !n.c) continue;
+    out.push(`### ${q.id} ${q.q}`, '', ids.map((id, i) => { const r = DATA.runs.find(x => x.id === id); return `- 보고서 ${SLOTS[i]}: ${label(r)} (\`${id}\`, 근거율 ${r.m.근거율}%)`; }).join('\n'), '');
+    if (n.a) out.push('**어느 쪽이 나은가, 왜**', '', n.a.trim(), '');
+    if (n.b) out.push('**마음에 안 드는 대목과 출처**', '', n.b.trim(), '');
+    if (n.c) out.push('**인용 대조**', '', n.c.trim(), '');
+  }
+  return out.length > 2 ? out.join('\n') : '## 사람 비교 메모\n\n(아직 적은 메모가 없습니다)';
+}
+
+function render(){ renderQs(); clueLine(); renderCols(); loadNotes(); }
+
+document.addEventListener('click', e => {
+  const qb = e.target.closest('[data-q]'); if (qb){ Q = qb.dataset.q; store.set('q', Q); pick[Q] = pick[Q] || picks(Q); focusDoc = null; closeDrawer(); history.replaceState(null, '', '#' + Q); render(); return; }
+  const tb = e.target.closest('[data-tab]'); if (tb){ tab = +tb.dataset.tab; renderCols(); return; }
+  const ch = e.target.closest('.chip'); if (ch){ focusDoc = focusDoc === ch.dataset.doc ? null : ch.dataset.doc; renderCols(); return; }
+  const s = e.target.closest('.s'); if (s){ openDrawer(s.dataset.k); return; }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('drawer').hidden){ closeDrawer(); return; }
+  const s = e.target.closest?.('.s'); if (s && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); openDrawer(s.dataset.k); }
+});
+document.addEventListener('change', e => {
+  const sel = e.target.closest('select[data-slot]'); if (!sel) return;
+  pick[Q][+sel.dataset.slot] = sel.value; store.set('pick:' + Q, pick[Q]); closeDrawer(); renderCols();
+});
+$('dwClose').addEventListener('click', closeDrawer);
+for (const id of ['n1', 'n2', 'n3']) $(id).addEventListener('input', saveNotes);
+$('copy').addEventListener('click', async () => {
+  saveNotes(); const md = exportMd(), area = $('copyArea');
+  try { await navigator.clipboard.writeText(md); $('saved').textContent = '복사했습니다 — REPORT.md 에 붙여 넣으세요.'; area.hidden = true; }
+  catch { area.hidden = false; area.value = md; area.focus(); area.select(); $('saved').textContent = '자동 복사가 막혀 있어 아래 칸을 선택해 두었습니다. Ctrl+C 로 복사하세요.'; }
+});
+window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (DATA.questions.some(q => q.id === h) && h !== Q){ Q = h; pick[Q] = pick[Q] || picks(Q); render(); } });
+
+for (const q of DATA.questions) pick[q.id] = picks(q.id);
+render();
+})();
+</script>

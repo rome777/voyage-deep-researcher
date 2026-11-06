@@ -1,0 +1,41 @@
+{"t": 2.055, "type": "run_start", "run_id": "20261106-150957-live-Q4", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 11.224, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "바타비아", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "뭄바이", "예산": 3}, {"절": "네덜란드와 영국의 항구 비교", "지시": "네덜란드와 영국의 아시아 무역 항구를 비교하여 특징과 차이점을 분석한다.", "역할": "비교 담당", "시작문서": "마카오", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}}
+{"t": 11.227, "type": "dispatch", "round": 1, "sections": [0, 1, 2]}
+{"t": 12.454, "type": "read", "sec": 2, "doc": "마카오", "chars": 8227, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 13.202, "type": "pick", "sec": 2, "cand": 13, "frontier": true, "chose": "광저우"}
+{"t": 13.988, "type": "read", "sec": 2, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 14.616, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 15.377, "type": "pick", "sec": 2, "cand": 18, "frontier": true, "chose": "런던"}
+{"t": 15.428, "type": "pick", "sec": 0, "cand": 18, "frontier": true, "chose": "마닐라"}
+{"t": 15.499, "type": "read", "sec": 1, "doc": "뭄바이", "chars": 10012, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 16.153, "type": "read", "sec": 2, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 16.988, "type": "pick", "sec": 1, "cand": 15, "frontier": true, "chose": "고아"}
+{"t": 17.906, "type": "read", "sec": 1, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 18.689, "type": "pick", "sec": 1, "cand": 15, "frontier": true, "chose": "광저우"}
+{"t": 19.854, "type": "read", "sec": 0, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 20.203, "type": "write", "sec": 2, "chars": 413, "cites": 0, "enough": false, "gap": "네덜란드 항구에 대한 구체적인 정보가 부족하다.", "round": 1}
+{"t": 20.611, "type": "pick", "sec": 0, "cand": 24, "frontier": true, "chose": "광저우"}
+{"t": 22.129, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 23.041, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 28.952, "type": "write", "sec": 1, "chars": 524, "cites": 9, "enough": false, "gap": "고아에 대한 내용이 없습니다.", "round": 1}
+{"t": 30.698, "type": "write", "sec": 0, "chars": 686, "cites": 11, "enough": true, "gap": "", "round": 1}
+{"t": 30.7, "type": "review", "gaps": [1, 2], "reason": "자기신고 부족", "round": 1, "why": {"1": "고아에 대한 내용이 없습니다.", "2": "네덜란드 항구에 대한 구체적인 정보가 부족하다."}}
+{"t": 30.7, "type": "dispatch", "round": 2, "sections": [1, 2]}
+{"t": 31.251, "type": "pick", "sec": 1, "cand": 16, "frontier": true, "chose": "마드라스"}
+{"t": 31.688, "type": "pick", "sec": 2, "cand": 18, "frontier": true, "chose": "안트베르펜"}
+{"t": 32.001, "type": "read", "sec": 1, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 32.608, "type": "pick", "sec": 1, "cand": 16, "frontier": true, "chose": "코친"}
+{"t": 35.897, "type": "read", "sec": 1, "doc": "코친", "chars": 8993, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 36.062, "type": "read", "sec": 2, "doc": "안트베르펜", "chars": 10897, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 36.537, "type": "pick", "sec": 1, "cand": 16, "frontier": true, "chose": "수라트"}
+{"t": 36.767, "type": "pick", "sec": 2, "cand": 22, "frontier": true, "chose": "암스테르담"}
+{"t": 39.8, "type": "read", "sec": 1, "doc": "수라트", "chars": 12877, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 40.787, "type": "read", "sec": 2, "doc": "암스테르담", "chars": 16128, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 41.719, "type": "pick", "sec": 2, "cand": 24, "frontier": true, "chose": "닝보"}
+{"t": 42.356, "type": "read", "sec": 2, "doc": "닝보", "chars": 6770, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 47.714, "type": "write", "sec": 2, "chars": 534, "cites": 3, "enough": false, "gap": "네덜란드 항구에 대한 구체적인 정보가 부족하다.", "round": 2}
+{"t": 48.741, "type": "write", "sec": 1, "chars": 592, "cites": 0, "enough": false, "gap": "고아에 대한 내용이 없습니다.", "round": 2}
+{"t": 48.742, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 51.747, "type": "synth", "chars": 2093, "sections": 3}
+{"t": 51.749, "type": "evaluate", "metrics": {"문장수": 34, "근거율": 67.6, "허위인용": [], "엉뚱한인용": [], "읽은문서": 13, "읽고안쓴": ["고아", "닝보", "마드라스", "마카오", "수라트", "코친"], "편중": 30.4, "중복률": 13.3, "인용수": 23, "보고서자수": 2093, "격리율": 14.6, "LLM호출": 34, "원": 15.63}, "alarms": []}
+{"t": 51.749, "type": "run_end", "seconds": 49.7, "calls": 34, "won": 15.63, "tok_in": 56920, "tok_out": 4373}

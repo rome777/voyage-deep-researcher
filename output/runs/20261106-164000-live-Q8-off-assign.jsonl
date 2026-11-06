@@ -1,0 +1,21 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164000-live-Q8-off-assign", "qid": "Q8", "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.648, "type": "plan", "title": "포르투갈과 네덜란드의 아시아 거점 운영 비교", "toc": [{"절": "포르투갈의 아시아 거점 운영", "지시": "포르투갈이 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "", "예산": 3}, {"절": "네덜란드의 아시아 거점 운영", "지시": "네덜란드가 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "", "예산": 3}], "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}}
+{"t": 2.65, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 3.565, "type": "pick", "sec": 1, "cand": 134, "frontier": false, "chose": "암스테르담"}
+{"t": 3.622, "type": "pick", "sec": 0, "cand": 134, "frontier": false, "chose": "세비야"}
+{"t": 4.368, "type": "read", "sec": 1, "doc": "암스테르담", "chars": 16128, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 4.49, "type": "read", "sec": 0, "doc": "세비야", "chars": 16574, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 5.204, "type": "pick", "sec": 1, "cand": 15, "frontier": true, "chose": "퀴라소"}
+{"t": 5.453, "type": "pick", "sec": 0, "cand": 9, "frontier": true, "chose": "리스본"}
+{"t": 8.819, "type": "read", "sec": 1, "doc": "퀴라소", "chars": 14705, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 9.638, "type": "pick", "sec": 1, "cand": 24, "frontier": true, "chose": "말루쿠 제도"}
+{"t": 10.21, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 11.236, "type": "pick", "sec": 0, "cand": 23, "frontier": true, "chose": "마카오"}
+{"t": 15.729, "type": "read", "sec": 1, "doc": "말루쿠 제도", "chars": 7188, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 19.263, "type": "read", "sec": 0, "doc": "마카오", "chars": 8227, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 26.222, "type": "write", "sec": 1, "chars": 489, "cites": 7, "enough": true, "gap": "", "round": 1}
+{"t": 28.133, "type": "write", "sec": 0, "chars": 575, "cites": 6, "enough": true, "gap": "", "round": 1}
+{"t": 28.134, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 30.883, "type": "synth", "chars": 1387, "sections": 2}
+{"t": 30.885, "type": "evaluate", "metrics": {"문장수": 21, "근거율": 61.9, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["세비야", "암스테르담", "퀴라소"], "편중": 53.8, "중복률": 0.0, "인용수": 13, "보고서자수": 1387, "격리율": 18.6, "LLM호출": 16, "원": 4.8}, "alarms": []}
+{"t": 30.886, "type": "run_end", "seconds": 30.9, "calls": 16, "won": 4.8, "tok_in": 27442, "tok_cached": 23424, "tok_out": 1780}

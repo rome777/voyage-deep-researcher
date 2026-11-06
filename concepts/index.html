@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>대항해 딥리서처</title>
+<style>
+:root{--bg:#0f1a20;--card:#17262e;--fg:#efe6d2;--muted:#a59c88;--gold:#c9a45c;--rule:#2d3d45}
+@media (prefers-color-scheme: light){:root{--bg:#f2ede1;--card:#fbf8f0;--fg:#2b2013;--muted:#6a5a3c;--gold:#8a6a26;--rule:#ddd2b8}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;line-height:1.6}
+main{max-width:760px;margin:0 auto;padding:48px max(16px,env(safe-area-inset-left,0px)) 48px max(16px,env(safe-area-inset-right,0px));display:grid;gap:20px}
+h1{font-family:"Nanum Myeongjo",Georgia,serif;font-size:28px;margin:0}
+p{margin:0;color:var(--muted)}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+a.card{display:grid;gap:4px;padding:16px 18px;background:var(--card);border:1px solid var(--rule);border-radius:8px;color:var(--fg);text-decoration:none}
+a.card:hover,a.card:focus-visible{border-color:var(--gold);outline:none}
+a.card b{color:var(--gold);font-size:17px}
+a.card span{color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+  <h1>대항해 딥리서처</h1>
+  <p>대항해시대 항구 문서 134건을 코디네이터 하나와 리서처 여럿이 나눠 읽고 장문 보고서를 쓰는 에이전트. 리서처는 해도 위의 함대로, 문서는 항구로 그립니다.</p>
+  <div class="links">
+    <a class="card" href="voyage-map.html"><b>대항해 리서치 해도</b><span>함대가 문서를 읽으며 항해하는 시뮬레이션과 실제 실행 기록 재생</span></a>
+    <a class="card" href="compare.html"><b>보고서 대조대</b><span>같은 질문의 보고서 세 편을 나란히 놓고 인용을 원문과 대조</span></a>
+  </div>
+</main>
+</body>
+</html>

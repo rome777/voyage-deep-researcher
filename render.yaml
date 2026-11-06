@@ -1,0 +1,23 @@
+# Render 블루프린트: app.py 를 웹 서비스로 띄운다.
+# Render 대시보드 → New → Blueprint → 이 저장소를 고르면 아래 설정으로 만들어진다.
+# OPENAI_API_KEY 는 sync:false 라서 저장소에 값이 없고, 만들 때 Render 화면에서 직접 입력한다.
+services:
+  - type: web
+    name: voyage-deep-researcher
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: HOST
+        value: 0.0.0.0
+      - key: OPENAI_API_KEY
+        sync: false
+      # 비용 보호 (app.py 참고). 무료 서버는 잠들었다 깨면 하루 집계가 초기화되므로 OpenAI 쪽 월 한도도 함께 건다.
+      - key: DAILY_WON
+        value: "300"
+      - key: RUNS_PER_IP
+        value: "3"

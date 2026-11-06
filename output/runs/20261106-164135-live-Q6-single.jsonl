@@ -1,0 +1,12 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164135-live-Q6-single", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 3, "sections": 1, "reference": "20261106-163639-live-Q6"}
+{"t": 1.613, "type": "fix", "what": "첫 문서", "given": "목록의 한국어 지명", "used": null}
+{"t": 1.614, "type": "fix", "what": "첫 문서", "given": "향신료와 관련된 항구에 대한 정보가 포함되어 있지 않음.", "used": "마데이라"}
+{"t": 2.616, "type": "read", "sec": 0, "doc": "마데이라", "chars": 9739, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 3.497, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "말루쿠 제도", "forced": false}
+{"t": 13.56, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.38, "type": "pick", "sec": 0, "cand": 39, "frontier": true, "chose": "리스본", "forced": false}
+{"t": 16.998, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 38.711, "type": "recite", "sec": 0, "before": "0/16", "after": "9/14", "kept": "새 원고", "round": 1}
+{"t": 38.712, "type": "write", "sec": 0, "chars": 828, "cites": 9, "enough": true, "gap": "", "round": 1}
+{"t": 38.713, "type": "evaluate", "metrics": {"문장수": 14, "근거율": 64.3, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": ["마데이라"], "편중": 55.6, "중복률": 0.0, "인용수": 9, "보고서자수": 828, "격리율": 100.0, "LLM호출": 8, "원": 3.49}, "alarms": []}
+{"t": 38.713, "type": "run_end", "seconds": 38.7, "calls": 8, "won": 3.49, "tok_in": 15848, "tok_cached": 9344, "tok_out": 1358}

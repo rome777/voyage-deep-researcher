@@ -1,0 +1,28 @@
+{"t": 2.194, "type": "run_start", "run_id": "20261106-162402-live-Q4", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 5.112, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "질란디아 요새", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "제임스타운", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}}
+{"t": 5.114, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 10.187, "type": "read", "sec": 1, "doc": "제임스타운", "chars": 24000, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 11.024, "type": "pick", "sec": 1, "cand": 3, "frontier": true, "chose": "플리머스"}
+{"t": 14.208, "type": "read", "sec": 1, "doc": "플리머스", "chars": 10576, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.775, "type": "pick", "sec": 1, "cand": 5, "frontier": true, "chose": "런던"}
+{"t": 15.563, "type": "read", "sec": 1, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 20.739, "type": "write", "sec": 1, "chars": 464, "cites": 7, "enough": false, "gap": "런던에 대한 내용이 부족함.", "round": 1}
+{"t": 40.523, "type": "read", "sec": 0, "doc": "질란디아 요새", "chars": 3136, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 41.728, "type": "pick", "sec": 0, "cand": 1, "frontier": true, "chose": "바타비아"}
+{"t": 46.07, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 47.102, "type": "pick", "sec": 0, "cand": 19, "frontier": true, "chose": "마닐라"}
+{"t": 51.086, "type": "read", "sec": 0, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 59.147, "type": "write", "sec": 0, "chars": 657, "cites": 9, "enough": true, "gap": "", "round": 1}
+{"t": 59.149, "type": "review", "gaps": [1], "reason": "자기신고 부족", "round": 1, "why": {"1": "런던에 대한 내용이 부족함."}}
+{"t": 59.15, "type": "dispatch", "round": 2, "sections": [1]}
+{"t": 59.773, "type": "pick", "sec": 1, "cand": 15, "frontier": true, "chose": "광저우"}
+{"t": 60.629, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 61.17, "type": "pick", "sec": 1, "cand": 18, "frontier": true, "chose": "닝보"}
+{"t": 65.89, "type": "read", "sec": 1, "doc": "닝보", "chars": 6770, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 66.63, "type": "pick", "sec": 1, "cand": 18, "frontier": true, "chose": "마드라스"}
+{"t": 70.287, "type": "read", "sec": 1, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 2, "irrelevant": false}
+{"t": 77.401, "type": "write", "sec": 1, "chars": 518, "cites": 6, "enough": false, "gap": "런던에 대한 구체적인 내용이 부족함.", "round": 2}
+{"t": 77.402, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 79.928, "type": "synth", "chars": 1346, "sections": 2}
+{"t": 79.929, "type": "evaluate", "metrics": {"문장수": 21, "근거율": 76.2, "허위인용": [], "엉뚱한인용": [], "읽은문서": 9, "읽고안쓴": ["광저우", "닝보", "런던", "마드라스", "제임스타운"], "편중": 43.8, "중복률": 0.0, "인용수": 16, "보고서자수": 1346, "격리율": 22.4, "LLM호출": 21, "원": 9.93}, "alarms": []}
+{"t": 79.929, "type": "run_end", "seconds": 77.7, "calls": 21, "won": 9.93, "tok_in": 37225, "tok_out": 2514}

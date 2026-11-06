@@ -1,0 +1,30 @@
+{
+ "_설명": "도메인에 묶인 값과 실험 스위치. 소거 실험은 switches 를 하나씩 끈다.",
+ "model": "gpt-4o-mini",
+ "temperature": 0,
+ "max_sections": 5,
+ "section_budget": 3,
+ "max_rounds": 2,
+ "card_chars": 120,
+ "read_cap_chars": 24000,
+ "max_candidates": 60,
+ "switches": {
+  "roles": true,
+  "assign": true,
+  "zones": true,
+  "redelegate": true
+ },
+ "roster": {
+  "항로 담당": "배가 어느 바다를 거쳐 어디서 어디로 갔는지, 경로와 기항지를 따라간다",
+  "시간순 담당": "언제 무엇이 일어났는지 연도와 순서를 못 박는다",
+  "원인 담당": "왜 그 항구가 거점이 되었는지, 무엇이 무엇으로 이어졌는지 자료에 적힌 대로 따라간다",
+  "인물 담당": "그 항구에 관여한 사람(탐험가·총독·상인)이 무엇을 했고 어떤 일을 겪었는지 좇는다",
+  "비교 담당": "둘 이상의 항구·나라를 같은 잣대로 견주어 어디가 다른지 정리한다",
+  "큰그림 담당": "권역 전체의 윤곽을 잡고 핵심 항구와 사건을 간추린다"
+ },
+ "default_role": "큰그림 담당",
+ "price_usd_per_mtok": {"input": 0.15, "cached_input": 0.075, "output": 0.6},
+ "won_per_usd": 1400,
+ "budget_won": 4000,
+ "run_cap_won": 150
+}

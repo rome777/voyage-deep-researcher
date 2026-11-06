@@ -1,0 +1,581 @@
+{
+ "total_won": 404.19,
+ "runs": [
+  {
+   "run_id": "20261106-150957-live-Q4",
+   "won": 15.63,
+   "calls": 34,
+   "tok_in": 56920,
+   "tok_out": 4373
+  },
+  {
+   "run_id": "20261106-151107-live-Q1",
+   "won": 4.59,
+   "calls": 8,
+   "tok_in": 18464,
+   "tok_out": 845
+  },
+  {
+   "run_id": "20261106-151508-live",
+   "won": 1.9,
+   "calls": 1,
+   "tok_in": 8890,
+   "tok_out": 34
+  },
+  {
+   "run_id": "20261106-161525-live-Q4-off-roles",
+   "won": 1.93,
+   "calls": 1,
+   "tok_in": 8911,
+   "tok_out": 72
+  },
+  {
+   "run_id": "20261106-161531-live-Q4-off-assign",
+   "won": 1.93,
+   "calls": 1,
+   "tok_in": 8911,
+   "tok_out": 72
+  },
+  {
+   "run_id": "20261106-161534-live-Q4-off-zones",
+   "won": 1.93,
+   "calls": 1,
+   "tok_in": 8911,
+   "tok_out": 72
+  },
+  {
+   "run_id": "20261106-161536-live-Q4-off-redelegate",
+   "won": 1.93,
+   "calls": 1,
+   "tok_in": 8911,
+   "tok_out": 72
+  },
+  {
+   "run_id": "20261106-161736-live-Q4",
+   "won": 9.86,
+   "calls": 21,
+   "tok_in": 37233,
+   "tok_out": 2427
+  },
+  {
+   "run_id": "20261106-161830-live-Q4-off-roles",
+   "won": 8.95,
+   "calls": 18,
+   "tok_in": 33665,
+   "tok_out": 2240
+  },
+  {
+   "run_id": "20261106-161923-live-Q4-off-assign",
+   "won": 7.83,
+   "calls": 16,
+   "tok_in": 27769,
+   "tok_out": 2379
+  },
+  {
+   "run_id": "20261106-161953-live-Q4-off-zones",
+   "won": 7.44,
+   "calls": 14,
+   "tok_in": 28585,
+   "tok_out": 1710
+  },
+  {
+   "run_id": "20261106-162020-live-Q4-off-redelegate",
+   "won": 7.47,
+   "calls": 14,
+   "tok_in": 28582,
+   "tok_out": 1747
+  },
+  {
+   "run_id": "20261106-162046-live-Q4-single",
+   "won": 8.63,
+   "calls": 19,
+   "tok_in": 34741,
+   "tok_out": 1593
+  },
+  {
+   "run_id": "20261106-162402-live-Q4",
+   "won": 9.93,
+   "calls": 21,
+   "tok_in": 37225,
+   "tok_out": 2514
+  },
+  {
+   "run_id": "20261106-162522-live-Q4",
+   "won": 7.77,
+   "calls": 15,
+   "tok_in": 29330,
+   "tok_out": 1920
+  },
+  {
+   "run_id": "20261106-162614-live-Q4-off-roles",
+   "won": 14.55,
+   "calls": 31,
+   "tok_in": 50488,
+   "tok_out": 4699
+  },
+  {
+   "run_id": "20261106-162827-live-Q4-off-roles",
+   "won": 9.47,
+   "calls": 19,
+   "tok_in": 36945,
+   "tok_out": 2041
+  },
+  {
+   "run_id": "20261106-162927-live-Q4-off-assign",
+   "won": 7.79,
+   "calls": 17,
+   "tok_in": 28429,
+   "tok_out": 2163
+  },
+  {
+   "run_id": "20261106-162957-live-Q4-off-assign",
+   "won": 10.69,
+   "calls": 24,
+   "tok_in": 37733,
+   "tok_out": 3297
+  },
+  {
+   "run_id": "20261106-163047-live-Q4-off-zones",
+   "won": 13.63,
+   "calls": 30,
+   "tok_in": 48747,
+   "tok_out": 4036
+  },
+  {
+   "run_id": "20261106-163150-live-Q4-off-zones",
+   "won": 11.89,
+   "calls": 23,
+   "tok_in": 43373,
+   "tok_out": 3314
+  },
+  {
+   "run_id": "20261106-163251-live-Q4-off-redelegate",
+   "won": 7.58,
+   "calls": 14,
+   "tok_in": 28627,
+   "tok_out": 1872
+  },
+  {
+   "run_id": "20261106-163335-live-Q4-off-redelegate",
+   "won": 7.72,
+   "calls": 15,
+   "tok_in": 29246,
+   "tok_out": 1881
+  },
+  {
+   "run_id": "20261106-163404-live-Q4-single",
+   "won": 9.31,
+   "calls": 20,
+   "tok_in": 34272,
+   "tok_out": 2520
+  },
+  {
+   "run_id": "20261106-163639-live-Q6",
+   "won": 3.24,
+   "calls": 8,
+   "tok_in": 12594,
+   "tok_cached": 0,
+   "tok_out": 713
+  },
+  {
+   "run_id": "20261106-163639-live-Q3",
+   "won": 3.89,
+   "calls": 8,
+   "tok_in": 15098,
+   "tok_cached": 0,
+   "tok_out": 861
+  },
+  {
+   "run_id": "20261106-163700-live-Q6",
+   "won": 4.2,
+   "calls": 15,
+   "tok_in": 26841,
+   "tok_cached": 22272,
+   "tok_out": 1073
+  },
+  {
+   "run_id": "20261106-163638-live-Q4",
+   "won": 8.93,
+   "calls": 23,
+   "tok_in": 34076,
+   "tok_cached": 4864,
+   "tok_out": 2718
+  },
+  {
+   "run_id": "20261106-163639-live-Q8",
+   "won": 7.1,
+   "calls": 15,
+   "tok_in": 26880,
+   "tok_cached": 7424,
+   "tok_out": 2657
+  },
+  {
+   "run_id": "20261106-163708-live-Q3",
+   "won": 2.47,
+   "calls": 8,
+   "tok_in": 15084,
+   "tok_cached": 13440,
+   "tok_out": 850
+  },
+  {
+   "run_id": "20261106-163730-live-Q3-off-roles",
+   "won": 2.4,
+   "calls": 8,
+   "tok_in": 15037,
+   "tok_cached": 13440,
+   "tok_out": 778
+  },
+  {
+   "run_id": "20261106-163724-live-Q4",
+   "won": 6.24,
+   "calls": 22,
+   "tok_in": 33328,
+   "tok_cached": 24832,
+   "tok_out": 2195
+  },
+  {
+   "run_id": "20261106-163723-live-Q6-off-roles",
+   "won": 4.42,
+   "calls": 16,
+   "tok_in": 25035,
+   "tok_cached": 19200,
+   "tok_out": 1400
+  },
+  {
+   "run_id": "20261106-163753-live-Q3-off-roles",
+   "won": 2.49,
+   "calls": 8,
+   "tok_in": 15091,
+   "tok_cached": 13568,
+   "tok_out": 891
+  },
+  {
+   "run_id": "20261106-163730-live-Q8",
+   "won": 6.67,
+   "calls": 21,
+   "tok_in": 32864,
+   "tok_cached": 20864,
+   "tok_out": 2327
+  },
+  {
+   "run_id": "20261106-163757-live-Q4-off-roles",
+   "won": 4.29,
+   "calls": 14,
+   "tok_in": 23341,
+   "tok_cached": 20352,
+   "tok_out": 1817
+  },
+  {
+   "run_id": "20261106-163820-live-Q3-off-assign",
+   "won": 2.59,
+   "calls": 9,
+   "tok_in": 15549,
+   "tok_cached": 13568,
+   "tok_out": 889
+  },
+  {
+   "run_id": "20261106-163803-live-Q6-off-roles",
+   "won": 4.29,
+   "calls": 16,
+   "tok_in": 24925,
+   "tok_cached": 20352,
+   "tok_out": 1421
+  },
+  {
+   "run_id": "20261106-163823-live-Q8-off-roles",
+   "won": 4.4,
+   "calls": 14,
+   "tok_in": 24592,
+   "tok_cached": 21632,
+   "tok_out": 1793
+  },
+  {
+   "run_id": "20261106-163824-live-Q4-off-roles",
+   "won": 4.35,
+   "calls": 14,
+   "tok_in": 23382,
+   "tok_cached": 20352,
+   "tok_out": 1877
+  },
+  {
+   "run_id": "20261106-163842-live-Q3-off-assign",
+   "won": 2.58,
+   "calls": 9,
+   "tok_in": 15538,
+   "tok_cached": 13568,
+   "tok_out": 882
+  },
+  {
+   "run_id": "20261106-163853-live-Q8-off-roles",
+   "won": 5.08,
+   "calls": 15,
+   "tok_in": 25568,
+   "tok_cached": 21760,
+   "tok_out": 2378
+  },
+  {
+   "run_id": "20261106-163907-live-Q3-off-zones",
+   "won": 2.47,
+   "calls": 8,
+   "tok_in": 15101,
+   "tok_cached": 13568,
+   "tok_out": 863
+  },
+  {
+   "run_id": "20261106-163844-live-Q6-off-assign",
+   "won": 6.3,
+   "calls": 16,
+   "tok_in": 28955,
+   "tok_cached": 10240,
+   "tok_out": 1539
+  },
+  {
+   "run_id": "20261106-163907-live-Q4-off-assign",
+   "won": 4.91,
+   "calls": 16,
+   "tok_in": 24840,
+   "tok_cached": 17408,
+   "tok_out": 1815
+  },
+  {
+   "run_id": "20261106-163929-live-Q3-off-zones",
+   "won": 2.48,
+   "calls": 8,
+   "tok_in": 15091,
+   "tok_cached": 13568,
+   "tok_out": 879
+  },
+  {
+   "run_id": "20261106-163925-live-Q8-off-assign",
+   "won": 5.92,
+   "calls": 17,
+   "tok_in": 28188,
+   "tok_cached": 16128,
+   "tok_out": 2016
+  },
+  {
+   "run_id": "20261106-163952-live-Q3-off-redelegate",
+   "won": 2.47,
+   "calls": 8,
+   "tok_in": 15103,
+   "tok_cached": 13568,
+   "tok_out": 861
+  },
+  {
+   "run_id": "20261106-163940-live-Q4-off-assign",
+   "won": 4.82,
+   "calls": 16,
+   "tok_in": 24906,
+   "tok_cached": 20224,
+   "tok_out": 2044
+  },
+  {
+   "run_id": "20261106-163934-live-Q6-off-assign",
+   "won": 5.01,
+   "calls": 16,
+   "tok_in": 29004,
+   "tok_cached": 22656,
+   "tok_out": 1550
+  },
+  {
+   "run_id": "20261106-164000-live-Q8-off-assign",
+   "won": 4.8,
+   "calls": 16,
+   "tok_in": 27442,
+   "tok_cached": 23424,
+   "tok_out": 1780
+  },
+  {
+   "run_id": "20261106-164015-live-Q3-off-redelegate",
+   "won": 2.45,
+   "calls": 8,
+   "tok_in": 15091,
+   "tok_cached": 13568,
+   "tok_out": 845
+  },
+  {
+   "run_id": "20261106-164020-live-Q6-off-zones",
+   "won": 3.62,
+   "calls": 17,
+   "tok_in": 25287,
+   "tok_cached": 18816,
+   "tok_out": 337
+  },
+  {
+   "run_id": "20261106-164016-live-Q4-off-zones",
+   "won": 5.69,
+   "calls": 21,
+   "tok_in": 32472,
+   "tok_cached": 26112,
+   "tok_out": 1925
+  },
+  {
+   "run_id": "20261106-164039-live-Q6-off-zones",
+   "won": 3.54,
+   "calls": 17,
+   "tok_in": 25300,
+   "tok_cached": 20992,
+   "tok_out": 518
+  },
+  {
+   "run_id": "20261106-164031-live-Q8-off-zones",
+   "won": 4.72,
+   "calls": 14,
+   "tok_in": 23999,
+   "tok_cached": 20864,
+   "tok_out": 2233
+  },
+  {
+   "run_id": "20261106-164037-live-Q3-single",
+   "won": 3.45,
+   "calls": 8,
+   "tok_in": 14044,
+   "tok_cached": 5120,
+   "tok_out": 1241
+  },
+  {
+   "run_id": "20261106-164100-live-Q6-off-redelegate",
+   "won": 1.8,
+   "calls": 9,
+   "tok_in": 13099,
+   "tok_cached": 11392,
+   "tok_out": 293
+  },
+  {
+   "run_id": "20261106-164103-live-Q8-off-zones",
+   "won": 4.91,
+   "calls": 14,
+   "tok_in": 26036,
+   "tok_cached": 22784,
+   "tok_out": 2182
+  },
+  {
+   "run_id": "20261106-164114-live-Q6-off-redelegate",
+   "won": 2.18,
+   "calls": 8,
+   "tok_in": 12614,
+   "tok_cached": 10880,
+   "tok_out": 796
+  },
+  {
+   "run_id": "20261106-164108-live-Q3-single",
+   "won": 2.7,
+   "calls": 8,
+   "tok_in": 14162,
+   "tok_cached": 12160,
+   "tok_out": 1199
+  },
+  {
+   "run_id": "20261106-164054-live-Q4-off-zones",
+   "won": 5.97,
+   "calls": 22,
+   "tok_in": 33204,
+   "tok_cached": 26752,
+   "tok_out": 2150
+  },
+  {
+   "run_id": "20261106-164132-live-Q8-off-redelegate",
+   "won": 4.98,
+   "calls": 14,
+   "tok_in": 26015,
+   "tok_cached": 22784,
+   "tok_out": 2278
+  },
+  {
+   "run_id": "20261106-164135-live-Q6-single",
+   "won": 3.49,
+   "calls": 8,
+   "tok_in": 15848,
+   "tok_cached": 9344,
+   "tok_out": 1358
+  },
+  {
+   "run_id": "20261106-164146-live-Q4-off-redelegate",
+   "won": 4.68,
+   "calls": 15,
+   "tok_in": 26221,
+   "tok_cached": 22656,
+   "tok_out": 1852
+  },
+  {
+   "run_id": "20261106-164214-live-Q4-off-redelegate",
+   "won": 4.32,
+   "calls": 14,
+   "tok_in": 25454,
+   "tok_cached": 22656,
+   "tok_out": 1613
+  },
+  {
+   "run_id": "20261106-164202-live-Q8-off-redelegate",
+   "won": 4.69,
+   "calls": 14,
+   "tok_in": 24023,
+   "tok_cached": 20864,
+   "tok_out": 2188
+  },
+  {
+   "run_id": "20261106-164213-live-Q6-single",
+   "won": 4.76,
+   "calls": 14,
+   "tok_in": 24429,
+   "tok_cached": 18560,
+   "tok_out": 1880
+  },
+  {
+   "run_id": "20261106-164239-live-Q4-single",
+   "won": 5.43,
+   "calls": 20,
+   "tok_in": 27198,
+   "tok_cached": 16768,
+   "tok_out": 1757
+  },
+  {
+   "run_id": "20261106-164245-live-Q8-single",
+   "won": 5.15,
+   "calls": 14,
+   "tok_in": 27900,
+   "tok_cached": 23040,
+   "tok_out": 2036
+  },
+  {
+   "run_id": "20261106-164326-live-Q4-single",
+   "won": 5.27,
+   "calls": 20,
+   "tok_in": 28245,
+   "tok_cached": 20480,
+   "tok_out": 1773
+  },
+  {
+   "run_id": "20261106-164337-live-Q8-single",
+   "won": 6.24,
+   "calls": 20,
+   "tok_in": 32560,
+   "tok_cached": 24832,
+   "tok_out": 2389
+  },
+  {
+   "run_id": "manual-read-order-test",
+   "won": 1.24,
+   "calls": 4,
+   "tok_in": 6396,
+   "tok_cached": 2560,
+   "tok_out": 192
+  },
+  {
+   "run_id": "manual-read-prompt-test2",
+   "won": 2.39,
+   "calls": 4,
+   "tok_in": 9207,
+   "tok_cached": 0,
+   "tok_out": 547
+  },
+  {
+   "run_id": "20261106-172153-live",
+   "won": 1.36,
+   "calls": 1,
+   "tok_in": 6285,
+   "tok_cached": 0,
+   "tok_out": 45
+  }
+ ]
+}

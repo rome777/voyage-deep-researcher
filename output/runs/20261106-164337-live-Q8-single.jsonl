@@ -1,0 +1,24 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164337-live-Q8-single", "qid": "Q8", "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 9, "sections": 2, "reference": "20261106-163730-live-Q8"}
+{"t": 1.456, "type": "fix", "what": "첫 문서", "given": "목록의 한국어 지명", "used": null}
+{"t": 1.457, "type": "fix", "what": "첫 문서", "given": "질문이 대항해시대의 항해·무역·식민과 관련이 없기 때문입니다.", "used": "포르투"}
+{"t": 2.078, "type": "read", "sec": 0, "doc": "포르투", "chars": 4875, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 2.86, "type": "pick", "sec": 0, "cand": 14, "frontier": true, "chose": "마카오", "forced": false}
+{"t": 12.957, "type": "read", "sec": 0, "doc": "마카오", "chars": 8227, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 13.674, "type": "pick", "sec": 0, "cand": 21, "frontier": true, "chose": "광저우", "forced": false}
+{"t": 14.532, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 15.265, "type": "pick", "sec": 0, "cand": 28, "frontier": true, "chose": "마닐라", "forced": false}
+{"t": 15.847, "type": "read", "sec": 0, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 16.795, "type": "pick", "sec": 0, "cand": 35, "frontier": true, "chose": "바타비아", "forced": false}
+{"t": 20.935, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 21.758, "type": "pick", "sec": 0, "cand": 39, "frontier": true, "chose": "마드라스", "forced": false}
+{"t": 22.331, "type": "read", "sec": 0, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 23.282, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "마카사르", "forced": false}
+{"t": 28.969, "type": "read", "sec": 0, "doc": "마카사르", "chars": 7521, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 30.004, "type": "pick", "sec": 0, "cand": 43, "frontier": true, "chose": null, "forced": true}
+{"t": 30.883, "type": "read", "sec": 0, "doc": "루안다", "chars": 5516, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 32.156, "type": "pick", "sec": 0, "cand": 48, "frontier": true, "chose": "말루쿠 제도", "forced": false}
+{"t": 36.848, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 66.046, "type": "recite", "sec": 0, "before": "2/17", "after": "11/17", "kept": "새 원고", "round": 1}
+{"t": 66.046, "type": "write", "sec": 0, "chars": 1117, "cites": 11, "enough": true, "gap": "", "round": 1}
+{"t": 66.047, "type": "evaluate", "metrics": {"문장수": 17, "근거율": 64.7, "허위인용": [], "엉뚱한인용": [], "읽은문서": 9, "읽고안쓴": ["광저우", "루안다", "마닐라", "마드라스", "말루쿠 제도", "포르투"], "편중": 45.5, "중복률": 0.0, "인용수": 11, "보고서자수": 1117, "격리율": 100.0, "LLM호출": 20, "원": 6.24}, "alarms": []}
+{"t": 66.047, "type": "run_end", "seconds": 66.0, "calls": 20, "won": 6.24, "tok_in": 32560, "tok_cached": 24832, "tok_out": 2389}

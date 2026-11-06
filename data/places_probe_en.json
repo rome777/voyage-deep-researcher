@@ -1,0 +1,938 @@
+{
+ "summary": {
+  "문서수": 55,
+  "3000자이상": 55,
+  "총글자": 2343720,
+  "총토큰_o200k": 515139,
+  "역사절_총글자": 630326,
+  "링크수_중앙값": 4,
+  "링크0개": [
+   "Elmina",
+   "Island of Mozambique",
+   "Hormuz Island",
+   "Goa",
+   "San Salvador Island"
+  ],
+  "좌표없음": [],
+  "없는후보": []
+ },
+ "docs": {
+  "Lisbon": {
+   "asked": "Lisbon",
+   "ko": "리스본",
+   "chars": 63642,
+   "tokens": 13856,
+   "history_chars": 18216,
+   "lat": 38.72527778,
+   "lon": -9.15,
+   "links": [
+    "Amsterdam",
+    "Antwerp",
+    "Cape Verde",
+    "Ceuta",
+    "Cádiz",
+    "Genoa",
+    "Luanda",
+    "Macau",
+    "Malacca City",
+    "Rio de Janeiro",
+    "Salvador, Bahia",
+    "Seville",
+    "São Tomé and Príncipe",
+    "Venice"
+   ]
+  },
+  "Seville": {
+   "asked": "Seville",
+   "ko": "세비야",
+   "chars": 66970,
+   "tokens": 14895,
+   "history_chars": 16625,
+   "lat": 37.38861111,
+   "lon": -5.995,
+   "links": [
+    "Amsterdam",
+    "Azores",
+    "Canary Islands",
+    "Ceuta",
+    "Cádiz",
+    "Havana",
+    "Lisbon"
+   ]
+  },
+  "Cádiz": {
+   "asked": "Cádiz",
+   "ko": "카디스",
+   "chars": 39056,
+   "tokens": 8818,
+   "history_chars": 9722,
+   "lat": 36.535,
+   "lon": -6.2975,
+   "links": [
+    "Canary Islands",
+    "Ceuta",
+    "Havana",
+    "Lisbon",
+    "Mexico City",
+    "Seville"
+   ]
+  },
+  "Palos de la Frontera": {
+   "asked": "Palos de la Frontera",
+   "ko": "팔로스데라프론테라",
+   "chars": 6758,
+   "tokens": 1599,
+   "history_chars": 5312,
+   "lat": 37.22833333,
+   "lon": -6.89444444,
+   "links": [
+    "Canary Islands",
+    "Seville"
+   ]
+  },
+  "Amsterdam": {
+   "asked": "Amsterdam",
+   "ko": "암스테르담",
+   "chars": 86469,
+   "tokens": 18366,
+   "history_chars": 16198,
+   "lat": 52.37277778,
+   "lon": 4.89361111,
+   "links": [
+    "Antwerp",
+    "Genoa",
+    "Lisbon",
+    "Mexico City",
+    "Rio de Janeiro",
+    "Seville",
+    "Venice"
+   ]
+  },
+  "Antwerp": {
+   "asked": "Antwerp",
+   "ko": "안트베르펜",
+   "chars": 49556,
+   "tokens": 10932,
+   "history_chars": 10961,
+   "lat": 51.21777778,
+   "lon": 4.40027778,
+   "links": [
+    "Amsterdam",
+    "Genoa",
+    "Lisbon",
+    "Mexico City",
+    "Rio de Janeiro",
+    "Seville"
+   ]
+  },
+  "Venice": {
+   "asked": "Venice",
+   "ko": "베네치아",
+   "chars": 81547,
+   "tokens": 18188,
+   "history_chars": 15864,
+   "lat": 45.4375,
+   "lon": 12.33583333,
+   "links": [
+    "Cape of Good Hope",
+    "Genoa"
+   ]
+  },
+  "Genoa": {
+   "asked": "Genoa",
+   "ko": "제노바",
+   "chars": 76874,
+   "tokens": 18162,
+   "history_chars": 14555,
+   "lat": 44.40722222,
+   "lon": 8.93388889,
+   "links": [
+    "Amsterdam",
+    "Antwerp",
+    "Havana",
+    "Lisbon",
+    "Santo Domingo",
+    "Seville",
+    "Venice"
+   ]
+  },
+  "Ceuta": {
+   "asked": "Ceuta",
+   "ko": "세우타",
+   "chars": 34630,
+   "tokens": 8231,
+   "history_chars": 13920,
+   "lat": 35.88833333,
+   "lon": -5.31555556,
+   "links": [
+    "Azores",
+    "Canary Islands",
+    "Cádiz",
+    "Elmina",
+    "Goa",
+    "Kochi",
+    "Kozhikode",
+    "Lisbon",
+    "Madeira",
+    "Malindi",
+    "Maluku Islands",
+    "Mombasa",
+    "Seville",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Madeira": {
+   "asked": "Madeira",
+   "ko": "마데이라 제도",
+   "chars": 43025,
+   "tokens": 9191,
+   "history_chars": 9823,
+   "lat": 32.75,
+   "lon": -17,
+   "links": [
+    "Antwerp",
+    "Azores",
+    "Canary Islands",
+    "Ceuta",
+    "Cádiz",
+    "Elmina",
+    "Goa",
+    "Kochi",
+    "Kozhikode",
+    "Lisbon",
+    "Malindi",
+    "Maluku Islands",
+    "Mombasa",
+    "São Tomé and Príncipe",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Canary Islands": {
+   "asked": "Canary Islands",
+   "ko": "카나리아 제도",
+   "chars": 68586,
+   "tokens": 14976,
+   "history_chars": 20543,
+   "lat": 28,
+   "lon": -16,
+   "links": [
+    "Azores",
+    "Cape Verde",
+    "Ceuta",
+    "Genoa",
+    "Havana",
+    "Madeira",
+    "Santo Domingo"
+   ]
+  },
+  "Azores": {
+   "asked": "Azores",
+   "ko": "아소르스 제도",
+   "chars": 52333,
+   "tokens": 11408,
+   "history_chars": 12658,
+   "lat": 38.66,
+   "lon": -28.07,
+   "links": [
+    "Canary Islands",
+    "Cape Verde",
+    "Ceuta",
+    "Elmina",
+    "Goa",
+    "Kochi",
+    "Kozhikode",
+    "Macau",
+    "Madeira",
+    "Malindi",
+    "Maluku Islands",
+    "Mombasa",
+    "São Tomé and Príncipe",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Cape Verde": {
+   "asked": "Cape Verde",
+   "ko": "카보베르데",
+   "chars": 45080,
+   "tokens": 9785,
+   "history_chars": 4101,
+   "lat": 15.3,
+   "lon": -23.7,
+   "links": [
+    "Azores",
+    "Canary Islands",
+    "Ceuta",
+    "Elmina",
+    "Goa",
+    "Kochi",
+    "Kozhikode",
+    "Macau",
+    "Madeira",
+    "Malindi",
+    "Maluku Islands",
+    "Mombasa",
+    "São Tomé and Príncipe",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Elmina": {
+   "asked": "Elmina",
+   "ko": "엘미나",
+   "chars": 11519,
+   "tokens": 2713,
+   "history_chars": 4546,
+   "lat": 5.08333333,
+   "lon": -1.35,
+   "links": []
+  },
+  "São Tomé and Príncipe": {
+   "asked": "São Tomé and Príncipe",
+   "ko": "상투메 프린시페",
+   "chars": 43713,
+   "tokens": 9395,
+   "history_chars": 13980,
+   "lat": 0.31666667,
+   "lon": 6.6,
+   "links": [
+    "Azores",
+    "Canary Islands",
+    "Cape Verde",
+    "Ceuta",
+    "Elmina",
+    "Goa",
+    "Kochi",
+    "Kozhikode",
+    "Lisbon",
+    "Luanda",
+    "Macau",
+    "Madeira",
+    "Malindi",
+    "Maluku Islands",
+    "Mombasa",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Luanda": {
+   "asked": "Luanda",
+   "ko": "루안다",
+   "chars": 20793,
+   "tokens": 4526,
+   "history_chars": 5559,
+   "lat": -8.83833333,
+   "lon": 13.23444444,
+   "links": [
+    "Cape Verde",
+    "Guangzhou",
+    "Lisbon",
+    "Salvador, Bahia",
+    "São Tomé and Príncipe"
+   ]
+  },
+  "Cape of Good Hope": {
+   "asked": "Cape of Good Hope",
+   "ko": "희망봉",
+   "chars": 19548,
+   "tokens": 4360,
+   "history_chars": 9394,
+   "lat": -34.35805556,
+   "lon": 18.47555556,
+   "links": [
+    "Cádiz",
+    "Kozhikode",
+    "Sofala"
+   ]
+  },
+  "Island of Mozambique": {
+   "asked": "Island of Mozambique",
+   "ko": "모잠비크섬",
+   "chars": 4137,
+   "tokens": 950,
+   "history_chars": 1931,
+   "lat": -15.03666667,
+   "lon": 40.73277778,
+   "links": []
+  },
+  "Sofala": {
+   "asked": "Sofala",
+   "ko": "소팔라",
+   "chars": 8011,
+   "tokens": 1922,
+   "history_chars": 6406,
+   "lat": -20.15,
+   "lon": 34.71666667,
+   "links": [
+    "Lisbon"
+   ]
+  },
+  "Mombasa": {
+   "asked": "Mombasa",
+   "ko": "몸바사",
+   "chars": 36736,
+   "tokens": 8369,
+   "history_chars": 8423,
+   "lat": -4.05,
+   "lon": 39.66666667,
+   "links": [
+    "Guangzhou",
+    "Malindi",
+    "Sofala",
+    "Zanzibar"
+   ]
+  },
+  "Malindi": {
+   "asked": "Malindi",
+   "ko": "말린디",
+   "chars": 10960,
+   "tokens": 2444,
+   "history_chars": 6561,
+   "lat": -3.22361111,
+   "lon": 40.13,
+   "links": [
+    "Mombasa",
+    "Zanzibar"
+   ]
+  },
+  "Zanzibar": {
+   "asked": "Zanzibar",
+   "ko": "잔지바르",
+   "chars": 50812,
+   "tokens": 10826,
+   "history_chars": 14457,
+   "lat": -5.9,
+   "lon": 39.3,
+   "links": [
+    "Mombasa"
+   ]
+  },
+  "Hormuz Island": {
+   "asked": "Hormuz Island",
+   "ko": "호르무즈섬",
+   "chars": 6627,
+   "tokens": 1544,
+   "history_chars": 2463,
+   "lat": 27.0675,
+   "lon": 56.46,
+   "links": []
+  },
+  "Aden": {
+   "asked": "Aden",
+   "ko": "아덴",
+   "chars": 60282,
+   "tokens": 13459,
+   "history_chars": 30596,
+   "lat": 12.8,
+   "lon": 45.03333333,
+   "links": [
+    "Cape of Good Hope",
+    "Mombasa",
+    "Zanzibar"
+   ]
+  },
+  "Kozhikode": {
+   "asked": "Kozhikode",
+   "ko": "코지코드",
+   "chars": 31996,
+   "tokens": 7504,
+   "history_chars": 9713,
+   "lat": 11.24888889,
+   "lon": 75.78388889,
+   "links": [
+    "Goa",
+    "Kochi",
+    "Zanzibar"
+   ]
+  },
+  "Goa": {
+   "asked": "Goa",
+   "ko": "고아주",
+   "chars": 58639,
+   "tokens": 13173,
+   "history_chars": 6102,
+   "lat": 15.5,
+   "lon": 73.83,
+   "links": []
+  },
+  "Kochi": {
+   "asked": "Kochi",
+   "ko": "코치 (인도)",
+   "chars": 56632,
+   "tokens": 12418,
+   "history_chars": 8997,
+   "lat": 9.93119444,
+   "lon": 76.26730556,
+   "links": [
+    "Colombo",
+    "Kozhikode"
+   ]
+  },
+  "Colombo": {
+   "asked": "Colombo",
+   "ko": "콜롬보",
+   "chars": 35120,
+   "tokens": 7354,
+   "history_chars": 6091,
+   "lat": 6.93444444,
+   "lon": 79.84277778,
+   "links": [
+    "Goa"
+   ]
+  },
+  "Malacca City": {
+   "asked": "Malacca City",
+   "ko": "믈라카",
+   "chars": 33751,
+   "tokens": 7187,
+   "history_chars": 13432,
+   "lat": 2.19444444,
+   "lon": 102.24861111,
+   "links": [
+    "Goa",
+    "Lisbon",
+    "Maluku Islands"
+   ]
+  },
+  "Maluku Islands": {
+   "asked": "Maluku Islands",
+   "ko": "말루쿠 제도",
+   "chars": 19941,
+   "tokens": 4543,
+   "history_chars": 7239,
+   "lat": -3,
+   "lon": 129,
+   "links": [
+    "Azores",
+    "Banda Islands",
+    "Ceuta",
+    "Elmina",
+    "Goa",
+    "Guangzhou",
+    "Jakarta",
+    "Kochi",
+    "Kozhikode",
+    "Madeira",
+    "Malindi",
+    "Mombasa",
+    "Ternate",
+    "Zanzibar"
+   ]
+  },
+  "Banda Islands": {
+   "asked": "Banda Islands",
+   "ko": "반다 제도",
+   "chars": 20954,
+   "tokens": 4573,
+   "history_chars": 14239,
+   "lat": -4.58333333,
+   "lon": 129.91666667,
+   "links": [
+    "Guangzhou",
+    "Jakarta",
+    "Maluku Islands",
+    "Ternate"
+   ]
+  },
+  "Ternate": {
+   "asked": "Ternate",
+   "ko": "테르나테섬",
+   "chars": 25641,
+   "tokens": 5768,
+   "history_chars": 11095,
+   "lat": 0.78,
+   "lon": 127.38194444,
+   "links": [
+    "Banda Islands",
+    "Goa",
+    "Jakarta",
+    "Maluku Islands",
+    "Manila"
+   ]
+  },
+  "Jakarta": {
+   "asked": "Jakarta",
+   "ko": "자카르타",
+   "chars": 38463,
+   "tokens": 7755,
+   "history_chars": 6010,
+   "lat": -6.18,
+   "lon": 106.83,
+   "links": [
+    "Guangzhou",
+    "Lima",
+    "Luanda",
+    "Maluku Islands",
+    "Manila",
+    "Mexico City",
+    "Rio de Janeiro",
+    "Ternate"
+   ]
+  },
+  "Manila": {
+   "asked": "Manila",
+   "ko": "마닐라",
+   "chars": 91839,
+   "tokens": 19409,
+   "history_chars": 30221,
+   "lat": 14.5958,
+   "lon": 120.9772,
+   "links": [
+    "Acapulco",
+    "Cartagena, Colombia",
+    "Cebu",
+    "Guam",
+    "Guangzhou",
+    "Havana",
+    "Jakarta",
+    "Lima",
+    "Lisbon",
+    "Luanda",
+    "Mexico City",
+    "Panama City",
+    "Rio de Janeiro"
+   ]
+  },
+  "Cebu": {
+   "asked": "Cebu",
+   "ko": "세부섬",
+   "chars": 40726,
+   "tokens": 9217,
+   "history_chars": 11341,
+   "lat": 10.32,
+   "lon": 123.75,
+   "links": [
+    "Guam",
+    "Manila"
+   ]
+  },
+  "Macau": {
+   "asked": "Macau",
+   "ko": "마카오",
+   "chars": 41532,
+   "tokens": 8314,
+   "history_chars": 8231,
+   "lat": 22.19,
+   "lon": 113.54,
+   "links": [
+    "Cape Verde",
+    "Guangzhou",
+    "Lisbon",
+    "Luanda",
+    "Manila",
+    "Rio de Janeiro",
+    "São Tomé and Príncipe"
+   ]
+  },
+  "Guangzhou": {
+   "asked": "Guangzhou",
+   "ko": "광저우",
+   "chars": 63897,
+   "tokens": 13779,
+   "history_chars": 17928,
+   "lat": 23.13,
+   "lon": 113.26,
+   "links": [
+    "Jakarta",
+    "Lima",
+    "Luanda",
+    "Macau",
+    "Manila",
+    "Mexico City",
+    "Rio de Janeiro"
+   ]
+  },
+  "Nagasaki": {
+   "asked": "Nagasaki",
+   "ko": "나가사키시",
+   "chars": 22388,
+   "tokens": 5186,
+   "history_chars": 14440,
+   "lat": 32.74472222,
+   "lon": 129.87361111,
+   "links": [
+    "Hirado, Nagasaki",
+    "Macau"
+   ]
+  },
+  "Hirado, Nagasaki": {
+   "asked": "Hirado, Nagasaki",
+   "ko": "히라도시",
+   "chars": 10018,
+   "tokens": 2381,
+   "history_chars": 3262,
+   "lat": 33.36805556,
+   "lon": 129.55361111,
+   "links": [
+    "Nagasaki"
+   ]
+  },
+  "Guam": {
+   "asked": "Guam",
+   "ko": "괌",
+   "chars": 45188,
+   "tokens": 9886,
+   "history_chars": 10661,
+   "lat": 13.5,
+   "lon": 144.8,
+   "links": [
+    "Acapulco",
+    "Manila",
+    "Mexico City"
+   ]
+  },
+  "San Salvador Island": {
+   "asked": "San Salvador Island",
+   "ko": "산살바도르섬",
+   "chars": 9554,
+   "tokens": 2047,
+   "history_chars": 3425,
+   "lat": 24.035,
+   "lon": -74.4975,
+   "links": []
+  },
+  "Hispaniola": {
+   "asked": "Hispaniola",
+   "ko": "히스파니올라섬",
+   "chars": 48310,
+   "tokens": 10482,
+   "history_chars": 19782,
+   "lat": 19,
+   "lon": -71,
+   "links": [
+    "Canary Islands",
+    "Havana",
+    "Santo Domingo"
+   ]
+  },
+  "Santo Domingo": {
+   "asked": "Santo Domingo",
+   "ko": "산토도밍고",
+   "chars": 37929,
+   "tokens": 7983,
+   "history_chars": 7113,
+   "lat": 18.4625,
+   "lon": -69.9361,
+   "links": [
+    "Cusco",
+    "Havana",
+    "Hispaniola",
+    "Lima",
+    "Mexico City",
+    "Panama City",
+    "Rio de Janeiro"
+   ]
+  },
+  "Havana": {
+   "asked": "Havana",
+   "ko": "아바나",
+   "chars": 65839,
+   "tokens": 14284,
+   "history_chars": 11303,
+   "lat": 23.13666667,
+   "lon": -82.35888889,
+   "links": [
+    "Canary Islands",
+    "Cartagena, Colombia",
+    "Lima",
+    "Mexico City",
+    "Panama City",
+    "Rio de Janeiro",
+    "Santo Domingo",
+    "Seville"
+   ]
+  },
+  "Veracruz (city)": {
+   "asked": "Veracruz (city)",
+   "ko": "베라크루스",
+   "chars": 36871,
+   "tokens": 7926,
+   "history_chars": 9092,
+   "lat": 19.19027778,
+   "lon": -96.15333333,
+   "links": [
+    "Cádiz",
+    "Havana",
+    "Seville"
+   ]
+  },
+  "Mexico City": {
+   "asked": "Mexico City",
+   "ko": "멕시코시티",
+   "chars": 84515,
+   "tokens": 18106,
+   "history_chars": 15738,
+   "lat": 19.43333333,
+   "lon": -99.13333333,
+   "links": [
+    "Amsterdam",
+    "Antwerp",
+    "Cartagena, Colombia",
+    "Cusco",
+    "Cádiz",
+    "Guangzhou",
+    "Havana",
+    "Jakarta",
+    "Lima",
+    "Luanda",
+    "Panama City",
+    "Rio de Janeiro",
+    "Santo Domingo",
+    "Veracruz (city)"
+   ]
+  },
+  "Acapulco": {
+   "asked": "Acapulco",
+   "ko": "아카풀코",
+   "chars": 39574,
+   "tokens": 8942,
+   "history_chars": 12758,
+   "lat": 16.86361111,
+   "lon": -99.8825,
+   "links": [
+    "Cartagena, Colombia",
+    "Manila",
+    "Mexico City"
+   ]
+  },
+  "Panama City": {
+   "asked": "Panama City",
+   "ko": "파나마시티",
+   "chars": 25677,
+   "tokens": 5488,
+   "history_chars": 4802,
+   "lat": 8.9711,
+   "lon": -79.5347,
+   "links": [
+    "Cartagena, Colombia",
+    "Cusco",
+    "Genoa",
+    "Havana",
+    "Mexico City",
+    "Santo Domingo",
+    "Veracruz (city)"
+   ]
+  },
+  "Cartagena, Colombia": {
+   "asked": "Cartagena, Colombia",
+   "ko": "카르타헤나 (콜롬비아)",
+   "chars": 48468,
+   "tokens": 10820,
+   "history_chars": 17916,
+   "lat": 10.4,
+   "lon": -75.5,
+   "links": [
+    "Cusco",
+    "Havana",
+    "Hispaniola",
+    "Potosí",
+    "Santo Domingo",
+    "Seville",
+    "Veracruz (city)"
+   ]
+  },
+  "Potosí": {
+   "asked": "Potosí",
+   "ko": "포토시",
+   "chars": 20334,
+   "tokens": 4651,
+   "history_chars": 11096,
+   "lat": -19.58916667,
+   "lon": -65.75333333,
+   "links": [
+    "Cusco",
+    "Panama City"
+   ]
+  },
+  "Cusco": {
+   "asked": "Cusco",
+   "ko": "쿠스코",
+   "chars": 38880,
+   "tokens": 8654,
+   "history_chars": 12241,
+   "lat": -13.5169,
+   "lon": -71.9786,
+   "links": [
+    "Cartagena, Colombia",
+    "Havana",
+    "Lima",
+    "Mexico City",
+    "Panama City",
+    "Potosí",
+    "Rio de Janeiro",
+    "Santo Domingo",
+    "Veracruz (city)"
+   ]
+  },
+  "Lima": {
+   "asked": "Lima",
+   "ko": "리마",
+   "chars": 82993,
+   "tokens": 18357,
+   "history_chars": 17860,
+   "lat": -12.06,
+   "lon": -77.0375,
+   "links": [
+    "Cusco",
+    "Guangzhou",
+    "Havana",
+    "Jakarta",
+    "Luanda",
+    "Mexico City",
+    "Rio de Janeiro",
+    "Santo Domingo"
+   ]
+  },
+  "Salvador, Bahia": {
+   "asked": "Salvador, Bahia",
+   "ko": "사우바도르 (바이아주)",
+   "chars": 56254,
+   "tokens": 12296,
+   "history_chars": 7037,
+   "lat": -12.97472222,
+   "lon": -38.47666667,
+   "links": [
+    "Azores",
+    "Havana",
+    "Lisbon",
+    "Rio de Janeiro"
+   ]
+  },
+  "Rio de Janeiro": {
+   "asked": "Rio de Janeiro",
+   "ko": "리우데자네이루",
+   "chars": 92322,
+   "tokens": 20300,
+   "history_chars": 10734,
+   "lat": -22.91111111,
+   "lon": -43.20555556,
+   "links": [
+    "Amsterdam",
+    "Antwerp",
+    "Guangzhou",
+    "Havana",
+    "Jakarta",
+    "Lima",
+    "Lisbon",
+    "Luanda",
+    "Mexico City",
+    "Salvador, Bahia",
+    "Santo Domingo"
+   ]
+  },
+  "Strait of Magellan": {
+   "asked": "Strait of Magellan",
+   "ko": "마젤란 해협",
+   "chars": 31811,
+   "tokens": 7441,
+   "history_chars": 17613,
+   "lat": -54,
+   "lon": -71,
+   "links": [
+    "Maluku Islands"
+   ]
+  }
+ }
+}

@@ -1,0 +1,12 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164108-live-Q3-single", "qid": "Q3", "question": "포르투갈은 어떤 항구들을 거점으로 인도 항로를 열었나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 3, "sections": 1, "reference": "20261106-163708-live-Q3"}
+{"t": 1.338, "type": "fix", "what": "첫 문서", "given": "목록의 한국어 지명", "used": null}
+{"t": 1.34, "type": "fix", "what": "첫 문서", "given": "없음", "used": "포르투"}
+{"t": 2.214, "type": "read", "sec": 0, "doc": "포르투", "chars": 4875, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 2.937, "type": "pick", "sec": 0, "cand": 14, "frontier": true, "chose": "리스본", "forced": false}
+{"t": 7.198, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 8.026, "type": "pick", "sec": 0, "cand": 25, "frontier": true, "chose": "루안다", "forced": false}
+{"t": 8.989, "type": "read", "sec": 0, "doc": "루안다", "chars": 5516, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 29.727, "type": "recite", "sec": 0, "before": "5/14", "after": "1/12", "kept": "첫 원고", "round": 1}
+{"t": 29.728, "type": "write", "sec": 0, "chars": 886, "cites": 5, "enough": true, "gap": "", "round": 1}
+{"t": 29.728, "type": "evaluate", "metrics": {"문장수": 14, "근거율": 35.7, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": ["루안다", "포르투"], "편중": 100.0, "중복률": 0.0, "인용수": 5, "보고서자수": 886, "격리율": 100.0, "LLM호출": 8, "원": 2.7}, "alarms": []}
+{"t": 29.728, "type": "run_end", "seconds": 29.7, "calls": 8, "won": 2.7, "tok_in": 14162, "tok_cached": 12160, "tok_out": 1199}

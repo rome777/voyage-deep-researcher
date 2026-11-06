@@ -1,0 +1,28 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163730-live-Q8", "qid": "Q8", "question": "포르투갈과 네덜란드는 아시아 거점을 어떻게 다르게 운영했나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 3.097, "type": "plan", "title": "포르투갈과 네덜란드의 아시아 거점 운영 비교", "toc": [{"절": "포르투갈의 아시아 거점 운영", "지시": "포르투갈이 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "고아", "예산": 3}, {"절": "네덜란드의 아시아 거점 운영", "지시": "네덜란드가 아시아에서 어떻게 거점을 운영했는지 설명한다.", "역할": "비교 담당", "시작문서": "바타비아", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}}
+{"t": 3.112, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 8.524, "type": "read", "sec": 1, "doc": "바타비아", "chars": 5977, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 9.448, "type": "pick", "sec": 1, "cand": 19, "frontier": true, "chose": "마닐라"}
+{"t": 10.101, "type": "read", "sec": 1, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 11.149, "type": "pick", "sec": 1, "cand": 25, "frontier": true, "chose": "마드라스"}
+{"t": 11.368, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 11.814, "type": "read", "sec": 1, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 12.122, "type": "pick", "sec": 0, "cand": 2, "frontier": true, "chose": "무스카트"}
+{"t": 17.749, "type": "read", "sec": 0, "doc": "무스카트", "chars": 6548, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 18.521, "type": "pick", "sec": 0, "cand": 6, "frontier": true, "chose": "딜리"}
+{"t": 18.911, "type": "write", "sec": 1, "chars": 393, "cites": 6, "enough": false, "gap": "마닐라, 마드라스에 대한 내용이 부족함.", "round": 1}
+{"t": 22.511, "type": "read", "sec": 0, "doc": "딜리", "chars": 20125, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 32.724, "type": "write", "sec": 0, "chars": 639, "cites": 7, "enough": true, "gap": "", "round": 1}
+{"t": 32.726, "type": "review", "gaps": [1], "reason": "자기신고 부족", "round": 1, "why": {"1": "마닐라, 마드라스에 대한 내용이 부족함."}}
+{"t": 32.727, "type": "dispatch", "round": 2, "sections": [1]}
+{"t": 33.73, "type": "pick", "sec": 1, "cand": 28, "frontier": true, "chose": "코친"}
+{"t": 34.368, "type": "read", "sec": 1, "doc": "코친", "chars": 8993, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 35.249, "type": "pick", "sec": 1, "cand": 28, "frontier": true, "chose": "뭄바이"}
+{"t": 35.919, "type": "read", "sec": 1, "doc": "뭄바이", "chars": 10012, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 36.883, "type": "pick", "sec": 1, "cand": 27, "frontier": true, "chose": "세부"}
+{"t": 38.093, "type": "read", "sec": 1, "doc": "세부", "chars": 11247, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 49.622, "type": "write", "sec": 1, "chars": 423, "cites": 6, "enough": false, "gap": "마닐라, 마드라스에 대한 내용", "round": 2}
+{"t": 49.624, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 53.074, "type": "synth", "chars": 1420, "sections": 2}
+{"t": 53.076, "type": "evaluate", "metrics": {"문장수": 22, "근거율": 59.1, "허위인용": [], "엉뚱한인용": [], "읽은문서": 9, "읽고안쓴": ["마닐라", "마드라스", "뭄바이", "세부", "코친"], "편중": 46.2, "중복률": 0.0, "인용수": 13, "보고서자수": 1420, "격리율": 15.8, "LLM호출": 21, "원": 6.67}, "alarms": []}
+{"t": 53.077, "type": "run_end", "seconds": 53.1, "calls": 21, "won": 6.67, "tok_in": 32864, "tok_cached": 20864, "tok_out": 2327}

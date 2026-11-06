@@ -1,0 +1,24 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164039-live-Q6-off-zones", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.131, "type": "plan", "title": "향신료의 유럽 도착 항구", "toc": [{"절": "향신료의 항로", "지시": "향신료가 유럽에 도달하기 위해 거친 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "말루쿠 제도", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}}
+{"t": 2.133, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 2.835, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 3.668, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": "고아"}
+{"t": 4.48, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 5.141, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": "마데이라"}
+{"t": 7.589, "type": "read", "sec": 0, "doc": "마데이라", "chars": 9739, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 9.5, "type": "recite", "sec": 0, "before": "0/1", "after": "0/1", "kept": "첫 원고", "round": 1}
+{"t": 9.501, "type": "write", "sec": 0, "chars": 29, "cites": 0, "enough": false, "gap": "본문이 비어있음", "round": 1}
+{"t": 9.502, "type": "review", "gaps": [0], "reason": "자기신고 부족", "round": 1, "why": {"0": "본문이 비어있음"}}
+{"t": 9.504, "type": "dispatch", "round": 2, "sections": [0]}
+{"t": 10.27, "type": "pick", "sec": 0, "cand": 38, "frontier": true, "chose": "리스본"}
+{"t": 10.95, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 11.587, "type": "pick", "sec": 0, "cand": 53, "frontier": true, "chose": "무스카트"}
+{"t": 12.24, "type": "read", "sec": 0, "doc": "무스카트", "chars": 6548, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 12.93, "type": "pick", "sec": 0, "cand": 56, "frontier": true, "chose": "딜리"}
+{"t": 13.682, "type": "read", "sec": 0, "doc": "딜리", "chars": 20125, "assigned": false, "round": 2, "irrelevant": true}
+{"t": 18.927, "type": "recite", "sec": 0, "before": "0/1", "after": "4/9", "kept": "새 원고", "round": 2}
+{"t": 18.929, "type": "write", "sec": 0, "chars": 327, "cites": 4, "enough": false, "gap": "본문이 비어있음", "round": 2}
+{"t": 18.93, "type": "review", "gaps": [], "reason": "라운드 상한", "round": 2}
+{"t": 21.22, "type": "synth", "chars": 542, "sections": 1}
+{"t": 21.222, "type": "evaluate", "metrics": {"문장수": 14, "근거율": 28.6, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["딜리", "무스카트"], "편중": 25.0, "중복률": 0.0, "인용수": 4, "보고서자수": 542, "격리율": 20.9, "LLM호출": 17, "원": 3.54}, "alarms": []}
+{"t": 21.223, "type": "run_end", "seconds": 21.2, "calls": 17, "won": 3.54, "tok_in": 25300, "tok_cached": 20992, "tok_out": 518}

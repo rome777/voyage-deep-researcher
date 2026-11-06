@@ -1,0 +1,7 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-161534-live-Q4-off-zones", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.177, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [], "switches": {"roles": true, "assign": true, "zones": false, "redelegate": true}, "out_of_scope": "주어진 문서 카드에는 네덜란드와 영국의 아시아 무역 항구에 대한 정보가 포함되어 있지 않습니다."}
+{"t": 2.192, "type": "dispatch", "round": 1, "sections": []}
+{"t": 2.193, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 2.194, "type": "synth", "chars": 127, "sections": 0, "out_of_scope": true}
+{"t": 2.194, "type": "evaluate", "metrics": {"문장수": 2, "근거율": 0.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 0, "읽고안쓴": [], "편중": 0.0, "중복률": 0.0, "인용수": 0, "보고서자수": 127, "격리율": 100.0, "LLM호출": 1, "원": 1.93}, "alarms": []}
+{"t": 2.195, "type": "run_end", "seconds": 2.2, "calls": 1, "won": 1.93, "tok_in": 8911, "tok_out": 72}

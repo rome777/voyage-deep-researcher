@@ -1,0 +1,24 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163404-live-Q4-single", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 9, "sections": 2, "reference": "20261106-162402-live-Q4"}
+{"t": 1.046, "type": "fix", "what": "첫 문서", "given": "목록의 한국어 지명", "used": null}
+{"t": 1.048, "type": "fix", "what": "첫 문서", "given": "없음", "used": "마데이라"}
+{"t": 1.722, "type": "read", "sec": 0, "doc": "마데이라", "chars": 9739, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 2.576, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "고아", "forced": false}
+{"t": 3.382, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 4.455, "type": "pick", "sec": 0, "cand": 35, "frontier": true, "chose": "수라트", "forced": false}
+{"t": 6.726, "type": "read", "sec": 0, "doc": "수라트", "chars": 12877, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 7.446, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "뭄바이", "forced": false}
+{"t": 8.171, "type": "read", "sec": 0, "doc": "뭄바이", "chars": 10012, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 9.151, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "코친", "forced": false}
+{"t": 13.406, "type": "read", "sec": 0, "doc": "코친", "chars": 8993, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.324, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "콜롬보", "forced": false}
+{"t": 18.265, "type": "read", "sec": 0, "doc": "콜롬보", "chars": 6048, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 19.058, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "마드라스", "forced": false}
+{"t": 19.795, "type": "read", "sec": 0, "doc": "마드라스", "chars": 4265, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 20.765, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "콜람", "forced": false}
+{"t": 28.749, "type": "read", "sec": 0, "doc": "콜람", "chars": 9667, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 29.395, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": null, "forced": true}
+{"t": 30.292, "type": "read", "sec": 0, "doc": "칸누르", "chars": 9444, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 60.172, "type": "recite", "sec": 0, "before": "3/23", "after": "19/23", "kept": "새 원고", "round": 1}
+{"t": 60.173, "type": "write", "sec": 0, "chars": 1357, "cites": 19, "enough": true, "gap": "", "round": 1}
+{"t": 60.173, "type": "evaluate", "metrics": {"문장수": 23, "근거율": 82.6, "허위인용": [], "엉뚱한인용": [], "읽은문서": 9, "읽고안쓴": ["고아", "마데이라", "마드라스", "뭄바이", "칸누르"], "편중": 31.6, "중복률": 0.0, "인용수": 19, "보고서자수": 1357, "격리율": 100.0, "LLM호출": 20, "원": 9.31}, "alarms": []}
+{"t": 60.173, "type": "run_end", "seconds": 60.2, "calls": 20, "won": 9.31, "tok_in": 34272, "tok_out": 2520}

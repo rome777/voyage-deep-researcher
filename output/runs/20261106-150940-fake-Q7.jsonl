@@ -1,0 +1,13 @@
+{"t": 0.0, "type": "run_start", "run_id": "20261106-150940-fake-Q7", "qid": "Q7", "question": "은은 포토시에서 어떤 길로 아시아까지 갔나?", "mode": "fake", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 0.008, "type": "plan", "title": "은은 포토시에서 어떤 길로 아시아까지 갔나?", "toc": [{"절": "중남미의 거점", "지시": "중남미에서 질문과 관련된 항구를 정리한다", "역할": "항로 담당", "시작문서": "포토시", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": true}}
+{"t": 0.009, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 0.01, "type": "read", "sec": 0, "doc": "포토시", "chars": 11046, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 0.01, "type": "pick", "sec": 0, "cand": 4, "frontier": true, "chose": "부에노스아이레스"}
+{"t": 0.01, "type": "read", "sec": 0, "doc": "부에노스아이레스", "chars": 12804, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.011, "type": "pick", "sec": 0, "cand": 23, "frontier": true, "chose": "광저우"}
+{"t": 0.011, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.012, "type": "write", "sec": 0, "chars": 292, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.012, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 0.012, "type": "synth", "chars": 386, "sections": 1}
+{"t": 0.013, "type": "evaluate", "metrics": {"문장수": 6, "근거율": 50.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": [], "편중": 33.3, "중복률": 0.0, "인용수": 3, "보고서자수": 386, "격리율": 42.7, "LLM호출": 8, "원": 0.0}, "alarms": []}
+{"t": 0.014, "type": "run_end", "seconds": 0.0, "calls": 8, "won": 0.0, "tok_in": 25488, "tok_out": 1600}

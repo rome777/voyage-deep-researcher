@@ -1,0 +1,16 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164213-live-Q6-single", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 6, "sections": 1, "reference": "20261106-163700-live-Q6"}
+{"t": 10.625, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 11.582, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": null, "forced": true}
+{"t": 12.432, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 13.304, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": "반다 제도", "forced": false}
+{"t": 18.031, "type": "read", "sec": 0, "doc": "반다 제도", "chars": 14160, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 18.825, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": null, "forced": true}
+{"t": 19.685, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 20.364, "type": "pick", "sec": 0, "cand": 42, "frontier": true, "chose": null, "forced": true}
+{"t": 21.147, "type": "read", "sec": 0, "doc": "뭄바이", "chars": 10012, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 22.118, "type": "pick", "sec": 0, "cand": 41, "frontier": true, "chose": null, "forced": true}
+{"t": 25.254, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 52.757, "type": "recite", "sec": 0, "before": "3/17", "after": "14/14", "kept": "새 원고", "round": 1}
+{"t": 52.758, "type": "write", "sec": 0, "chars": 995, "cites": 15, "enough": true, "gap": "", "round": 1}
+{"t": 52.758, "type": "evaluate", "metrics": {"문장수": 14, "근거율": 100.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["고아", "광저우", "뭄바이"], "편중": 40.0, "중복률": 0.0, "인용수": 15, "보고서자수": 995, "격리율": 100.0, "LLM호출": 14, "원": 4.76}, "alarms": []}
+{"t": 52.758, "type": "run_end", "seconds": 52.8, "calls": 14, "won": 4.76, "tok_in": 24429, "tok_cached": 18560, "tok_out": 1880}

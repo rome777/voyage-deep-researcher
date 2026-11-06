@@ -1,0 +1,42 @@
+{"t": 0.0, "type": "run_start", "run_id": "20261106-163622-fake-Q6-off-assign", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "fake", "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 0.019, "type": "plan", "title": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "toc": [{"절": "유럽의 거점", "지시": "유럽에서 질문과 관련된 항구를 정리한다", "역할": "항로 담당", "시작문서": "", "예산": 3}, {"절": "인도양의 거점", "지시": "인도양에서 질문과 관련된 항구를 정리한다", "역할": "시간순 담당", "시작문서": "", "예산": 3}, {"절": "중남미의 거점", "지시": "중남미에서 질문과 관련된 항구를 정리한다", "역할": "원인 담당", "시작문서": "", "예산": 3}, {"절": "동남아시아의 거점", "지시": "동남아시아에서 질문과 관련된 항구를 정리한다", "역할": "인물 담당", "시작문서": "", "예산": 3}, {"절": "카리브해의 거점", "지시": "카리브해에서 질문과 관련된 항구를 정리한다", "역할": "비교 담당", "시작문서": "", "예산": 3}], "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}}
+{"t": 0.021, "type": "dispatch", "round": 1, "sections": [0, 1, 2, 3, 4]}
+{"t": 0.024, "type": "pick", "sec": 0, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 0.027, "type": "pick", "sec": 1, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 0.028, "type": "read", "sec": 0, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.028, "type": "pick", "sec": 2, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 0.029, "type": "pick", "sec": 3, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 0.03, "type": "read", "sec": 1, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.03, "type": "pick", "sec": 4, "cand": 134, "frontier": false, "chose": "리스본"}
+{"t": 0.03, "type": "pick", "sec": 0, "cand": 21, "frontier": true, "chose": "런던"}
+{"t": 0.032, "type": "read", "sec": 2, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.035, "type": "read", "sec": 3, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.035, "type": "pick", "sec": 1, "cand": 21, "frontier": true, "chose": "런던"}
+{"t": 0.037, "type": "read", "sec": 4, "doc": "리스본", "chars": 18154, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.038, "type": "read", "sec": 0, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.039, "type": "pick", "sec": 2, "cand": 21, "frontier": true, "chose": "런던"}
+{"t": 0.042, "type": "pick", "sec": 3, "cand": 21, "frontier": true, "chose": "런던"}
+{"t": 0.045, "type": "read", "sec": 1, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.045, "type": "pick", "sec": 4, "cand": 21, "frontier": true, "chose": "런던"}
+{"t": 0.046, "type": "pick", "sec": 0, "cand": 27, "frontier": true, "chose": "광저우"}
+{"t": 0.048, "type": "read", "sec": 2, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.051, "type": "read", "sec": 3, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.051, "type": "pick", "sec": 1, "cand": 27, "frontier": true, "chose": "광저우"}
+{"t": 0.053, "type": "read", "sec": 4, "doc": "런던", "chars": 10782, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.054, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.055, "type": "pick", "sec": 2, "cand": 27, "frontier": true, "chose": "광저우"}
+{"t": 0.055, "type": "pick", "sec": 3, "cand": 27, "frontier": true, "chose": "광저우"}
+{"t": 0.057, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.058, "type": "pick", "sec": 4, "cand": 27, "frontier": true, "chose": "광저우"}
+{"t": 0.058, "type": "write", "sec": 0, "chars": 286, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.06, "type": "read", "sec": 2, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.061, "type": "read", "sec": 3, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.062, "type": "write", "sec": 1, "chars": 286, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.064, "type": "read", "sec": 4, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 0.066, "type": "write", "sec": 2, "chars": 286, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.067, "type": "write", "sec": 3, "chars": 286, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.071, "type": "write", "sec": 4, "chars": 286, "cites": 3, "enough": true, "gap": "", "round": 1}
+{"t": 0.075, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 0.077, "type": "synth", "chars": 1590, "sections": 5}
+{"t": 0.078, "type": "evaluate", "metrics": {"문장수": 22, "근거율": 68.2, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": [], "편중": 33.3, "중복률": 80.0, "인용수": 15, "보고서자수": 1590, "격리율": 7.5, "LLM호출": 37, "원": 0.0}, "alarms": []}
+{"t": 0.081, "type": "run_end", "seconds": 0.1, "calls": 37, "won": 0.0, "tok_in": 89299, "tok_cached": 0, "tok_out": 7400}

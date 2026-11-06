@@ -1,0 +1,13 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-164114-live-Q6-off-redelegate", "qid": "Q6", "question": "향신료는 어떤 항구들을 거쳐 유럽까지 왔나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}, "sections": 5, "budget": 3}
+{"t": 2.034, "type": "plan", "title": "향신료의 유럽 도착 항구", "toc": [{"절": "향신료의 주요 항구", "지시": "향신료가 유럽에 도달하기 위해 거쳐간 주요 항구들을 정리한다.", "역할": "항로 담당", "시작문서": "말루쿠 제도", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}}
+{"t": 2.049, "type": "dispatch", "round": 1, "sections": [0]}
+{"t": 2.869, "type": "read", "sec": 0, "doc": "말루쿠 제도", "chars": 7188, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 3.578, "type": "pick", "sec": 0, "cand": 32, "frontier": true, "chose": "고아"}
+{"t": 4.277, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 5.186, "type": "pick", "sec": 0, "cand": 31, "frontier": true, "chose": "마카사르"}
+{"t": 10.069, "type": "read", "sec": 0, "doc": "마카사르", "chars": 7521, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 17.195, "type": "write", "sec": 0, "chars": 469, "cites": 7, "enough": false, "gap": "여섯 문장 이상 열두 문장 이하, 600자 이상", "round": 1}
+{"t": 17.197, "type": "review", "gaps": [], "reason": "재위임 꺼짐", "round": 1}
+{"t": 20.245, "type": "synth", "chars": 704, "sections": 1}
+{"t": 20.247, "type": "evaluate", "metrics": {"문장수": 13, "근거율": 53.8, "허위인용": [], "엉뚱한인용": [], "읽은문서": 3, "읽고안쓴": ["고아", "말루쿠 제도"], "편중": 100.0, "중복률": 0.0, "인용수": 7, "보고서자수": 704, "격리율": 46.1, "LLM호출": 8, "원": 2.18}, "alarms": []}
+{"t": 20.249, "type": "run_end", "seconds": 20.2, "calls": 8, "won": 2.18, "tok_in": 12614, "tok_cached": 10880, "tok_out": 796}

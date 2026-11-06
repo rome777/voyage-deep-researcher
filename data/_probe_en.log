@@ -1,0 +1,72 @@
+  ✓ Lisbon: 63,642자 · 역사 18,216자
+  ✓ Seville: 66,970자 · 역사 16,625자
+  ✓ Cádiz: 39,056자 · 역사 9,722자
+  ✓ Palos de la Frontera: 6,758자 · 역사 5,312자
+  ✓ Amsterdam: 86,469자 · 역사 16,198자
+  ✓ Antwerp: 49,556자 · 역사 10,961자
+  ✓ Venice: 81,547자 · 역사 15,864자
+  ✓ Genoa: 76,874자 · 역사 14,555자
+  ✓ Ceuta: 34,630자 · 역사 13,920자
+  ✓ Madeira: 43,025자 · 역사 9,823자
+  ✓ Canary Islands: 68,586자 · 역사 20,543자
+  ✓ Azores: 52,333자 · 역사 12,658자
+  ✓ Cape Verde: 45,080자 · 역사 4,101자
+  ✓ Elmina: 11,519자 · 역사 4,546자
+  ✓ São Tomé and Príncipe: 43,713자 · 역사 13,980자
+  ✓ Luanda: 20,793자 · 역사 5,559자
+  ✓ Cape of Good Hope: 19,548자 · 역사 9,394자
+  ✓ Island of Mozambique: 4,137자 · 역사 1,931자
+  ✓ Sofala: 8,011자 · 역사 6,406자
+  ✓ Mombasa: 36,736자 · 역사 8,423자
+  ✓ Malindi: 10,960자 · 역사 6,561자
+  ✓ Zanzibar: 50,812자 · 역사 14,457자
+  ✓ Hormuz Island: 6,627자 · 역사 2,463자
+  ✓ Aden: 60,282자 · 역사 30,596자
+  ✓ Kozhikode: 31,996자 · 역사 9,713자
+  ✓ Goa: 58,639자 · 역사 6,102자
+  ✓ Kochi: 56,632자 · 역사 8,997자
+  ✓ Colombo: 35,120자 · 역사 6,091자
+  ✓ Malacca City: 33,751자 · 역사 13,432자
+  ✓ Maluku Islands: 19,941자 · 역사 7,239자
+  ✓ Banda Islands: 20,954자 · 역사 14,239자
+  ✓ Ternate: 25,641자 · 역사 11,095자
+  ✓ Jakarta: 38,463자 · 역사 6,010자
+  ✓ Manila: 91,839자 · 역사 30,221자
+  ✓ Cebu: 40,726자 · 역사 11,341자
+  ✓ Macau: 41,532자 · 역사 8,231자
+  ✓ Guangzhou: 63,897자 · 역사 17,928자
+  ✓ Nagasaki: 22,388자 · 역사 14,440자
+  ✓ Hirado, Nagasaki: 10,018자 · 역사 3,262자
+  ✓ Guam: 45,188자 · 역사 10,661자
+  ✓ San Salvador Island: 9,554자 · 역사 3,425자
+  ✓ Hispaniola: 48,310자 · 역사 19,782자
+  ✓ Santo Domingo: 37,929자 · 역사 7,113자
+  ✓ Havana: 65,839자 · 역사 11,303자
+  ✓ Veracruz (city): 36,871자 · 역사 9,092자
+  ✓ Mexico City: 84,515자 · 역사 15,738자
+  ✓ Acapulco: 39,574자 · 역사 12,758자
+  ✓ Panama City: 25,677자 · 역사 4,802자
+  ✓ Cartagena, Colombia: 48,468자 · 역사 17,916자
+  ✓ Potosí: 20,334자 · 역사 11,096자
+  ✓ Cusco: 38,880자 · 역사 12,241자
+  ✓ Lima: 82,993자 · 역사 17,860자
+  ✓ Salvador, Bahia: 56,254자 · 역사 7,037자
+  ✓ Rio de Janeiro: 92,322자 · 역사 10,734자
+  ✓ Strait of Magellan: 31,811자 · 역사 17,613자
+{
+ "문서수": 55,
+ "3000자이상": 55,
+ "총글자": 2343720,
+ "총토큰_o200k": 515139,
+ "역사절_총글자": 630326,
+ "링크수_중앙값": 4,
+ "링크0개": [
+  "Elmina",
+  "Island of Mozambique",
+  "Hormuz Island",
+  "Goa",
+  "San Salvador Island"
+ ],
+ "좌표없음": [],
+ "없는후보": []
+}

@@ -1,0 +1,14 @@
+{"t": 0.002, "type": "run_start", "run_id": "20261106-163504-live-Q4-single", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "agent": "단일 에이전트", "budget": 6, "sections": 2, "reference": "20261106-162522-live-Q4"}
+{"t": 0.87, "type": "fix", "what": "첫 문서", "given": "목록의 한국어 지명", "used": null}
+{"t": 0.871, "type": "fix", "what": "첫 문서", "given": "없음", "used": "마데이라"}
+{"t": 1.983, "type": "read", "sec": 0, "doc": "마데이라", "chars": 9739, "assigned": true, "round": 1, "irrelevant": true}
+{"t": 2.927, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "고아", "forced": false}
+{"t": 3.636, "type": "read", "sec": 0, "doc": "고아", "chars": 6060, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 4.711, "type": "pick", "sec": 0, "cand": 35, "frontier": true, "chose": "수라트", "forced": false}
+{"t": 6.953, "type": "read", "sec": 0, "doc": "수라트", "chars": 12877, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 7.91, "type": "pick", "sec": 0, "cand": 36, "frontier": true, "chose": "뭄바이", "forced": false}
+{"t": 8.56, "type": "read", "sec": 0, "doc": "뭄바이", "chars": 10012, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 9.397, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "코친", "forced": false}
+{"t": 13.454, "type": "read", "sec": 0, "doc": "코친", "chars": 8993, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 14.228, "type": "pick", "sec": 0, "cand": 44, "frontier": true, "chose": "콜롬보", "forced": false}
+{"t": 17.305, "type": "read", "sec": 0, "doc": "콜롬보", "chars": 6048, "assigned": false, "round": 1, "irrelevant": false}

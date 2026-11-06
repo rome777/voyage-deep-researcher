@@ -1,0 +1,1247 @@
+<meta charset="utf-8">
+<title>대항해 리서치 해도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Sans+KR:wght@400;600&display=swap">
+<style>
+/* 레이아웃: 위 단계 막대 / 왼쪽 함대 목록 · 가운데 세계 해도 · 오른쪽 질문·지표·항해 일지. 좁으면 해도 → 함대 → 질문 순으로 쌓는다.
+   전략 게임 상황판 같은 어두운 청록 패널에 금색 테두리, 해도는 양피지 육지 위에 명조 지명. 한 가지 어두운 톤으로 고정. */
+:root{
+  --bg:#0c1215; --panel:#142027; --panel2:#1b2b33; --inset:#0f181d;
+  --gold:#c9a45c; --gold-dim:#6f5d3b; --fg:#efe6d2; --muted:#a59c88;
+  --danger:#e8573f; --ok:#86c97c; --paper:#f3e9cf; --ink:#2b2013;
+  --f-serif:'Nanum Myeongjo','Batang',serif;
+  --f-body:'IBM Plex Sans KR',system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  color-scheme:dark;
+}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+button,input{font:inherit;color:inherit}
+.app{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr);height:clamp(660px,calc(100vh - 32px),940px);border:1px solid var(--gold-dim);border-radius:6px;overflow:hidden;background:var(--panel);box-shadow:0 0 0 3px #080c0e,0 0 0 4px var(--gold-dim)}
+.topbar{grid-column:1/-1;display:flex;align-items:center;gap:10px 18px;flex-wrap:wrap;padding:8px 14px;background:linear-gradient(#1e3039,#132028);border-bottom:1px solid var(--gold-dim)}
+.crest{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(#3a5664,#1a2a31);border:1px solid var(--gold);color:var(--gold);font-size:18px}
+.ttl b{font-family:var(--f-serif);font-weight:800;font-size:19px;letter-spacing:.02em}
+.stages{display:flex;gap:4px;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+.stages li{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid #2f434c;color:var(--muted);white-space:nowrap}
+.stages li.done{color:var(--fg);border-color:#43575f}
+.stages li.now{background:var(--gold);border-color:var(--gold);color:#17120a;font-weight:700}
+.res{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.res div{display:flex;gap:6px;align-items:baseline;background:var(--inset);border:1px solid #2b3d46;border-radius:4px;padding:4px 9px;font-size:12px;color:var(--muted)}
+.res b{color:var(--fg);font-size:14px;font-variant-numeric:tabular-nums}
+.side{background:linear-gradient(#152229,#101a1f);overflow-y:auto;min-width:0;display:flex;flex-direction:column}
+.outliner{border-right:1px solid var(--gold-dim)}
+.panel{border-left:1px solid var(--gold-dim)}
+h2{font-family:var(--f-serif);font-weight:800;font-size:13px;color:var(--gold);letter-spacing:.08em;margin:0;padding:9px 12px 7px;display:flex;align-items:center;gap:8px}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent)}
+.box{padding:0 12px 12px}
+.fleets{display:grid;gap:8px;padding:0 10px 12px}
+.fleet{background:var(--panel2);border:1px solid #2c3f48;border-left:4px solid var(--c);border-radius:4px;padding:8px 9px;cursor:pointer;display:grid;gap:4px;text-align:left}
+.fleet:hover{border-color:var(--gold-dim);border-left-color:var(--c)}
+.fleet .row{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.fleet b{font-family:var(--f-serif);font-size:14px}
+.fleet .sec{font-size:12.5px;line-height:1.35}
+.fleet small{color:var(--muted);font-size:11.5px;line-height:1.4}
+.st{font-size:11px;padding:1px 7px;border-radius:999px;border:1px solid #3b5059;color:var(--muted);white-space:nowrap}
+.st.run{color:var(--gold);border-color:var(--gold)} .st.ok{color:var(--ok);border-color:var(--ok)} .st.bad{color:var(--danger);border-color:var(--danger)}
+.cargo{display:flex;flex-wrap:wrap;gap:3px}
+.cargo span{font-size:11px;background:var(--inset);border-radius:3px;padding:1px 6px}
+.cargo span.dup{color:#ffb3a6;outline:1px solid var(--danger)}
+.pips{display:flex;gap:3px}
+.pips i{width:9px;height:9px;border-radius:2px;background:var(--c);opacity:.95}
+.pips i.used{opacity:.22}
+.mapwrap{position:relative;min-width:0;min-height:0;background:#1d4a5e}
+#map{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+#map.drag{cursor:grabbing}
+.ctrl{position:absolute;display:flex;gap:4px;background:rgba(12,20,24,.84);border:1px solid var(--gold-dim);border-radius:5px;padding:4px;align-items:center;z-index:2}
+.ctrl button{background:transparent;border:1px solid transparent;border-radius:3px;min-width:30px;height:28px;cursor:pointer;color:var(--fg);font-size:13px;padding:0 6px}
+.ctrl button:hover{border-color:var(--gold-dim)}
+.ctrl button[aria-pressed="true"]{background:var(--gold);color:#17120a;font-weight:700}
+.ctrl label{font-size:12px;display:flex;gap:5px;align-items:center;padding:0 6px;cursor:pointer;white-space:nowrap}
+.speed{left:calc(10px + env(safe-area-inset-left,0px));bottom:10px}
+.zoom{right:10px;bottom:10px}
+.layers{left:10px;top:10px;flex-wrap:wrap;max-width:calc(100% - 20px)}
+.tip{position:absolute;pointer-events:none;background:rgba(20,16,10,.95);border:1px solid var(--gold);border-radius:4px;padding:8px 10px;font-size:12px;line-height:1.5;max-width:270px;z-index:3}
+.tip b{font-family:var(--f-serif);font-size:15px;display:block}
+.tip span{color:var(--muted)}
+.event{position:absolute;top:52px;left:50%;transform:translateX(-50%);width:min(390px,calc(100% - 24px));background:linear-gradient(#2a2216,#1c160d);border:1px solid var(--gold);outline:3px double rgba(201,164,92,.35);outline-offset:-7px;border-radius:4px;padding:12px 16px 13px;z-index:4;box-shadow:0 8px 30px rgba(0,0,0,.55)}
+.event b{display:block;font-family:var(--f-serif);font-weight:800;font-size:17px;color:var(--gold);margin-bottom:4px}
+.event p{margin:0;font-size:13px;line-height:1.55}
+.event.alarm{border-color:var(--danger);background:linear-gradient(#3a1a14,#21100c)}
+.event.alarm b{color:#ff8a73}
+.doc{position:absolute;inset:48px 12px 52px;z-index:5;background:var(--paper);color:var(--ink);border:1px solid #8d7445;outline:4px double rgba(120,90,40,.45);outline-offset:-10px;border-radius:3px;box-shadow:0 14px 40px rgba(0,0,0,.6);overflow-y:auto;padding:26px clamp(18px,4vw,44px) 30px}
+.doc header{display:flex;justify-content:space-between;gap:12px;align-items:start;border-bottom:1px solid #b9a172;padding-bottom:10px;margin-bottom:14px}
+.doc h3{font-family:var(--f-serif);font-weight:800;font-size:clamp(18px,2.2vw,24px);margin:0;line-height:1.35;text-wrap:balance}
+.doc .meta{font-size:12px;color:#6a5a3c;margin-top:4px}
+.doc button.close{background:#2b2013;color:var(--paper);border:0;border-radius:3px;padding:6px 12px;cursor:pointer;font-size:12.5px;white-space:nowrap}
+.doc section{margin:0 0 18px;max-width:78ch}
+.doc h4{font-family:var(--f-serif);font-weight:800;font-size:16px;margin:0 0 2px;display:flex;gap:8px;align-items:center}
+.doc h4 i{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.doc .who{font-size:12px;color:#6a5a3c;margin-bottom:6px}
+.doc p{margin:0 0 7px;font-size:13.5px;line-height:1.65}
+.doc p q{font-style:italic;quotes:none;color:#3d301c}
+.doc p .cite{font-weight:700}
+/* 본문 속 근거 문서 이름: 글 흐름을 끊지 않게 작고 흐리게, 줄 가운데 높이에 */
+.doc p .cite.in{font-weight:500;font-size:.72em;color:#9b8a66;vertical-align:middle;margin:0 1px;letter-spacing:-.01em;white-space:nowrap}
+.doc p .cite.in.unread{color:#b8361f;background:#f7d4c8;border-radius:2px;padding:0 2px}
+.doc p.fake{background:#f7d4c8;border-left:3px solid #b8361f;padding:4px 8px}
+.doc p.unused{color:#8a7a5c}
+.doc .notice{font-size:12px;color:#6a5a3c;background:#eadcb7;border-radius:3px;padding:8px 10px;margin-bottom:16px;line-height:1.55;max-width:78ch}
+form.ask{display:flex;gap:6px}
+form.ask input{flex:1;min-width:0;background:var(--inset);border:1px solid #33464f;border-radius:4px;padding:8px 9px;font-size:13px}
+form.ask input:focus-visible,.ctrl button:focus-visible,.preset:focus-visible,.fleet:focus-visible,.tog input:focus-visible,.doc button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+form.ask button{background:var(--gold);color:#17120a;border:0;border-radius:4px;padding:0 12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.presets{display:grid;gap:5px;margin-top:8px}
+.preset{background:var(--panel2);border:1px solid #2c3f48;border-radius:4px;padding:6px 8px;text-align:left;cursor:pointer;font-size:12.5px;line-height:1.4;display:flex;gap:7px;align-items:baseline}
+.preset:hover{border-color:var(--gold-dim)}
+.preset em{font-style:normal;font-size:10.5px;color:#17120a;background:var(--gold);border-radius:3px;padding:0 5px;flex:0 0 auto}
+.preset small{margin-left:auto;font-size:10.5px;color:var(--muted);white-space:nowrap;padding-left:6px}
+.preset.off{opacity:.55}
+.preset[aria-pressed="true"]{border-color:var(--gold);background:var(--inset)}
+.runs{display:grid;gap:4px;margin-top:8px}
+.runbtn{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 8px;text-align:left;background:var(--inset);border:1px solid #2c3f48;border-radius:4px;padding:5px 8px;cursor:pointer;font-size:12px;line-height:1.45;color:var(--fg);font-family:inherit}
+.runbtn b{color:var(--gold);font-weight:700;grid-row:span 2;align-self:center;min-width:5.5em}
+.runbtn span{color:var(--muted)}
+.runbtn:hover{border-color:var(--gold-dim)}
+.runbtn[aria-pressed="true"]{border-color:var(--gold);background:var(--panel2)}
+.runbtn.go{display:block;background:var(--gold);color:#17120a;font-weight:700;border:0;text-align:center}
+.note.live{margin-top:6px}
+form.ask input:disabled,form.ask button:disabled{opacity:.5;cursor:not-allowed}
+.runbtn:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.judge{margin:9px 0 0;font-size:12px;line-height:1.5;color:var(--muted);background:var(--inset);border-left:3px solid var(--gold-dim);padding:6px 8px}
+.judge b{color:var(--fg)}
+.tog{display:flex;gap:6px;align-items:center;font-size:12.5px;margin-top:6px;cursor:pointer}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.m{background:var(--inset);border:1px solid #26363e;border-radius:4px;padding:6px 7px;display:grid;gap:1px}
+.m b{font-size:16px;font-variant-numeric:tabular-nums}
+.m span{font-size:11px}
+.m i{font-style:normal;font-size:10px;color:var(--muted)}
+.m.alarm b{color:var(--danger)} .m.good b{color:var(--ok)}
+.log{font-size:12px;line-height:1.55;font-variant-numeric:tabular-nums;padding:0 12px 12px;overflow-y:auto;flex:1;min-height:120px}
+.log div{border-bottom:1px solid #1f2d34;padding:2px 0}
+.log .k{color:var(--gold)} .log .w{color:#ff9b86}
+.below{max-width:1600px;margin:16px auto 0;display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:14px}
+.below .card{background:var(--panel);border:1px solid var(--gold-dim);border-radius:6px;min-width:0}
+.corpus{padding:0 12px 12px;font-size:12.5px;line-height:1.6}
+.corpus dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0 0 8px}
+.corpus dt{color:var(--muted)} .corpus dd{margin:0;font-variant-numeric:tabular-nums}
+.routes{display:grid;gap:8px;padding:0 12px 12px}
+.routes div{font-size:12.5px;line-height:1.55;border-left:3px solid var(--c);padding-left:9px}
+.routes b{font-family:var(--f-serif)}
+.note{color:var(--muted);font-size:12px;line-height:1.55;margin:0}
+.ok-t{color:var(--ok)} .bad-t{color:var(--danger)}
+@media (max-width:1100px){
+  .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto;height:auto}
+  .mapwrap{height:min(66vh,640px);min-height:400px;order:1}
+  .outliner{order:2;border-right:0;border-top:1px solid var(--gold-dim)}
+  .panel{order:3;border-left:0;border-top:1px solid var(--gold-dim)}
+  .log{max-height:260px}
+  .below{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+
+<div class="app">
+  <header class="topbar">
+    <div class="crest" aria-hidden="true">♛</div>
+    <div class="ttl"><b>대항해 리서치 해도</b></div>
+    <ol class="stages" id="stages" aria-label="파이프라인 단계"><li>① 기획</li><li>② 배치</li><li>③ 조사</li><li>④ 점검</li><li>⑤ 종합</li><li>⑥ 평가</li></ol>
+    <div class="res" id="res" aria-live="polite"></div>
+  </header>
+
+  <aside class="side outliner" aria-label="함대">
+    <h2>함대 · 서브에이전트</h2>
+    <div class="fleets" id="fleets"></div>
+  </aside>
+
+  <main class="mapwrap" id="mapwrap">
+    <canvas id="map" role="img" aria-label="세계 해도: 함대가 지명 문서를 찾아 항해하는 모습"></canvas>
+    <div class="tip" id="tip" hidden></div>
+    <div class="event" id="event" hidden></div>
+    <article class="doc" id="doc" hidden aria-label="종합 보고서"></article>
+    <div class="ctrl layers" role="group" aria-label="해도 표시">
+      <label for="showRoutes"><input type="checkbox" id="showRoutes" checked> 역사 항로</label>
+      <label for="showLinks"><input type="checkbox" id="showLinks"> 문서 링크</label>
+      <button type="button" id="openDoc" hidden>📜 보고서</button>
+      <button type="button" id="music" aria-pressed="false" title="곡이 끝나면 다른 곡을 무작위로 이어 틉니다 · Musopen 녹음 (퍼블릭 도메인)">♪ 음악</button>
+      <select id="track" aria-label="곡 고르기" style="background:#0f181d;color:var(--fg);border:1px solid #33464f;border-radius:3px;font-size:12px;padding:2px 4px;max-width:180px"></select>
+      <span id="mstat" aria-live="polite" style="font-size:11px;color:var(--muted);max-width:220px"></span>
+      <input type="range" id="vol" min="0" max="100" value="55" aria-label="음악 음량" style="width:70px">
+    </div>
+    <div class="ctrl speed" role="group" aria-label="진행 속도">
+      <button type="button" data-s="0" aria-label="일시정지">⏸</button>
+      <button type="button" data-s="1" aria-pressed="true">▶</button>
+      <button type="button" data-s="2">▶▶</button>
+      <button type="button" data-s="4">▶▶▶</button>
+    </div>
+    <div class="ctrl zoom" role="group" aria-label="확대">
+      <button type="button" id="zin" aria-label="확대">＋</button>
+      <button type="button" id="zout" aria-label="축소">－</button>
+      <button type="button" id="zfit" aria-label="전체 보기">⟲</button>
+      <button type="button" id="follow" aria-pressed="true" aria-label="함대 따라가기" title="함대 따라가기 — 움직이는 배가 화면 안에 머물게 시점을 천천히 옮깁니다">⛵</button>
+    </div>
+  </main>
+
+  <aside class="side panel" aria-label="질문과 지표">
+    <h2 id="hqTitle">질문 · 왕실 항해 위원회</h2>
+    <div class="box">
+      <form class="ask" id="askform">
+        <input id="ask" name="ask" type="text" aria-label="새 질문" placeholder="새 질문" autocomplete="off" maxlength="200">
+        <button type="submit" id="askBtn">출항 명령</button>
+      </form>
+      <p class="note live" id="liveNote"></p>
+      <div class="presets" id="qlist" aria-label="질문 고르기"></div>
+      <div class="runs" id="runlist" aria-label="실행 기록 고르기"></div>
+      <p class="judge" id="judge"></p>
+    </div>
+    <h2>평가 지표</h2>
+    <div class="box"><div class="metrics" id="metrics"></div></div>
+    <h2>항해 일지</h2>
+    <div class="log" id="log" aria-live="polite"></div>
+  </aside>
+</div>
+
+<section class="below">
+  <div class="card"><h2>역사 항로 · 무엇을 근거로 그렸나</h2><div class="routes" id="routes"></div></div>
+  <div class="card"><h2>코퍼스 · 지명 문서</h2><div class="corpus" id="corpus"></div></div>
+</section>
+
+<script>
+(() => {
+'use strict';
+const DATA = __DATA__;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ro = w => { const ch = w.charCodeAt(w.length - 1) - 0xAC00; if (ch < 0 || ch > 11171) return '로'; const j = ch % 28; return j === 0 || j === 8 ? '로' : '으로'; };
+const RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const R2D = Math.PI/180;
+const km = (a, b) => { const dl = ((b[0] - a[0] + 540) % 360 - 180)*R2D, p1 = a[1]*R2D, p2 = b[1]*R2D; return 6371*2*Math.asin(Math.min(1, Math.sqrt(Math.sin((p2 - p1)/2)**2 + Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2))); };
+
+/* ───────── 지명 · 권역 · 묶음 ───────── */
+const REGION = DATA.regions, GROUP = DATA.groups;
+const PLACES = DATA.places, P = new Map(PLACES.map(p => [p.id, p]));
+// 나라별 본부·출항 거점·관련 항구. 질문에 나라가 나오면 그 나라 본부가 코디네이터가 되고 그 나라 거점에서 출항한다.
+const NATIONS = {
+  pt:{name:'포르투갈', re:/포르투갈/, hq:'리스본', board:'왕실 항해 위원회', bases:['리스본','엘미나','루안다','모잠비크섬','고아','믈라카','마카오','사우바도르'],
+      ports:['리스본','포르투','라고스','사그레스','세우타','탕헤르','마데이라','아소르스 제도','카보베르데','아르갱','카셰우','엘미나','상투메','음반자콩고','루안다','벵겔라','모잠비크섬','소팔라','킬와','몸바사','말린디','잔지바르','호르무즈','무스카트','소코트라','디우','고아','칸누르','캘리컷','코친','콜람','콜롬보','나가파티남','후글리','치타공','믈라카','테르나테','딜리','마카오','나가사키','사우바도르','레시피','리우데자네이루','상비센치','페르난두지노로냐']},
+  es:{name:'스페인', re:/스페인|에스파냐/, hq:'세비야', board:'통상원(카사 데 콘트라타시온)', bases:['세비야','아바나','카르타헤나','리마','마닐라'],
+      ports:['세비야','카디스','산루카르데바라메다','팔로스','카나리아 제도','산살바도르섬','히스파니올라','산토도밍고','아바나','산티아고데쿠바','산후안','세인트오거스틴','카르타헤나','포르토벨로','파나마','쿠마나','베라크루스','멕시코시티','아카풀코','보고타','키토','과야킬','카하마르카','리마','쿠스코','포토시','부에노스아이레스','아순시온','발파라이소','마젤란 해협','마닐라','세부','막탄섬','괌','티도레']},
+  nl:{name:'네덜란드', re:/네덜란드|VOC|동인도 회사/, hq:'암스테르담', board:'VOC 17인 위원회', bases:['암스테르담','희망봉','바타비아','갈레','질란디아 요새','퀴라소'],
+      ports:['암스테르담','미델뷔르흐','바타비아','암본','반다 제도','테르나테','말루쿠 제도','마카사르','믈라카','갈레','콜롬보','나가파티남','질란디아 요새','히라도','나가사키','희망봉','모리셔스','엘미나','퀴라소','뉴암스테르담','레시피','아유타야','후글리']},
+  en:{name:'영국', re:/영국|잉글랜드/, hq:'런던', board:'동인도회사 이사회', bases:['런던','세인트헬레나','수라트','마드라스','포트로열','제임스타운'],
+      ports:['런던','브리스틀','플리머스','수라트','뭄바이','마드라스','치타공','히라도','세인트헬레나','버뮤다','제임스타운','포트로열','세인트존스']},
+  fr:{name:'프랑스', re:/프랑스/, hq:'생말로', board:'프랑스 동인도회사', bases:['생말로','고레섬','모리셔스','퀘벡'],
+      ports:['생말로','라로셸','퀘벡','모리셔스','고레섬']},
+};
+for (const n of Object.values(NATIONS)){ n.bases = n.bases.filter(id => P.has(id)); n.ports = new Set(n.ports.filter(id => P.has(id))); }
+const ALL_BASES = new Set(Object.values(NATIONS).flatMap(n => n.bases));
+const nationOfBase = id => Object.keys(NATIONS).find(k => NATIONS[k].bases.includes(id)) || 'pt';
+let HQ = '리스본', BASES = [...NATIONS.pt.bases, ...NATIONS.es.bases];
+const ALIAS = {'말라카':'믈라카','멜라카':'믈라카','코지코드':'캘리컷','코치':'코친','자카르타':'바타비아','테노치티틀란':'멕시코시티','몰루카':'말루쿠 제도','향료 제도':'말루쿠 제도','호르무즈섬':'호르무즈','팔로스데라프론테라':'팔로스','아조레스':'아소르스 제도','카나리아':'카나리아 제도','상투메 프린시페':'상투메','파나마시티':'파나마','첸나이':'마드라스','모잠비크':'모잠비크섬','마젤란':'마젤란 해협','세부섬':'세부','히스파니올라섬':'히스파니올라','테르나테섬':'테르나테','타이완':'질란디아 요새','대만':'질란디아 요새','뉴욕':'뉴암스테르담','혼 곶':'혼곶','페구':'바고','시암':'아유타야','아체':'반다아체','막탄':'막탄섬','브리스톨':'브리스틀','봄베이':'뭄바이','실론':'콜롬보','킬와 키시와니':'킬와','콩고':'음반자콩고','베냉':'베냉시티','쿠바':'아바나','멕시코':'멕시코시티'};
+for (const p of PLACES) ALIAS[p.name] = p.id;
+const KEYWORDS = [
+  [/향신료|후추|정향|육두구|계피/, ['sea','india','europe'], '향신료'],
+  [/(^|\s)은(은|이|을|의)?(\s|$)|은광|은화/, ['americas','east_asia','sea'], '은'],
+  [/설탕|사탕수수/, ['atlantic','americas','caribbean'], '설탕'],
+  [/노예/, ['w_africa','atlantic','caribbean','americas'], '노예 무역'],
+  [/선교|예수회|가톨릭/, ['india','east_asia','sea'], '선교'],
+  [/서아프리카|기니|황금 해안/, ['w_africa'], ''],
+  [/동아프리카|스와힐리/, ['e_africa'], ''],
+  [/아프리카/, ['w_africa','e_africa'], ''],
+  [/인도양|인도 항로|인도/, ['e_africa','india'], ''],
+  [/동남아|향료 제도|필리핀/, ['sea'], ''],
+  [/중국|일본|명나라|동아시아/, ['east_asia'], ''],
+  [/아시아/, ['india','sea','east_asia'], ''],
+  [/카리브|서인도/, ['caribbean'], ''],
+  [/북아메리카|북미|버지니아|캐나다|뉴잉글랜드/, ['n_america'], ''],
+  [/아메리카|신대륙|잉카|아즈텍|남미|브라질/, ['caribbean','americas'], ''],
+  [/대서양/, ['atlantic','w_africa'], ''],
+  [/태평양|갈레온/, ['americas','east_asia'], '갈레온'],
+];
+const COLORS = ['#e8643f','#4fb3e8','#e8c547','#7fd07a','#c58ff0'];
+const SHIPS = ['갈매기호','돌고래호','북극성호','순풍호','바다제비호'];
+const ROLES = ['시간순 담당','원인 담당','비교 담당','큰그림 담당','인물 담당'];
+
+/* ───────── 지형 (손으로 단순화한 윤곽 · 위경도) ───────── */
+const BIOMES = [
+  ['ice', [[-180,-62],[180,-62],[180,-90],[-180,-90]]],
+  ['ice', [[-52,61],[-42,60],[-32,66],[-22,70],[-19,77],[-30,83],[-55,82],[-64,78],[-56,74],[-54,67]]],
+  ['tundra', [[-170,62],[-140,60],[-95,58],[-80,55],[-62,56],[-55,60],[-70,62],[-90,65],[-120,68],[-160,70],[-170,66]]],
+  ['tundra', [[-180,64],[180,64],[180,84],[-180,84]]],
+  ['tundra', [[28,66],[60,64],[100,64],[140,62],[180,62],[180,66],[28,70]]],
+  ['taiga', [[-150,58],[-120,58],[-95,55],[-75,50],[-60,52],[-70,58],[-100,62],[-140,64]]],
+  ['taiga', [[25,58],[60,56],[90,54],[120,52],[140,52],[160,58],[150,64],[100,64],[60,64],[28,64]]],
+  ['desert', [[-17,21],[-14,28],[-8,30],[-1,32],[10,31],[20,31],[30,29],[34,28],[35,22],[37,18],[33,15],[22,15],[10,16],[0,16],[-12,17]]],
+  ['desert', [[35,30],[40,32],[48,30],[52,27],[56,24],[59,22],[55,17],[49,15],[44,14],[40,19],[38,24]]],
+  ['desert', [[50,33],[57,36],[62,35],[66,30],[70,29],[73,27],[71,24],[66,25],[60,27],[54,28]]],
+  ['desert', [[52,44],[60,45],[66,43],[72,40],[70,38],[62,38],[55,40]]],
+  ['desert', [[76,40],[88,42],[100,43],[112,44],[115,41],[105,39],[95,38],[82,37]]],
+  ['desert', [[115,-21],[122,-19],[132,-18],[140,-21],[143,-26],[139,-31],[130,-30],[121,-30],[116,-27]]],
+  ['desert', [[12,-17],[20,-18],[25,-20],[26,-25],[21,-29],[16,-28],[14,-23]]],
+  ['desert', [[-71.5,-17],[-69,-17],[-68.5,-27],[-71,-28]]],
+  ['desert', [[-120,37],[-112,37],[-106,33],[-103,29],[-104,24],[-108,25],[-112,29],[-116,32]]],
+  ['steppe', [[-110,52],[-96,52],[-95,40],[-98,30],[-104,31],[-106,40],[-112,48]]],
+  ['steppe', [[30,51],[45,53],[60,53],[78,52],[88,49],[80,46],[66,47],[52,47],[40,46],[32,47]]],
+  ['steppe', [[-17,15],[-5,16],[10,16],[25,15],[35,14],[38,11],[30,10],[15,10],[0,11],[-15,12]]],
+  ['steppe', [[-64,-29],[-57,-30],[-56,-38],[-62,-39],[-66,-35]]],
+  ['steppe', [[-72,-40],[-65,-40],[-65,-47],[-69,-52],[-72,-50]]],
+  ['steppe', [[29,4],[40,5],[42,-3],[39,-10],[33,-17],[24,-16],[22,-9],[26,-3]]],
+  ['steppe', [[-60,-5],[-44,-6],[-40,-12],[-45,-20],[-52,-20],[-57,-16],[-60,-11]]],
+  ['steppe', [[116,-25],[130,-16],[142,-15],[147,-22],[150,-30],[145,-36],[135,-34],[125,-33]]],
+  ['jungle', [[-79,2],[-72,4],[-62,5],[-52,3],[-48,-1],[-49,-6],[-56,-10],[-64,-12],[-72,-11],[-77,-5]]],
+  ['jungle', [[8,5],[16,5],[25,4],[30,2],[30,-3],[27,-7],[19,-7],[13,-5],[9,-1]]],
+  ['jungle', [[-13,9],[-5,7],[3,7],[9,6.5],[9,4],[0,5],[-8,4.5]]],
+  ['jungle', [[-92,18],[-87,16],[-83,14],[-79,9],[-77,7],[-80,7.5],[-85,10],[-90,14]]],
+  ['jungle', [[92,22],[98,20],[104,20],[109,20],[107,12],[104,9],[100,6],[98,10],[94,16]]],
+  ['jungle', [[95,6],[104,2],[110,2],[118,7],[126,8],[135,-1],[148,-5],[150,-8],[141,-9],[131,-8],[120,-9],[108,-8],[100,-3]]],
+  ['jungle', [[72.5,19],[75,13],[77,8.5],[76,11],[74.5,16]]],
+];
+const BIOME_COL = {ice:'#eef0ea', tundra:'#c8cbb4', taiga:'#9fa982', desert:'#e9d39a', steppe:'#d8cc8c', jungle:'#8faa6c'};
+const RIDGES = [
+  [[-76,10],[-73,6],[-77,1],[-79,-5],[-76,-11],[-71,-15],[-68,-20],[-69,-27],[-70,-33],[-71,-40],[-72.5,-47],[-73.5,-52]],
+  [[-140,61],[-131,58],[-124,53],[-118,49],[-113,45],[-110,41],[-106.5,37],[-105.5,33]],
+  [[-108,29],[-105,25],[-103,21],[-99,18.5],[-96,17]],[[-84.5,34],[-81,36.5],[-78,39.5],[-75,41.5],[-72,44]],
+  [[5.8,44.2],[7.5,45.8],[10,46.6],[13,47.1],[15.5,47.3]],[[-1.8,43.1],[3,42.5]],[[9.8,44.3],[12.5,43],[15,41],[16,39]],
+  [[-9,30.5],[-5,32],[0,33.5],[5,35.3],[9,36]],[[38,44],[42,43.2],[46,42],[49,40.8]],
+  [[44,37],[47,34],[50,31.5],[53,29.5],[57,27.5]],[[29,37],[33,37.2],[36.5,37.8]],
+  [[71,36.5],[74,35.5],[78,33],[81,30.5],[84,28.7],[88,27.9],[92,27.8],[95.5,28.3]],
+  [[78,36.2],[85,35.8],[92,35.6],[99,35]],[[70,41],[76,41.5],[82,42.5],[88,43.2]],[[86,49.5],[90,48.5]],
+  [[59,50],[59.3,54],[59.5,58],[60.3,62],[64,67]],[[37.5,14],[39,11],[38.5,8],[37,6]],[[26.5,-32.5],[29,-30],[30.5,-26.5]],
+  [[73.6,19],[74.2,15.5],[75.5,12],[76.8,9]],[[145.5,-16],[148,-21],[150.5,-27],[151,-31],[149,-36]],
+  [[6.5,59.5],[9,62],[13,64.5],[16.5,67.5],[20,69]],[[18,49.3],[22,49],[25,47.5],[25.5,45.5],[22.5,44.8]],
+  [[49.3,-13],[48,-17],[47,-21],[46.3,-24]],[[136.5,36.5],[138.3,35.5]],[[102,26],[100,22],[98.5,18.5]],
+];
+const RIVERS = [
+  [[31.2,30.4],[31.4,27.5],[32.9,24.1],[32.5,19.5],[33.5,17.5],[32.5,15.6],[32.4,9.5],[31.6,4.8],[32.9,0.4]],[[32.5,15.6],[35,13],[37.3,11.6]],
+  [[-10.8,9.1],[-8,12.6],[-4,14.5],[-0.5,16.3],[3,13],[6.5,8.6],[6,5]],[[12.4,-6],[15.3,-4.3],[17,-1.5],[20,1.5],[24,0.6],[25.2,-2],[26,-5],[27,-9]],
+  [[36.3,-18.8],[33,-16.5],[28.5,-17],[24,-17.7],[22.5,-14]],[[16.5,-28.6],[20,-28.5],[24,-29.5],[28,-30]],[[-16.5,15.9],[-15.2,16.4],[-13,15.5],[-11.5,14.4]],[[-16.6,13.4],[-14.5,13.5],[-13.5,13.2]],[[33.5,-25.2],[31,-22.3],[28,-22.5]],
+  [[-50,-0.5],[-55,-2.3],[-60,-3.2],[-65,-3.5],[-70,-4],[-73.5,-4.5],[-77,-5]],[[-58.4,-34],[-60.7,-32.9],[-59.5,-27.4],[-55,-27],[-54.6,-25.6],[-51,-20]],[[-58.4,-27.4],[-57.6,-25.3],[-57.8,-20]],
+  [[-61,8.6],[-64,8],[-67,7.6],[-67.6,5.5],[-66,3]],[[-74.8,11],[-74.8,9],[-74,7],[-75,4],[-76,2]],[[-36.4,-10.5],[-38.6,-9.4],[-43,-11],[-44.5,-15],[-45.7,-19.5]],
+  [[-89.3,29.2],[-91,31],[-91,34],[-90.1,35.1],[-89.2,37],[-90.2,38.6],[-91.4,40.4],[-91,43],[-93,45],[-95,47.2]],[[-90.2,38.8],[-94.5,39],[-96,41.3],[-100.4,44.4],[-104,48],[-111,47.5]],[[-89.1,37],[-85.7,38.2],[-82.5,38.6],[-80,40.4]],
+  [[-64,49.5],[-68,48.6],[-71.2,46.8],[-73.5,45.5],[-76.4,44.2]],[[-97.2,25.9],[-99.5,27.5],[-104,29.5],[-106.5,31.8],[-106.7,35]],
+  [[4.1,51.9],[6.2,51.8],[7,50.9],[7.6,50],[8.3,49],[7.6,47.6],[9.5,47.5]],[[29.6,45.2],[27,44],[22.5,44.2],[20.5,44.8],[19,47.6],[16.4,48.2],[13.5,48.6],[10,48.4],[8.2,48]],
+  [[-9.2,38.7],[-7,39.4],[-4,39.9],[-2,40.4]],[[-6.35,36.8],[-6,37.4],[-4.8,37.9],[-3,38]],[[47.8,46.3],[44.5,48.7],[46,51.5],[48.4,54.3],[49.1,55.8],[44,56.3],[40,57.6],[36,56.8]],
+  [[32,46.6],[35,47.8],[32,49.5],[30.5,50.4],[30.6,54]],[[48.5,30],[47,31],[45,33.3],[43.2,36.3],[42,37.5]],[[47,31],[45.5,32],[42.5,34.4],[40.2,35.3],[38.5,36.8]],
+  [[67.4,24],[68.4,25.4],[70.5,28.8],[71.5,32],[72.5,34],[74.5,35.5],[77.5,34.3]],[[88.5,22],[89,24],[87,25.3],[85.2,25.6],[83,25.3],[80,26.5],[78,29.9]],[[89.7,25],[90.5,26.2],[93,26.6],[95,27.8]],
+  [[95.3,16],[95.2,18.5],[96,21.9],[96.1,24.2],[97.5,25.5]],[[106.6,9.8],[105.5,11.6],[105.9,15.1],[104.7,17.4],[102.2,18],[101.2,20.3],[100,22.5],[99,26]],[[100.6,13.5],[100.5,15.7],[100.1,17.5]],
+  [[121.8,31.4],[118.8,32],[116.5,30.5],[114.3,30.6],[112,30.3],[109,30.8],[106.5,29.5],[104.6,28.8],[102,28],[99.5,31]],[[119,37.7],[116.5,36.6],[114.5,34.8],[112,34.7],[110.4,34.6],[110.4,38],[111,40.3],[107,40.6],[106.4,38.5],[104,36],[101,36.1]],
+  [[113.6,22.6],[113.2,23.1],[111,23.5],[109.5,23.6]],[[140.5,53],[137,50.5],[134.9,48.3],[130,47.7],[127.5,49.6],[121.5,53.3]],
+  [[73,66.6],[69,61],[73,61],[77,60.8],[82.9,55]],[[83,70],[87,65],[92,58],[92.9,56],[93,52]],[[127,72.5],[128,65],[129.7,62],[124,60.5],[120,60.5],[115,58]],[[139.3,-35.6],[140.7,-34.2],[144,-35.5],[147,-36]],
+];
+const LAKES = [
+  [[-92,46.7],[-89,48.3],[-85,48],[-84.6,46.5],[-87,46.5]],[[-87.9,41.7],[-87.5,44.5],[-86,45.9],[-85.4,44.8],[-86.4,42.6]],[[-84.4,46],[-82,45.9],[-80,44.8],[-81.7,43.1],[-82.5,44]],
+  [[-83.4,41.7],[-81,42.3],[-78.9,42.8],[-80.5,42.2],[-83,41.4]],[[-79.8,43.3],[-78,43.9],[-76.2,43.6],[-77,43.3]],[[31.6,-0.3],[33.1,0.4],[34.1,-0.3],[33.7,-2.5],[31.8,-2.1]],
+  [[29.2,-3.3],[30,-4.5],[30.9,-7.5],[31.2,-8.6],[30.3,-8.3],[29.5,-6]],[[34.2,-9.6],[34.9,-11],[34.8,-13.5],[35.2,-14.4],[34.4,-13.7],[34,-11]],
+  [[103.8,51.6],[106,52.6],[108.6,54.5],[109.6,55.7],[108.6,55.4],[106.3,53],[104.5,51.9]],[[-69.9,-15.3],[-69.2,-15.6],[-68.7,-16.3],[-69.5,-16.2]],[[13.3,13.4],[14.4,13.9],[14.8,13.1],[14,12.6]],
+  [[58.2,46.6],[60.1,46.2],[61.5,45],[59.8,43.6],[58.6,44.5]],[[-86,12],[-85,12.1],[-84.7,11],[-85.6,11.2]],
+];
+
+/* ───────── 바다 격자 · 역사 항로 (tools/build_seagrid.mjs 결과) ───────── */
+const SG = DATA.sea.grid, GW = SG.w, GH = SG.h;
+const MASK = Uint8Array.from(atob(DATA.sea.mask), ch => ch.charCodeAt(0));
+const isSea = i => i >= 0 && (MASK[i >> 3] >> (i & 7)) & 1;
+const cellOf = (lon, lat) => { const r = Math.floor((lat - SG.lat0)/SG.res), c = ((Math.floor((lon - SG.lon0)/SG.res) % GW) + GW) % GW; return r < 0 || r >= GH ? -1 : r*GW + c; };
+const llOf = i => [SG.lon0 + (i % GW + .5)*SG.res, SG.lat0 + (Math.floor(i/GW) + .5)*SG.res];
+function nearestSea(lon, lat, maxR = 64){
+  const c0 = cellOf(lon, lat); if (isSea(c0)) return c0;
+  const r0 = Math.floor(c0/GW), cc = c0 % GW; let best = -1, bd = 1e9;
+  for (let rad = 1; rad <= maxR && best < 0; rad++) for (let dr = -rad; dr <= rad; dr++) for (let dc = -rad; dc <= rad; dc++){
+    if (Math.max(Math.abs(dr), Math.abs(dc)) !== rad) continue; const rr = r0 + dr; if (rr < 0 || rr >= GH) continue; const i = rr*GW + (cc + dc + GW) % GW;
+    if (isSea(i)){ const d = km([lon, lat], llOf(i)); if (d < bd){ bd = d; best = i; } } }
+  return best;
+}
+const HIST = DATA.sea.routes;
+for (const p of PLACES){ p.cell = nearestSea(p.lon, p.lat); p.portLL = llOf(p.cell); p.offshore = km([p.lon, p.lat], p.portLL); }
+
+// 길찾기는 워커에서: 메인 화면이 멈추지 않게 한다
+function workerMain(){
+  let W, H, res, lon0, lat0, mask, cR, cX, cY, dirs, gS, came, seen, gen = 0;
+  const R2D = Math.PI/180;
+  const sea = i => i >= 0 && (mask[i >> 3] >> (i & 7)) & 1;
+  const ll = i => [lon0 + (i % W + .5)*res, lat0 + (Math.floor(i/W) + .5)*res];
+  const cellOf = (lon, lat) => { const r = Math.floor((lat - lat0)/res), c = ((Math.floor((lon - lon0)/res) % W) + W) % W; return r < 0 || r >= H ? -1 : r*W + c; };
+  const km = (a, b) => { const dl = ((b[0] - a[0] + 540) % 360 - 180)*R2D, p1 = a[1]*R2D, p2 = b[1]*R2D; return 6371*2*Math.asin(Math.min(1, Math.sqrt(Math.sin((p2 - p1)/2)**2 + Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)**2))); };
+  let nearLand;
+  // 성능: 타입 배열 이진 힙(임시 배열 없음) · 닫힌 칸은 다시 펼치지 않음 · 행별 cos 표로 가벼운 거리 추정
+  let HK = new Float64Array(1 << 18), HV = new Int32Array(1 << 18), hn = 0, closed, COS;
+  function hpush(f, v){ if (hn >= HK.length){ const k2 = new Float64Array(HK.length*2); k2.set(HK); HK = k2; const v2 = new Int32Array(HV.length*2); v2.set(HV); HV = v2; }
+    let k = hn++; while (k > 0){ const p = (k - 1) >> 1; if (HK[p] <= f) break; HK[k] = HK[p]; HV[k] = HV[p]; k = p; } HK[k] = f; HV[k] = v; }
+  function hpop(){ const top = HV[0]; hn--; const f = HK[hn], v = HV[hn]; let k = 0;
+    for (;;){ let l = 2*k + 1; if (l >= hn) break; const r = l + 1; if (r < hn && HK[r] < HK[l]) l = r; if (HK[l] >= f) break; HK[k] = HK[l]; HV[k] = HV[l]; k = l; } HK[k] = f; HV[k] = v; return top; }
+  function astar(s, g){
+    gen++; hn = 0;
+    const gr = Math.floor(g/W), gc = g % W, U = res*111.2;
+    const h = v => { const r = Math.floor(v/W); let dc = Math.abs(v % W - gc); if (dc > W/2) dc = W - dc; const dx = dc*COS[(r + gr) >> 1], dy = r - gr; return Math.sqrt(dx*dx + dy*dy)*U*1.15; };
+    seen[s] = gen; gS[s] = 0; came[s] = -1; hpush(h(s), s);
+    while (hn){
+      const u = hpop(); if (u === g) break; if (closed[u] === gen) continue; closed[u] = gen;
+      const r = Math.floor(u/W), c = u % W, cx = COS[r]*U, cy = U;
+      for (let dr = -1; dr <= 1; dr++){ const rr = r + dr; if (rr < 0 || rr >= H) continue;
+        for (let dc = -1; dc <= 1; dc++){
+          if (!dr && !dc) continue; const cc = (c + dc + W) % W, v = rr*W + cc; if (!sea(v) || closed[v] === gen) continue;
+          if (dr && dc && (!sea(r*W + cc) || !sea(rr*W + c))) continue;
+          const mx = dc*cx, my = dr*cy, L = dr && dc ? Math.sqrt(mx*mx + my*my) : (dr ? cy : cx); let w = L*(nearLand[v] ? 1.35 : 1);
+          const ri = cR[v]; if (ri >= 0){ let dot = (mx*cX[v] + my*cY[v])/(L*100); if (!dirs[ri]) dot = Math.abs(dot); if (dot > .5) w *= .58; }
+          const nd = gS[u] + w;
+          if (seen[v] !== gen || nd < gS[v]){ seen[v] = gen; gS[v] = nd; came[v] = u; hpush(nd + h(v), v); }
+        } }
+    }
+    if (seen[g] !== gen) return null;
+    const out = []; for (let k = g; k !== -1; k = came[k]) out.push(k); return out.reverse();
+  }
+  function los(a, b){ // 선분이 지나는 칸을 빠짐없이 따라가며(격자 DDA, 모서리를 지나면 양옆 칸도) 모두 바다인지 본다
+    let lo2 = b[0]; if (Math.abs(lo2 - a[0]) > 180) lo2 += lo2 < a[0] ? 360 : -360;
+    const x0 = (a[0] - lon0)/res, y0 = (a[1] - lat0)/res, x1 = (lo2 - lon0)/res, y1 = (b[1] - lat0)/res;
+    let cx = Math.floor(x0), cy = Math.floor(y0); const ex = Math.floor(x1), ey = Math.floor(y1), dx = x1 - x0, dy = y1 - y0, sx = Math.sign(dx), sy = Math.sign(dy);
+    let tx = dx ? ((sx > 0 ? cx + 1 : cx) - x0)/dx : Infinity, ty = dy ? ((sy > 0 ? cy + 1 : cy) - y0)/dy : Infinity; const ddx = dx ? Math.abs(1/dx) : Infinity, ddy = dy ? Math.abs(1/dy) : Infinity;
+    const ok = (x, y) => y >= 0 && y < H && sea(y*W + ((x % W) + W) % W);
+    if (!ok(cx, cy)) return false;
+    for (let guard = 0; (cx !== ex || cy !== ey) && guard < 200000; guard++){
+      if (Math.abs(tx - ty) < 1e-9){ if (!ok(cx + sx, cy) || !ok(cx, cy + sy)) return false; cx += sx; cy += sy; tx += ddx; ty += ddy; }
+      else if (tx < ty){ cx += sx; tx += ddx; } else { cy += sy; ty += ddy; }
+      if (!ok(cx, cy)) return false;
+    }
+    return true;
+  }
+  function smooth(cells){ // 항로 띠 안에서는 띠를 따라 굽고, 밖에서는 바다로만 이어지는 한 곧게 편다
+    const pts = cells.map(ll), out = [pts[0]]; let i = 0;
+    while (i < pts.length - 1){ let j = Math.min(pts.length - 1, i + 60); while (j > i + 1 && !los(pts[i], pts[j])) j--; out.push(pts[j]); i = j; }
+    return out;
+  }
+  self.onmessage = e => {
+    const m = e.data;
+    if (m.init){ W = m.grid.w; H = m.grid.h; ({res, lon0, lat0} = m.grid); mask = m.mask; dirs = m.dirs; cR = new Int16Array(W*H).fill(-1); cX = new Int8Array(W*H); cY = new Int8Array(W*H);
+      for (let k = 0; k < m.corridor.length; k += 4){ const i = m.corridor[k]; cR[i] = m.corridor[k + 1]; cX[i] = m.corridor[k + 2]; cY[i] = m.corridor[k + 3]; }
+      gS = new Float64Array(W*H); came = new Int32Array(W*H); seen = new Uint32Array(W*H); closed = new Uint32Array(W*H); nearLand = new Uint8Array(W*H);
+      COS = new Float64Array(H); for (let r = 0; r < H; r++) COS[r] = Math.cos((lat0 + (r + .5)*res)*R2D);
+      for (let i = 0; i < W*H; i++){ if (!sea(i)) continue; const r = Math.floor(i/W), c = i % W; for (let dr = -1; dr <= 1 && !nearLand[i]; dr++) for (let dc = -1; dc <= 1; dc++){ const rr = r + dr; if (rr < 0 || rr >= H) continue; if (!sea(rr*W + (c + dc + W) % W)){ nearLand[i] = 1; break; } } }
+      return; }
+    const cells = astar(m.s, m.g);
+    if (!cells){ self.postMessage({id:m.id, pts:null}); return; }
+    const used = {}; for (const c of cells){ const ri = cR[c]; if (ri >= 0) used[ri] = (used[ri] || 0) + 1; }
+    self.postMessage({id:m.id, pts:smooth(cells), used});
+  };
+}
+const worker = new Worker(URL.createObjectURL(new Blob([`(${workerMain.toString()})()`], {type:'text/javascript'})));
+worker.postMessage({init:true, grid:SG, mask:MASK, corridor:DATA.sea.corridor, dirs:HIST.map(h => h.dir)});
+let reqId = 0; const pending = new Map();
+worker.onmessage = e => { const r = pending.get(e.data.id); if (r){ pending.delete(e.data.id); r(e.data); } };
+const findPath = (s, g) => new Promise(res => { const id = ++reqId; pending.set(id, res); worker.postMessage({id, s, g}); });
+
+/* ───────── 투영 · 화면 ───────── */
+const cv = $('map'), ctx = cv.getContext('2d');
+let W = 900, H = 560, DPR = 1, MW = 900, MCY = 280, view = {k:1, x:0, y:0}, landPath = null, gridPath = null, paperPat = null, stipple = {};
+function proj(lon, lat){ const la = Math.max(-80, Math.min(84, lat))*R2D; return {x:(lon + 180)/360*MW, y:MCY - MW/(2*Math.PI)*Math.log(Math.tan(Math.PI/4 + la/2))}; }
+const toScr = b => ({x:b.x*view.k + view.x, y:b.y*view.k + view.y});
+const polyPath = pts => { const pa = new Path2D(); pts.forEach(([lo, la], i) => { const p = proj(lo, la); i ? pa.lineTo(p.x, p.y) : pa.moveTo(p.x, p.y); }); return pa; };
+function buildPaths(){
+  landPath = new Path2D();
+  for (const ring of DATA.land){ ring.forEach(([lon, lat], i) => { const p = proj(lon, lat); i ? landPath.lineTo(p.x, p.y) : landPath.moveTo(p.x, p.y); }); landPath.closePath(); }
+  gridPath = new Path2D();
+  for (let lon = -180; lon <= 180; lon += 15){ const a = proj(lon, -75), b = proj(lon, 80); gridPath.moveTo(a.x, a.y); gridPath.lineTo(b.x, b.y); }
+  for (let lat = -60; lat <= 75; lat += 15){ const a = proj(-180, lat), b = proj(180, lat); gridPath.moveTo(a.x, a.y); gridPath.lineTo(b.x, b.y); }
+  let s = 7; const rnd = () => (s = (s*16807) % 2147483647)/2147483647;
+  const mk = (size, base, dots) => { const pc = document.createElement('canvas'); pc.width = pc.height = size; const c = pc.getContext('2d'); if (base){ c.fillStyle = base; c.fillRect(0, 0, size, size); } for (const [n, col, r] of dots) for (let i = 0; i < n; i++){ c.fillStyle = col; c.beginPath(); c.arc(rnd()*size, rnd()*size, r*(.5 + rnd()), 0, 7); c.fill(); } return ctx.createPattern(pc, 'repeat'); };
+  paperPat = mk(160, '#d6c493', [[900, 'rgba(120,95,50,.13)', 1.1], [700, 'rgba(255,248,220,.16)', 1.2]]);
+  stipple.desert = mk(90, null, [[160, 'rgba(176,130,60,.35)', .9]]);
+  stipple.jungle = mk(90, null, [[110, 'rgba(40,80,30,.35)', 1.6]]);
+  stipple.taiga = mk(90, null, [[90, 'rgba(50,75,40,.28)', 1.3]]);
+  stipple.steppe = mk(90, null, [[60, 'rgba(120,110,50,.22)', 1]]);
+  for (const h of HIST) h.legs = makeLegs(h.pts.slice(1).map((pt, i) => ({a:h.pts[i], b:pt})));
+}
+function fitView(){ const top = proj(0, 72).y, bot = proj(0, -56).y; view.k = Math.max(1, Math.min(2.2, H/(bot - top))); view.y = -top*view.k; view.x = W/2 - proj(15, 0).x*view.k; clampView(); }
+function clampView(){
+  view.k = Math.max(1, Math.min(10, view.k));
+  view.x = Math.min(0, Math.max(W - MW*view.k, view.x));
+  const top = proj(0, 80).y*view.k, bot = proj(0, -62).y*view.k;
+  if (bot - top <= H) view.y = (H - (bot + top))/2; else view.y = Math.min(-top, Math.max(H - bot, view.y));
+  dirty = true;
+}
+function resize(){
+  const r = cv.getBoundingClientRect(); W = r.width || 900; H = r.height || 560; DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+  MW = W; MCY = H/2 + MW/(2*Math.PI)*Math.log(Math.tan(Math.PI/4 + 18*R2D/2));
+  buildPaths(); for (const p of PLACES) p.b = proj(p.lon, p.lat);
+  GROUPS_POS = groupCentroids(); baseKey = ''; spriteCache.clear();
+  if (ST){ for (const f of ST.fleets){ if (f.mv) f.legs = makeLegs(f.geo); else f.b = {...P.get(f.at).b}; } for (const t of ST.trails) t.legs = makeLegs(t.geo); }
+  fitView();
+}
+function makeLegs(geo){ // 날짜변경선을 넘는 구간은 지도 끝에서 반대편 끝으로 넘어간다
+  const legs = [];
+  for (const g of geo){
+    const [lo1, la1] = g.a, [lo2, la2] = g.b;
+    if (Math.abs(lo2 - lo1) > 180){
+      const lo2u = lo2 + (lo2 < lo1 ? 360 : -360), edgeLon = lo1 > 0 ? 180 : -180, t = (edgeLon - lo1)/(lo2u - lo1), lam = la1 + (la2 - la1)*t;
+      legs.push({a:proj(lo1, la1), b:proj(edgeLon, lam), over:g.over});
+      legs.push({a:proj(-edgeLon, lam), b:proj(lo2, la2), over:g.over});
+    } else legs.push({a:proj(lo1, la1), b:proj(lo2, la2), over:g.over});
+  }
+  legs.forEach(l => { l.len = Math.hypot(l.b.x - l.a.x, l.b.y - l.a.y); });
+  return legs;
+}
+function along(legs, d){ for (const l of legs){ if (d <= l.len || l === legs[legs.length - 1]){ const k = l.len ? Math.min(1, d/l.len) : 1; return {x:l.a.x + (l.b.x - l.a.x)*k, y:l.a.y + (l.b.y - l.a.y)*k, over:l.over, dx:l.b.x - l.a.x}; } d -= l.len; } return {x:0, y:0, over:false, dx:1}; }
+let GROUPS_POS = {};
+function groupCentroids(){ const acc = {}; for (const p of PLACES){ const g = acc[p.group] || (acc[p.group] = {x:0, y:0, n:0, ids:[]}); g.x += p.b.x; g.y += p.b.y; g.n++; g.ids.push(p.id); } for (const g of Object.values(acc)){ g.x /= g.n; g.y /= g.n; } return acc; }
+
+/* ───────── 질문 → 계획 (예시 판단기: 실제 버전에서는 LLM 코디네이터가 맡는다) ───────── */
+function findPlaces(q){
+  const hits = []; const names = Object.keys(ALIAS).sort((a, b) => b.length - a.length); let rest = q;
+  for (const n of names){ const i = rest.indexOf(n); if (i >= 0){ const id = ALIAS[n]; if (P.has(id) && !hits.some(h => h.id === id)) hits.push({id, at:i}); rest = rest.slice(0, i) + ' '.repeat(n.length) + rest.slice(i + n.length); } }
+  return hits.sort((a, b) => a.at - b.at).map(h => h.id);
+}
+const docScore = p => p.links.length + Math.min(p.chars, 40000)/6000;
+function plan(q){
+  const places = findPlaces(q);
+  // 질문에 나온 나라 (나온 순서대로). 첫 나라의 본부가 코디네이터가 된다.
+  const nations = Object.keys(NATIONS).map(k => ({k, at:q.search(NATIONS[k].re)})).filter(x => x.at >= 0).sort((a, b) => a.at - b.at).map(x => x.k);
+  const regs = []; let topic = '';
+  for (const id of places){ const r = P.get(id).region; if (!regs.includes(r)) regs.push(r); }
+  for (const [re, rs, t] of KEYWORDS) if (re.test(q)){ if (t && !topic) topic = t; for (const r of rs) if (!regs.includes(r)) regs.push(r); }
+  if (nations.length){
+    // 나라만 있고 지역이 없으면 그 나라 항구가 많은 권역 순으로. 무역·거점 질문이면 본국 항구(유럽)도 한 절로.
+    if (!regs.length){ const cnt = {}; for (const k of nations) for (const id of NATIONS[k].ports){ const r = P.get(id).region; cnt[r] = (cnt[r] || 0) + 1; } regs.push(...Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a])); }
+    if (/항구들|거점|무역|회사|뛰어들/.test(q) && !regs.includes('europe')) regs.unshift('europe');
+  }
+  const trace = /거쳐|따라|경로|어떤 길|길로|흘러|오갔|이동/.test(q);
+  let type, n, why;
+  if (trace){ type = '추적'; n = Math.max(2, Math.min(3, regs.length || 3)); why = '경로를 따라가는 질문 → 거치는 권역 수만큼'; }
+  else if (places.length === 1 && regs.length <= 1 && !/들|비교|차이|각각/.test(q)){ type = '단일'; n = 1; why = `지명 하나(«${P.get(places[0]).name}»)에 답이 모여 있음 → 나누지 않고 1척`; }
+  else { type = '다갈래'; n = Math.max(2, Math.min(5, regs.length || 4)); why = regs.length ? '여러 권역에 흩어진 질문 → 권역(내용) 단위로' : '지명·키워드를 못 찾아 기본 네 권역으로'; }
+  // 지명도 권역 낱말도 나라도 못 찾으면: 이 코퍼스로 답할 수 없는 질문이다. 아무 권역에나 함대를 보내지 않는다.
+  const outOfScope = !places.length && !regs.length && !nations.length;
+  if (outOfScope){ type = '범위 밖'; n = 0; why = '코퍼스(대항해시대 항구 134곳)에서 질문과 관련된 지명·권역을 찾지 못함 → 출항하지 않음'; }
+  const use = regs.slice(0, n);
+  const hqNation = nations[0] || 'pt';
+  const hq = NATIONS[hqNation].hq;
+  const bases = nations.length ? [...new Set(nations.flatMap(k => NATIONS[k].bases))] : [...NATIONS.pt.bases, ...NATIONS.es.bases];
+  const taken = new Set(), used = {};
+  const sections = use.map((r, i) => {
+    let seed = places.find(id => P.get(id).region === r && !taken.has(id)), owner = null;
+    if (!seed && nations.length){ // 그 나라(들)의 항구를 우선, 여러 나라면 아직 덜 맡은 나라 쪽부터
+      const order = [...nations].sort((a, b) => (used[a] || 0) - (used[b] || 0));
+      for (const k of order){ const c = PLACES.filter(p => p.region === r && NATIONS[k].ports.has(p.id) && !taken.has(p.id) && p.id !== hq).sort((a, b) => docScore(b) - docScore(a))[0]; if (c){ seed = c.id; owner = k; break; } }
+    }
+    if (!seed){ const c = PLACES.filter(p => p.region === r && !taken.has(p.id) && p.id !== hq).sort((a, b) => docScore(b) - docScore(a))[0]; seed = c && c.id; }
+    if (seed) taken.add(seed);
+    if (owner) used[owner] = (used[owner] || 0) + 1;
+    const who = nations.length ? ` — ${owner ? NATIONS[owner].name : nations.map(k => NATIONS[k].name).join('·')} 거점` : '';
+    const title = type === '단일' ? `${P.get(seed).name}의 역할` : `${REGION[r]}${topic ? ` — ${topic}` : who}`;
+    return {title, region:r, seed, role:ROLES[i], budget:type === '단일' ? 2 : 3, owner};
+  });
+  return {q, type, why, sections, places, nations, hq, hqNation, bases};
+}
+function baseFor(sec){ // 맡은 바다에서 가장 가까운 (그 절을 맡은 나라의) 거점에서 출항한다. 시작 문서 자체는 거점에서 뺀다.
+  let t; if (sec.seed){ const s = P.get(sec.seed); t = [s.lon, s.lat]; } else { const ps = PLACES.filter(p => p.region === sec.region); t = [ps.reduce((a, p) => a + p.lon, 0)/ps.length, ps.reduce((a, p) => a + p.lat, 0)/ps.length]; }
+  // 질문에 나라가 없으면 시작 문서를 가진 나라, 그것도 없으면 본부 나라의 거점에서 띄운다 (믈라카 조사에 스페인 마닐라 함대가 나가지 않게)
+  const own = sec.owner || (sec.seed && Object.keys(NATIONS).find(k => NATIONS[k].ports.has(sec.seed))) || nationOfBase(HQ);
+  const pool = NATIONS[own].bases.filter(id => id !== sec.seed);
+  return (pool.length ? pool : BASES).slice().sort((a, b) => km([P.get(a).lon, P.get(a).lat], t) - km([P.get(b).lon, P.get(b).lat], t))[0];
+}
+
+/* ───────── 실행 상태 ───────── */
+let ST = null, RUN = 0, simT = 0, speed = 1, waiters = [], CUR = null, dirty = true;
+const CANCEL = Symbol('c');
+const wait = ms => new Promise(res => waiters.push({at:simT + ms, res}));
+async function W8(run, ms){ await wait(ms); if (run !== RUN) throw CANCEL; }
+const say = (text, ms = 2200) => ({text, until:simT + ms});
+function newState(pl){
+  HQ = pl.hq; BASES = pl.bases;
+  $('hqTitle').textContent = `질문 · ${NATIONS[pl.hqNation].board}`;
+  ST = {plan:pl, fleets:pl.sections.map((s, i) => { const base = baseFor(s); return {i, name:SHIPS[i], color:COLORS[i], sec:s, base, nation:nationOfBase(base), at:base, b:{...P.get(base).b}, dir:1, read:[], used:0, budget:s.budget, status:'명령 대기', legs:null, geo:null, bubble:null, over:false}; }),
+    reads:[], trails:[], scrolls:[], parts:[], port:new Map(PLACES.map(p => [p.id, {readers:new Set(), reading:null, pin:-1, dup:false, alarm:false}])),
+    calls:0, won:0, hqBubble:null, report:null, metrics:null, sel:null, hover:null, stage:0};
+}
+function setStage(n){ ST.stage = n; [...$('stages').children].forEach((li, i) => { li.className = i + 1 < n ? 'done' : i + 1 === n ? 'now' : ''; }); }
+function cost(tokensIn, out){ return (tokensIn*0.15 + out*0.6)/1e6*1400; } // gpt-4o-mini 단가 · ₩1,400/$
+function call(kind, p){ if (ST.replay){ renderRes(); return; } ST.calls++; const t = kind === 'read' ? Math.min(p.tokens, 16000) + 120 : kind === 'plan' ? 4200 : kind === 'pick' ? 900 : kind === 'write' ? 2400 : 3600; ST.won += cost(t, kind === 'read' ? 260 : kind === 'pick' ? 30 : 700); renderRes(); }
+async function sail(run, f, to){
+  if (f.at === to) return;
+  const from = P.get(f.at), dest = P.get(to);
+  f.status = '항로 계산'; renderFleets();
+  const r = await findPath(from.cell, dest.cell); if (run !== RUN) throw CANCEL;
+  const pts = r.pts || [from.portLL, dest.portLL];
+  const geo = [];
+  const lead = from.inland || from.offshore > 45; geo.push({a:[from.lon, from.lat], b:pts[0], over:lead});
+  for (let k = 1; k < pts.length; k++) geo.push({a:pts[k - 1], b:pts[k], over:false});
+  geo.push({a:pts[pts.length - 1], b:[dest.lon, dest.lat], over:dest.inland || dest.offshore > 45});
+  const used = Object.entries(r.used || {}).filter(([, n]) => n >= 8).sort((a, b) => b[1] - a[1]).map(([ri]) => HIST[ri].name.split(' (')[0]);
+  if (used.length) log(`  ${f.name} 항로: ${used.slice(0, 3).join(' → ')}`);
+  f.geo = geo; f.legs = makeLegs(geo);
+  const total = f.legs.reduce((s, l) => s + l.len, 0);
+  const dur = Math.max(1300, Math.min(8000, total/MW*15000));
+  f.status = '항해 중'; renderFleets();
+  await new Promise(res => { f.mv = {t0:simT, dur, total, res}; });
+  if (run !== RUN) throw CANCEL;
+  ST.trails.push({geo, legs:makeLegs(geo), color:f.color}); f.at = to; f.legs = null;
+}
+async function readDoc(run, f, id, round, idx, assigned){
+  const ps = ST.port.get(id), p = P.get(id);
+  f.status = '조사 중'; renderFleets();
+  ps.reading = {f, t0:simT, dur:1500}; await W8(run, 1500); ps.reading = null;
+  if (!assigned) call('pick', p);
+  call('read', p);
+  const dup = ps.readers.size > 0 && !ps.readers.has(f.i);
+  ps.readers.add(f.i); f.read.push(id); f.used++;
+  ST.reads.push({f:f.i, id, round, idx, assigned, dup});
+  if (dup){ ps.dup = true; log(`  ⚠ ${f.name} «${p.name}» 중복 — 다른 함대가 이미 읽음`, 'w'); }
+  else log(`  ${f.name} «${p.name}» 상륙 조사 · ${p.chars.toLocaleString()}자`);
+  renderFleets();
+}
+function avoidFor(f, zones){ if (!zones) return new Set(); const s = new Set(); ST.fleets.forEach(g => { if (g === f) return; if (g.sec.seed) s.add(g.sec.seed); g.read.forEach(x => s.add(x)); }); return s; }
+function nextDoc(f, zones){
+  const read = new Set(f.read), avoid = avoidFor(f, zones), cur = P.get(f.at);
+  const frontier = new Set(); f.read.forEach(id => P.get(id).links.forEach(l => frontier.add(l)));
+  let cand = [...frontier].filter(id => !read.has(id) && !avoid.has(id) && id !== HQ), jump = false;
+  if (!cand.length){ cand = PLACES.map(p => p.id).filter(id => !read.has(id) && !avoid.has(id) && id !== HQ); jump = true; }
+  const score = id => { const p = P.get(id); return (p.region === f.sec.region ? 5 : 0) + Math.min(p.chars, 30000)/9000 + p.links.length/10 - km([cur.lon, cur.lat], [p.lon, p.lat])/3500; };
+  cand.sort((a, b) => score(b) - score(a) || (a < b ? -1 : 1));
+  return cand.length ? {id:cand[0], jump} : null;
+}
+async function voyage(run, f, opt){
+  const zones = !opt.abl;
+  f.budget = opt.budget; f.used = 0;
+  f.sec.status = opt.round === 2 ? '재조사' : '조사 중';
+  for (let k = 0; k < opt.budget; k++){
+    let id, assigned = false, jump = false;
+    if (k === 0 && opt.seed){ id = opt.seed; assigned = true; }
+    else if (k === 0 && opt.abl && opt.round === 1){ id = ST.hub; log(`  ${f.name} 시작 문서 없음 → 가장 이름난 «${P.get(id).name}»부터`, 'w'); }
+    else { const nx = nextDoc(f, zones); if (!nx){ log(`  ${f.name} 더 읽을 후보 없음 — 그만 읽음`); break; } id = nx.id; jump = nx.jump; }
+    const nm = P.get(id).name;
+    if (assigned) log(`  ${f.name} 배정받은 «${nm}»${ro(nm)} 직행${P.get(id).links.length ? '' : ' (링크 없는 문서 — 배정이 유일한 길)'}`);
+    else if (jump) log(`  ${f.name} 이어진 링크가 막힘 → 전체 후보에서 «${nm}» 선택`);
+    await sail(run, f, id);
+    await readDoc(run, f, id, opt.round, k, assigned);
+  }
+  f.status = '집필'; f.bubble = say('✍ 항해일지 작성', 1500); renderFleets();
+  await W8(run, 1100); call('write');
+  const inRegion = f.read.filter(id => P.get(id).region === f.sec.region).length;
+  const ok = opt.round === 2 || ST.plan.type === '단일' || inRegion >= 2;
+  f.sec.status = ok ? '충분' : '부족'; f.status = ok ? '보고 완료' : '부족 신고';
+  f.sec.why = ok ? '' : `${REGION[f.sec.region]} 문서를 ${inRegion}건밖에 못 읽음`;
+  ST.scrolls.push({from:{...f.b}, to:'hq', t0:simT, dur:1300, color:f.color});
+  f.bubble = say(ok ? '충분 ✓' : '부족 ✗', 2600); renderFleets();
+  await W8(run, 1300);
+}
+// LLM 없이 흐름만 흉내 내던 시뮬레이션은 뺐다. 화면은 실제 LLM 실행 기록만 재생한다.
+
+/* ───────── 실제 실행 기록 재생 (graph.py 가 남긴 output/runs/*.jsonl) ───────── */
+function planFromRun(R){
+  const ev = R.events, pe = ev.find(e => e.type === 'plan');
+  const base = plan(R.question); // 나라·본부·거점 판단만 빌려 오고, 목차는 기록 그대로 쓴다
+  if (!pe){ // 단일 에이전트 대조군: 목차·배정 없이 함대 하나가 같은 읽기 예산으로 혼자 읽고 쓴다
+    const first = (ev.find(e => e.type === 'read' && P.has(e.doc)) || {}).doc || null;
+    const owner = first ? (base.nations.find(k => NATIONS[k].ports.has(first)) || null) : null;
+    return {...base, q:R.question, type:'단일 에이전트', why:'단일 에이전트 대조군', sections:[{title:'단일 에이전트 (목차 없음)', region:first ? P.get(first).region : 'europe', seed:null, role:'단일 에이전트', budget:ev.filter(e => e.type === 'read').length, owner, brief:R.question}]};
+  }
+  const sections = pe.toc.map((t, i) => {
+    const seed = t['시작문서'] && P.has(t['시작문서']) ? t['시작문서'] : null;
+    const firstRead = (ev.find(e => e.type === 'read' && e.sec === i && P.has(e.doc)) || {}).doc;
+    const anchor = seed || firstRead;
+    const owner = anchor ? (base.nations.find(k => NATIONS[k].ports.has(anchor)) || null) : null;
+    return {title:t['절'], region:anchor ? P.get(anchor).region : 'europe', seed, role:t['역할'], budget:t['예산'] || 3, owner, brief:t['지시']};
+  });
+  return {...base, q:R.question, type:sections.length === 1 ? '단일' : base.type === '단일' ? '다갈래' : base.type, why:`실제 실행 기록 — 코디네이터(${R.mode})가 ${sections.length}절로 나눔`, sections};
+}
+async function replayVoyage(run, f, evs, round){
+  f.budget = Math.max(1, evs.filter(e => e.type === 'read').length); f.used = 0;
+  f.sec.status = round > 1 ? '재조사' : '조사 중';
+  let k = 0;
+  for (const e of evs){
+    if (e.type === 'read'){
+      if (!P.has(e.doc)) continue;
+      const nm = P.get(e.doc).name;
+      if (e.assigned) log(`  ${f.name} 배정받은 «${nm}»${ro(nm)} 직행${P.get(e.doc).links.length ? '' : ' (링크 없는 문서)'}`);
+      await sail(run, f, e.doc);
+      await readDoc(run, f, e.doc, round, k++, e.assigned);
+      if (e.irrelevant){ f.bubble = say('관련 없음', 1800); log(`   ${f.name}: «${nm}» 문서는 지시와 관련 없음으로 판단`, 'w'); }
+    } else if (e.type === 'write'){
+      f.status = '집필'; f.bubble = say('✍ 항해일지 작성', 1500); renderFleets(); await W8(run, 1100);
+      f.sec.status = e.enough ? '충분' : '부족'; f.status = e.enough ? '보고 완료' : '부족 신고'; f.sec.why = e.gap || '';
+      log(`  ${f.name} 원고 ${e.chars.toLocaleString()}자 · 인용 ${e.cites}곳 · ${e.enough ? '충분' : `부족 — ${e.gap}`}`, e.cites ? '' : 'w');
+      ST.scrolls.push({from:{...f.b}, to:'hq', t0:simT, dur:1300, color:f.color});
+      f.bubble = say(e.enough ? '충분 ✓' : '부족 ✗', 2600); renderFleets(); await W8(run, 1300);
+    }
+  }
+}
+async function replayStory(run){
+  const R = ST.replay, ev = R.events, pl = ST.plan, end = ev.find(e => e.type === 'run_end') || {};
+  setStage(1);
+  log(`실제 실행 기록 재생 · ${R.mode} · ${R.run_id}`, 'k');
+  log(`질문 접수: ${pl.q}`, 'k');
+  ST.hqBubble = say('목차 짜는 중…', 1400); await W8(run, 1200);
+  const oos = (ev.find(e => e.type === 'plan') || {}).out_of_scope;
+  if (oos){
+    log(`① 기획 판단: 범위 밖 — ${oos}`, 'w');
+    $('judge').innerHTML = `<b>실제 실행 기록 · 범위 밖</b> · 코디네이터(${esc(R.mode)})가 문서 카드를 보고 "${esc(oos)}"라고 판단해 함대를 보내지 않았습니다 (₩${end.won ?? '?'} · LLM ${end.calls ?? '?'}회).`;
+    showEvent('출항하지 않음', oos); ST.calls = end.calls || 1; ST.won = end.won || 0; renderRes(); setStage(0);
+    renderDoc(); $('doc').hidden = false; $('openDoc').hidden = false; return;
+  }
+  const tail = `(${esc(R.time || '')} · 판 ${esc(R.version || '?')} · 비용 ₩${end.won ?? '?'} · LLM ${end.calls ?? '?'}회 · ${end.seconds ?? '?'}초)`;
+  $('judge').innerHTML = R.single
+    ? `<b>실제 실행 기록 · 단일 에이전트 대조군</b> · 코디네이터·목차 없이 에이전트 하나가 같은 읽기 예산(${pl.sections[0].budget}회)으로 혼자 읽고 보고서 전체를 씁니다. 격리가 없어 모든 원문이 한 컨텍스트에 들어갑니다 ${tail}.`
+    : `<b>실제 실행 기록 · ${esc(R.cond || '전체')}</b> · ${esc(R.mode)} 코디네이터가 ${pl.sections.length}절로 나눴습니다. 함대가 읽은 문서와 순서, 재위임, 보고서 본문, 지표가 모두 기록 그대로입니다 ${tail}.`;
+  for (const fx of ev.filter(e => e.type === 'fix')) log(`   코드가 바로잡음 (${fx.what || '시작문서'}): «${String(fx.given).slice(0, 60)}» → «${fx.used || '없음'}»`, 'w');
+  for (const f of ST.fleets){ if (f.sec.seed) ST.port.get(f.sec.seed).pin = f.i; f.sec.status = '대기'; renderFleets(); await W8(run, 300); }
+  log(R.single ? '① 기획 없음 — 단일 에이전트가 문서 카드를 보고 첫 문서를 스스로 고름' : `① 기획 목차 ${pl.sections.length}절 · ` + pl.sections.map(s => `${s.role}→«${s.seed ? P.get(s.seed).name : '자율'}»`).join(' · '));
+  setStage(2);
+  log(`② 배치 · 명령서 발송: ${P.get(HQ).name} → ${ST.fleets.map(f => `${f.name}(${P.get(f.base).name})`).join(', ')}`, 'k');
+  for (const f of ST.fleets) ST.scrolls.push({from:{...P.get(HQ).b}, toB:{...P.get(f.base).b}, t0:simT, dur:1400, color:f.color, out:true});
+  await W8(run, 1450);
+  for (let round = 1; ; round++){
+    const secs = [...new Set(ev.filter(e => (e.type === 'read' || e.type === 'write') && e.round === round).map(e => e.sec))];
+    if (!secs.length) break;
+    setStage(3);
+    if (round > 1) log(`② 배치 ${round}라운드 · 함대 ${secs.length}척 재출항`, 'k');
+    await Promise.all(secs.map(i => replayVoyage(run, ST.fleets[i], ev.filter(e => e.sec === i && e.round === round && (e.type === 'read' || e.type === 'write')), round)));
+    setStage(4);
+    const rv = ev.find(e => e.type === 'review' && e.round === round);
+    if (rv && rv.gaps.length){
+      log(`④ 점검 — 부족 신고 ${rv.gaps.length}절 재위임: ` + rv.gaps.map(i => `«${pl.sections[i].title}»`).join(', '), 'w');
+      showEvent('재출항 명령', rv.gaps.map(i => `${ST.fleets[i].name}: ${(rv.why || {})[i] || '근거 부족'}`).join(' · '));
+      ST.hqBubble = say('재출항!', 1800); await W8(run, 1600);
+      continue;
+    }
+    log(`④ 점검 — ${rv ? rv.reason : '종료'} → 종합으로`);
+    if (round > 1) log('   재위임 원고 정책: 같은 절의 두 원고 중 유효 인용이 더 많은 쪽을 남김');
+    break;
+  }
+  setStage(5);
+  ST.hqBubble = say('종합 중…', 2000);
+  log(`⑤ 종합 — 절 원고만 이어 붙이고 편집자가 머리말·맺음말을 씀 (${(ev.find(e => e.type === 'synth') || {}).chars || '?'}자)`, 'k');
+  await W8(run, 1600);
+  setStage(6);
+  const evl = ev.find(e => e.type === 'evaluate') || {}, m = evl.metrics || {};
+  ST.metrics = {ground:m['근거율'], fake:(m['허위인용'] || []).length, unused:(m['읽고안쓴'] || []).length, bias:m['편중'], dup:m['중복률'], iso:m['격리율']};
+  ST.calls = end.calls || m['LLM호출'] || 0; ST.won = end.won || m['원'] || 0; ST.fleets.forEach(f => { f.sec.status = '완료'; });
+  renderRes(); renderMetrics(); renderFleets();
+  log(`⑥ 평가 근거율 ${m['근거율']}% · 허위 ${(m['허위인용'] || []).length} · 엉뚱 ${(m['엉뚱한인용'] || []).length} · 읽고 안 쓴 ${(m['읽고안쓴'] || []).length}건 · 편중 ${m['편중']}% · 중복 ${m['중복률']}% · 격리율 ${m['격리율']}%`, 'k');
+  for (const al of (evl.alarms || [])) log(`🚨 ${al}`, 'w');
+  renderDoc(); $('doc').hidden = false; $('openDoc').hidden = false;
+}
+function mdReport(md){ // 기록된 보고서(마크다운)를 해도 위 문서로
+  const read = new Set(ST.reads.map(r => r.id));
+  // '…이다. «바타비아» 그 중…' 처럼 마침표 뒤에 띄어 붙은 인용은 앞 문장에 바짝 붙인다 (뒤 문장 것으로 보이지 않게)
+  const cite = t => esc(t).replace(/([.!?。])\s+((?:«[^»]+»[\s,]*)+)/g, (_, pt, cs) => pt + cs.trim() + ' ').replace(/«([^»]+)»/g, (_, n) => `<span class="cite in${P.has(n) && !read.has(n) ? ' unread' : ''}">«${n}»</span>`);
+  let html = '', sec = -1;
+  for (const blk of md.split(/\n\s*\n/)){
+    const b = blk.trim(); if (!b || b.startsWith('# ')) continue;
+    if (b.startsWith('## ')){ sec++; const lines = b.split('\n'); const f = ST.fleets[sec];
+      html += `<section style="--c:${f ? f.color : '#999'}"><h4><i></i>${esc(lines[0].slice(3))}</h4>${f ? `<div class="who">${esc(f.name)} · ${esc(f.sec.role)} · ${esc(P.get(f.base).name)}에서 출항 · ${f.read.length}곳 조사</div>` : ''}<p>${cite(lines.slice(1).join(' '))}</p></section>`; }
+    else html += `<p>${cite(b)}</p>`;
+  }
+  return html;
+}
+
+function metrics(fakeDoc, abl){
+  const reads = ST.reads, att = reads.length || 1, uniq = new Set(reads.map(r => r.id)).size;
+  const c = new Map(); reads.forEach(r => { const w = r.round === 1 ? ([3, 2, 1][r.idx] ?? 1) : [2, 0][r.idx]; if (w) c.set(r.id, (c.get(r.id) || 0) + w); });
+  const total = [...c.values()].reduce((a, b) => a + b, 0) + (fakeDoc ? 1 : 0);
+  const sub = reads.reduce((s, r) => s + Math.min(P.get(r.id).chars, 60000), 0), coord = 12000 + 900*ST.fleets.length;
+  let h = 0; for (const ch of ST.plan.q) h = (h*31 + ch.charCodeAt(0)) % 997;
+  return {ground:Math.round(((abl ? 62 : 78) + (h % 60)/10)*10)/10, fake:fakeDoc ? 1 : 0, unused:[...new Set(reads.map(r => r.id))].filter(id => !c.has(id)).length,
+    bias:total ? Math.round(1000*Math.max(...c.values())/total)/10 : 0, dup:Math.round(1000*(1 - uniq/att))/10, iso:Math.round(1000*coord/(coord + sub))/10};
+}
+
+/* ───────── 그리기 (성능: 지도 바탕은 캐시, 조작 중엔 캐시를 옮겨 그리고 멈추면 고화질로) ───────── */
+const baseLayer = document.createElement('canvas'); let baseKey = '', baseView = null, lastInteract = 0, PAD = 0;
+const spriteCache = new Map();
+function sprite(key, w, h, paint){ // 한 번 그린 글자·빛 번짐·배 몸체를 재사용
+  let s = spriteCache.get(key); if (s) return s;
+  const c = document.createElement('canvas'); c.width = Math.ceil(w*DPR); c.height = Math.ceil(h*DPR); const g = c.getContext('2d'); g.scale(DPR, DPR); paint(g);
+  s = {c, w, h}; if (spriteCache.size > 900) spriteCache.clear(); spriteCache.set(key, s); return s;
+}
+function renderBase(){
+  const showR = $('showRoutes').checked;
+  PAD = Math.round(Math.min(360, Math.max(W, H)*.35)); // 화면 둘레 여백: 끌거나 따라가기로 옮길 때 이만큼은 이미 그려져 있다
+  baseLayer.width = Math.ceil((W + 2*PAD)*DPR); baseLayer.height = Math.ceil((H + 2*PAD)*DPR); const c = baseLayer.getContext('2d'), k = view.k;
+  c.setTransform(DPR, 0, 0, DPR, DPR*PAD, DPR*PAD);
+  const seaG = c.createLinearGradient(0, -PAD, 0, H + PAD); seaG.addColorStop(0, '#22536a'); seaG.addColorStop(1, '#163a4d'); c.fillStyle = seaG; c.fillRect(-PAD, -PAD, W + 2*PAD, H + 2*PAD);
+  c.setTransform(DPR*k, 0, 0, DPR*k, DPR*(view.x + PAD), DPR*(view.y + PAD));
+  c.strokeStyle = 'rgba(230,205,150,.09)'; c.lineWidth = 1/k; c.stroke(gridPath);
+  const eq1 = proj(-180, 0), eq2 = proj(180, 0); c.setLineDash([6/k, 6/k]); c.strokeStyle = 'rgba(230,205,150,.22)'; c.beginPath(); c.moveTo(eq1.x, eq1.y); c.lineTo(eq2.x, eq2.y); c.stroke(); c.setLineDash([]);
+  c.lineJoin = 'round';
+  [[16, 'rgba(160,215,210,.07)'], [10, 'rgba(160,215,210,.12)'], [5, 'rgba(170,220,215,.22)']].forEach(([w, col]) => { c.strokeStyle = col; c.lineWidth = w/k; c.stroke(landPath); });
+  c.fillStyle = paperPat; c.fill(landPath);
+  c.save(); c.clip(landPath);
+  const m = new DOMMatrix().scale(1/k);
+  for (const [kind, poly] of BIOMES){ const pa = polyPath(poly); c.globalAlpha = kind === 'ice' ? .9 : .55; c.fillStyle = BIOME_COL[kind]; c.fill(pa); if (stipple[kind]){ c.globalAlpha = 1; stipple[kind].setTransform(m); c.fillStyle = stipple[kind]; c.fill(pa); } }
+  c.globalAlpha = 1;
+  for (const ridge of RIDGES){
+    const pts = ridge.map(([lo, la]) => proj(lo, la)); const step = 10/k, s = 4.2/k;
+    const lt = new Path2D(), dk = new Path2D();
+    for (let i = 1; i < pts.length; i++){ const a = pts[i - 1], b = pts[i], L = Math.hypot(b.x - a.x, b.y - a.y); for (let d = 0; d < L; d += step){ const x = a.x + (b.x - a.x)*d/L, y = a.y + (b.y - a.y)*d/L;
+      lt.moveTo(x - s, y + s*.6); lt.lineTo(x, y - s); lt.lineTo(x + s, y + s*.6); lt.closePath(); dk.moveTo(x, y - s); dk.lineTo(x + s, y + s*.6); dk.lineTo(x + s*.2, y + s*.6); dk.closePath(); } }
+    c.fillStyle = 'rgba(120,92,55,.55)'; c.fill(lt); c.fillStyle = 'rgba(70,50,28,.55)'; c.fill(dk);
+  }
+  c.strokeStyle = 'rgba(52,108,128,.85)'; c.lineWidth = (.8 + .25*k)/k; c.lineCap = 'round';
+  const rv = new Path2D(); for (const r of RIVERS) rv.addPath(polyPath(r)); c.stroke(rv);
+  c.restore();
+  for (const lake of LAKES){ const pa = polyPath(lake); pa.closePath(); c.fillStyle = '#2b6077'; c.fill(pa); c.strokeStyle = 'rgba(40,30,15,.6)'; c.lineWidth = .8/k; c.stroke(pa); }
+  c.strokeStyle = '#4e3b22'; c.lineWidth = 1.15/k; c.stroke(landPath);
+  if (showR){
+    for (const h of HIST){
+      c.strokeStyle = h.color; c.globalAlpha = .6; c.lineWidth = 1.8/k; c.setLineDash([7/k, 5/k]);
+      const pa = new Path2D(); for (const l of h.legs){ pa.moveTo(l.a.x, l.a.y); pa.lineTo(l.b.x, l.b.y); } c.stroke(pa);
+      c.setLineDash([]); c.globalAlpha = .85;
+      if (h.dir){ let acc = 0; for (const l of h.legs){ acc += l.len*k; if (acc < 110 || l.len*k < 18) continue; acc = 0; const x = (l.a.x + l.b.x)/2, y = (l.a.y + l.b.y)/2, an = Math.atan2(l.b.y - l.a.y, l.b.x - l.a.x), s = 5.5/k;
+        c.fillStyle = h.color; c.beginPath(); c.moveTo(x + Math.cos(an)*s, y + Math.sin(an)*s); c.lineTo(x + Math.cos(an + 2.5)*s, y + Math.sin(an + 2.5)*s); c.lineTo(x + Math.cos(an - 2.5)*s, y + Math.sin(an - 2.5)*s); c.closePath(); c.fill(); } }
+      c.globalAlpha = 1;
+    }
+  }
+  baseView = {k:view.k, x:view.x, y:view.y};
+}
+function drawBase(now){
+  const key = [W, H, DPR, view.k, view.x, view.y, $('showRoutes').checked].join(',');
+  const interacting = now - lastInteract < 140;
+  // 조작 중에는 마지막 바탕을 옮기고 늘려서 쓰되, 화면이 미리 그린 여백을 벗어나면 기다리지 않고 바로 다시 그린다 (빈 곳이 보이지 않게)
+  const covered = () => { if (!baseView) return false; const s = view.k/baseView.k, ox = DPR*(view.x - (baseView.x + PAD)*s), oy = DPR*(view.y - (baseView.y + PAD)*s);
+    return -ox/s >= -1 && -oy/s >= -1 && (cv.width - ox)/s <= baseLayer.width + 1 && (cv.height - oy)/s <= baseLayer.height + 1; };
+  if (key !== baseKey && !(interacting && covered())){ renderBase(); baseKey = key; }
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (key === baseKey) ctx.drawImage(baseLayer, -DPR*PAD, -DPR*PAD);
+  else {
+    const s = view.k/baseView.k;
+    ctx.setTransform(s, 0, 0, s, DPR*(view.x - (baseView.x + PAD)*s), DPR*(view.y - (baseView.y + PAD)*s)); ctx.drawImage(baseLayer, 0, 0); ctx.setTransform(1, 0, 0, 1, 0, 0); dirty = true;
+  }
+}
+let lastNow = performance.now(), lastDraw = 0;
+// 함대 따라가기: 일하는 배(항해·읽기·집필)가 화면 가장자리 안쪽 여백에 머물도록 시점을 천천히 옮긴다.
+// 정중앙에 맞추지 않고, 벗어나려 할 때만 그만큼 민다. 확대·축소는 하지 않는다(배들이 한 화면에 다 안 들어가면 그 가운데를 비춘다).
+// 사용자가 끌거나 확대하면 5초 동안 손을 뗀다.
+let follow = true, userMoved = -1e9;
+function followFleets(now, dt){
+  if (!follow || !ST || now - userMoved < 5000) return;
+  const act = ST.fleets.filter(f => f.mv || /조사|집필|항로 계산|재조사/.test(f.status));
+  if (!act.length) return;
+  const mx = Math.min(140, W*.15), my = Math.min(110, H*.15), k = view.k;
+  const box = list => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const f of list){ x0 = Math.min(x0, f.b.x); x1 = Math.max(x1, f.b.x); y0 = Math.min(y0, f.b.y); y1 = Math.max(y1, f.b.y); } return [x0, y0, x1, y1]; };
+  let [x0, y0, x1, y1] = box(act);
+  if ((x1 - x0)*k > W - 2*mx || (y1 - y0)*k > H - 2*my){ // 한 화면에 다 안 들어가면: 지금 화면 가운데에 가장 가까운 배 하나만 따라간다 (가운데 빈 바다를 비추지 않게)
+    const cx = (W/2 - view.x)/k, cy = (H/2 - view.y)/k;
+    [x0, y0, x1, y1] = box([act.reduce((a, f) => Math.hypot(f.b.x - cx, f.b.y - cy) < Math.hypot(a.b.x - cx, a.b.y - cy) ? f : a)]);
+  }
+  const push = (a0, a1, lo, hi) => a1 - a0 > hi - lo ? (lo + hi)/2 - (a0 + a1)/2 : a0 < lo ? lo - a0 : a1 > hi ? hi - a1 : 0;
+  const tx = view.x + push(x0*k + view.x, x1*k + view.x, mx, W - mx), ty = view.y + push(y0*k + view.y, y1*k + view.y, my, H - my);
+  const a = 1 - Math.exp(-dt/650);
+  const nx = view.x + (tx - view.x)*a, ny = view.y + (ty - view.y)*a;
+  if (Math.abs(nx - view.x) + Math.abs(ny - view.y) < .15) return;
+  view.x = nx; view.y = ny; clampView(); lastInteract = now; // 움직이는 동안은 미리 그린 바탕을 옮겨 쓰고, 멈추면 다시 그린다
+}
+function frame(now){
+  const dt = Math.min(250, now - lastNow); lastNow = now;
+  simT += dt*speed;
+  if (waiters.length){ const due = waiters.filter(w => w.at <= simT); if (due.length){ waiters = waiters.filter(w => w.at > simT); due.forEach(w => w.res()); } }
+  let moving = false;
+  for (const f of ST.fleets){ if (!f.mv) continue; moving = true; const t = Math.min(1, (simT - f.mv.t0)/f.mv.dur), e = t < .5 ? 2*t*t : 1 - (-2*t + 2)**2/2; const p = along(f.legs, e*f.mv.total); f.b = {x:p.x, y:p.y}; f.over = p.over; if (Math.abs(p.dx) > .5) f.dir = Math.sign(p.dx); if (speed && t < 1 && !RM && Math.random() < .25 && !p.over) ST.parts.push({b:{...f.b}, t0:simT, life:900}); if (t >= 1){ const r = f.mv.res; f.mv = null; r(); } }
+  followFleets(now, dt);
+  if (ST.event && simT > ST.event.until){ $('event').hidden = true; ST.event = null; }
+  // 움직이는 것이 없으면 초당 12번만 그린다 (배터리·내장 그래픽 배려). 화질은 그대로.
+  const busy = moving || dirty || ST.scrolls.length || ST.parts.length || waiters.length || now - lastInteract < 300 || [...ST.port.values()].some(p => p.reading || p.alarm);
+  if (busy || now - lastDraw > 83){ draw(now); lastDraw = now; dirty = false; }
+  requestAnimationFrame(frame);
+}
+function glow(color){ return sprite('g' + color, 52, 52, g => { const gr = g.createRadialGradient(26, 26, 0, 26, 26, 26); gr.addColorStop(0, color + 'aa'); gr.addColorStop(1, color + '00'); g.fillStyle = gr; g.fillRect(0, 0, 52, 52); }); }
+function blit(s, x, y){ ctx.drawImage(s.c, Math.round((x - s.w/2)*DPR), Math.round((y - s.h/2)*DPR), s.c.width, s.c.height); }
+function draw(now){
+  const c = ctx, k = view.k;
+  drawBase(now);
+  c.setTransform(DPR*k, 0, 0, DPR*k, DPR*view.x, DPR*view.y);
+  const focus = ST.sel || ST.hover;
+  const drawLinks = (a, alpha) => { for (const l of a.links){ const b = P.get(l); const mx = (a.b.x + b.b.x)/2, my = (a.b.y + b.b.y)/2 - Math.hypot(b.b.x - a.b.x, b.b.y - a.b.y)*.18; c.beginPath(); c.moveTo(a.b.x, a.b.y); c.quadraticCurveTo(mx, my, b.b.x, b.b.y); c.strokeStyle = `rgba(240,205,120,${alpha})`; c.stroke(); } };
+  c.lineWidth = 1.2/k; c.setLineDash([3/k, 4/k]);
+  if ($('showLinks').checked) for (const p of PLACES) drawLinks(p, .14);
+  if (focus){ c.lineWidth = 1.6/k; drawLinks(P.get(focus), .85); }
+  c.setLineDash([]);
+  for (const tr of ST.trails){ c.strokeStyle = tr.color; c.globalAlpha = .78; c.lineWidth = 2.2/k; for (const l of tr.legs){ c.setLineDash(l.over ? [5/k, 4/k] : []); c.beginPath(); c.moveTo(l.a.x, l.a.y); c.lineTo(l.b.x, l.b.y); c.stroke(); } }
+  c.setLineDash([]); c.globalAlpha = 1;
+  for (const f of ST.fleets){ if (!f.mv) continue; c.strokeStyle = f.color; c.globalAlpha = .35; c.lineWidth = 1.6/k; c.setLineDash([2/k, 4/k]); c.beginPath(); for (const l of f.legs){ c.moveTo(l.a.x, l.a.y); c.lineTo(l.b.x, l.b.y); } c.stroke(); c.setLineDash([]); c.globalAlpha = 1; }
+  ST.parts = ST.parts.filter(q => simT - q.t0 < q.life);
+  for (const q of ST.parts){ const a = 1 - (simT - q.t0)/q.life; c.fillStyle = `rgba(255,255,255,${(a*.5).toFixed(2)})`; c.beginPath(); c.arc(q.b.x, q.b.y, (1.2 + (1 - a)*2)/k, 0, 7); c.fill(); }
+  c.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const vis = [];
+  for (const p of PLACES){
+    const s = toScr(p.b), ps = ST.port.get(p.id); if (s.x < -30 || s.x > W + 30 || s.y < -30 || s.y > H + 30) continue;
+    if (ps.readers.size){ c.setTransform(1, 0, 0, 1, 0, 0); blit(glow(COLORS[[...ps.readers][0]]), s.x, s.y); c.setTransform(DPR, 0, 0, DPR, 0, 0); }
+    if (ps.alarm){ const t = (now % 900)/900; c.strokeStyle = `rgba(255,70,50,${1 - t})`; c.lineWidth = 3; c.beginPath(); c.arc(s.x, s.y, 8 + t*22, 0, 7); c.stroke(); }
+    const r = p.id === HQ ? 6.5 : ALL_BASES.has(p.id) ? 5 : p.tokens > 5000 ? 4.4 : 3.5;
+    c.fillStyle = p.links.length ? '#f4e6c2' : '#bdb6a3'; c.strokeStyle = '#2b1f10'; c.lineWidth = 1.5; c.beginPath(); c.arc(s.x, s.y, r, 0, 7); c.fill(); c.stroke();
+    if (ALL_BASES.has(p.id) && p.id !== HQ){ c.fillStyle = '#2b1f10'; c.fillRect(s.x - 1.6, s.y - 1.6, 3.2, 3.2); }
+    if (p.inland){ c.beginPath(); c.moveTo(s.x - 2.3, s.y); c.lineTo(s.x + 2.3, s.y); c.stroke(); }
+    let j = 0; for (const fi of ps.readers){ c.fillStyle = COLORS[fi]; c.beginPath(); c.arc(s.x - 6 + j*6, s.y - r - 5, 2.7, 0, 7); c.fill(); j++; }
+    if (ps.pin >= 0){ c.strokeStyle = '#1a1209'; c.lineWidth = 1.2; c.beginPath(); c.moveTo(s.x + r, s.y); c.lineTo(s.x + r, s.y - 17); c.stroke(); c.fillStyle = COLORS[ps.pin]; c.beginPath(); c.moveTo(s.x + r, s.y - 17); c.lineTo(s.x + r + 10, s.y - 13.5); c.lineTo(s.x + r, s.y - 10); c.closePath(); c.fill(); }
+    if (ps.dup){ c.fillStyle = '#e8573f'; c.beginPath(); c.arc(s.x - r - 7, s.y + 1, 6, 0, 7); c.fill(); c.fillStyle = '#fff'; c.font = '800 10px sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('!', s.x - r - 7, s.y + 1.5); }
+    vis.push({p, s, r, ps});
+  }
+  drawLabels(c, vis);
+  const hqs = toScr(P.get(HQ).b);
+  ST.scrolls = ST.scrolls.filter(sc => simT - sc.t0 < sc.dur);
+  for (const sc of ST.scrolls){ const t = Math.min(1, (simT - sc.t0)/sc.dur), a = toScr(sc.from), b = sc.toB ? toScr(sc.toB) : hqs; const x = a.x + (b.x - a.x)*t, y = a.y + (b.y - a.y)*t - Math.sin(t*Math.PI)*Math.min(90, Math.hypot(b.x - a.x, b.y - a.y)*.25);
+    c.fillStyle = sc.out ? '#f6dc9a' : '#f2e3b8'; c.strokeStyle = sc.color; c.lineWidth = 2; c.fillRect(x - 6, y - 4, 12, 8); c.strokeRect(x - 6, y - 4, 12, 8); if (sc.out){ c.fillStyle = '#a8231a'; c.beginPath(); c.arc(x, y, 2.2, 0, 7); c.fill(); } }
+  for (const f of ST.fleets){
+    const s = toScr(f.b), bob = Math.sin(now/300 + f.i)*1.2;
+    if (f.over){ c.strokeStyle = '#2a1a0c'; c.lineWidth = 1.5; c.beginPath(); c.moveTo(s.x, s.y + 6); c.lineTo(s.x, s.y - 12); c.stroke(); c.fillStyle = f.color; c.fillRect(s.x, s.y - 12, 10, 7); c.fillStyle = '#2a1a0c'; c.beginPath(); c.arc(s.x - 4, s.y + 6, 2, 0, 7); c.arc(s.x + 4, s.y + 6, 2, 0, 7); c.fill(); }
+    else ship(c, s.x, s.y + bob, f.color, f.dir, now, f.nation);
+    busyRing(c, f, s.x, s.y + bob, now);
+    if (f.bubble && f.bubble.until > simT) bubble(c, f.bubble.text, s.x, s.y - 36*shipScale(), f.color);
+  }
+  if (ST.hqBubble && ST.hqBubble.until > simT) bubble(c, ST.hqBubble.text, hqs.x, hqs.y - 14, '#c9a45c');
+  const cx = W - 46, cy = 52; c.save(); c.globalAlpha = .85; c.strokeStyle = '#d8c08a'; c.lineWidth = 1; c.beginPath(); c.arc(cx, cy, 22, 0, 7); c.stroke(); c.fillStyle = '#d8c08a';
+  c.beginPath(); c.moveTo(cx, cy - 30); c.lineTo(cx + 5, cy); c.lineTo(cx, cy + 30); c.lineTo(cx - 5, cy); c.closePath(); c.fill(); c.font = "800 11px 'Nanum Myeongjo',serif"; c.textAlign = 'center'; c.textBaseline = 'bottom'; c.fillText('北', cx, cy - 31); c.restore();
+}
+function labelSprite(text, font, fill, stroke, lw){ // 글자는 한 번만 그려 두고 재사용 (외곽선 글자는 그리기 비용이 크다)
+  const key = `L${font}|${fill}|${text}`, hit = spriteCache.get(key); if (hit) return hit;
+  ctx.font = font; const w = Math.ceil(ctx.measureText(text).width) + lw*2 + 2, h = Math.ceil(parseFloat(font.match(/(\d+(?:\.\d+)?)px/)[1])) + lw*2 + 4;
+  return sprite(key, w, h, g => { g.font = font; g.textAlign = 'center'; g.textBaseline = 'middle'; g.lineJoin = 'round'; g.lineWidth = lw; g.strokeStyle = stroke; g.strokeText(text, w/2, h/2); g.fillStyle = fill; g.fillText(text, w/2, h/2); });
+}
+function drawLabels(c, vis){ // 묶음마다: 확대해서 항구들이 충분히 벌어지면 개별 지명, 아니면 권역 묶음 이름. 겹치면 중요도 낮은 쪽을 뺀다.
+  const placed = [], fits = (x, y, w, h) => { for (const r of placed) if (x < r.x + r.w && x + w > r.x && y < r.y + r.h && y + h > r.y) return false; placed.push({x, y, w, h}); return true; };
+  const open = new Set();
+  for (const [gid, g] of Object.entries(GROUPS_POS)){
+    if (g.n === 1 || view.k >= 3.2){ open.add(gid); continue; }
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const id of g.ids){ const s = toScr(P.get(id).b); x0 = Math.min(x0, s.x); x1 = Math.max(x1, s.x); y0 = Math.min(y0, s.y); y1 = Math.max(y1, s.y); }
+    if (Math.max(x1 - x0, y1 - y0)/Math.max(1, Math.sqrt(g.n - 1)) > 42) open.add(gid);
+  }
+  const items = [];
+  for (const v of vis){ const touched = v.ps.readers.size || v.ps.pin >= 0 || v.ps.reading || v.p.id === ST.hover || v.p.id === ST.sel || v.ps.alarm || ST.fleets.some(f => f.base === v.p.id);
+    if (v.p.id === HQ || touched || open.has(v.p.group)) items.push({kind:'place', v, pri:v.p.id === ST.hover || v.p.id === ST.sel ? 0 : v.p.id === HQ ? 1 : touched ? 2 : 4 - Math.min(1.5, v.p.tokens/8000)}); }
+  for (const [gid, g] of Object.entries(GROUPS_POS)){ if (open.has(gid)) continue; const s = toScr(g); if (s.x < 0 || s.x > W || s.y < 0 || s.y > H) continue; items.push({kind:'group', gid, g, s, pri:3 - Math.min(1, g.n/8)}); }
+  items.sort((a, b) => a.pri - b.pri);
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  for (const it of items){
+    if (it.kind === 'place'){ const {p, s, r} = it.v; const big = p.id === HQ; const t = (big ? '♛ ' : '') + p.name + (p.links.length ? '' : ' ·');
+      const sp = labelSprite(t, `${big ? 800 : 700} ${big ? 14 : 12}px 'Nanum Myeongjo',serif`, big ? '#f3cf7a' : '#f4e8c9', 'rgba(16,12,6,.85)', 3.5);
+      const y = s.y + r + 2 + sp.h/2; if (!fits(s.x - sp.w/2 + 3, y - sp.h/2 + 2, sp.w - 6, sp.h - 4)) continue; blit(sp, s.x, y); }
+    else { const name = GROUP[it.gid] || it.gid, n = it.g.n; const t = n > 1 ? `${name} · ${n}` : name;
+      const sp = labelSprite(t, "800 12.5px 'Nanum Myeongjo',serif", '#f6e4b5', 'rgba(14,10,5,.8)', 4);
+      const y = it.s.y + 10 + sp.h/2; if (!fits(it.s.x - sp.w/2 + 3, y - sp.h/2 + 2, sp.w - 6, sp.h - 4)) continue; blit(sp, it.s.x, y); }
+  }
+  c.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+const shipScale = () => Math.min(1.55, .95 + .14*view.k);
+function ship(c, x, y, color, dir, now, nation){ // 16세기 카라크: 몸체(선체·돛·삭구)는 미리 그려 두고, 항적·깃발만 매번 그린다
+  const sc = shipScale(), t = now/1000, q = Math.round(sc*20)/20;
+  const body = sprite(`S${color}|${q}`, 62*q, 50*q, g => { g.translate(31*q, 32*q); g.scale(q, q); shipBody(g, color); });
+  c.save(); c.translate(x, y); c.scale(dir < 0 ? -1 : 1, 1);
+  c.fillStyle = 'rgba(5,20,28,.35)'; c.beginPath(); c.ellipse(0, 7.5*sc, 19*sc, 3*sc, 0, 0, 7); c.fill();
+  c.strokeStyle = 'rgba(235,245,240,.55)'; c.lineWidth = .9;
+  for (let i = 0; i < 3; i++){ const o = (t*6 + i*5) % 15; c.globalAlpha = 1 - o/15; c.beginPath(); c.moveTo((-17 - o)*sc, (6.5 - o*.12)*sc); c.quadraticCurveTo((-20 - o)*sc, 5.2*sc, (-23 - o)*sc, (6.6 + o*.1)*sc); c.stroke(); }
+  c.globalAlpha = 1;
+  c.drawImage(body.c, -31*q, -32*q, 62*q, 50*q);
+  const wv = Math.sin(t*5)*1.2;
+  c.scale(sc, sc);
+  c.fillStyle = color; c.beginPath(); c.moveTo(0, -30); c.quadraticCurveTo(-5, -31 + wv, -11, -29.6 - wv*.5); c.lineTo(0, -28.6); c.closePath(); c.fill();
+  const fl = new Path2D(); fl.moveTo(-19.5, -17); fl.quadraticCurveTo(-23, -17.4 + wv*.6, -25.5, -16.4); fl.lineTo(-25, -13.2); fl.quadraticCurveTo(-22.5, -14 - wv*.6, -19.6, -13.6); fl.closePath();
+  nationFlag(c, fl, nation || "pt");
+  c.restore();
+}
+function nationFlag(c, path, nation){ // 선미기: 17세기 해상 깃발을 단순화 (네덜란드는 당시의 오렌지·흰·파랑 '왕자기')
+  c.save(); c.clip(path);
+  const x0 = -26, x1 = -19, y0 = -18, y1 = -12.8, mx = -22.4, my = -15.3;
+  c.fillStyle = '#f4f1e8'; c.fillRect(x0, y0, x1 - x0, y1 - y0);
+  if (nation === 'nl'){ const h = (y1 - y0)/3; c.fillStyle = '#e37222'; c.fillRect(x0, y0, x1 - x0, h + .3); c.fillStyle = '#1f3f8f'; c.fillRect(x0, y1 - h, x1 - x0, h); }
+  else if (nation === 'en'){ c.fillStyle = '#c8102e'; c.fillRect(mx - .55, y0, 1.1, y1 - y0); c.fillRect(x0, my - .55, x1 - x0, 1.1); }
+  else if (nation === 'pt'){ c.fillStyle = '#c8102e'; c.fillRect(mx - .8, y0 + .6, 1.6, y1 - y0 - 1.2); c.fillRect(x0 + .8, my - .8, x1 - x0 - 1.6, 1.6); c.fillStyle = '#f4f1e8'; c.fillRect(mx - .2, my - 1.6, .4, 3.2); c.fillRect(mx - 1.6, my - .2, 3.2, .4); }
+  else if (nation === 'es'){ c.strokeStyle = '#b5121b'; c.lineWidth = 1; c.beginPath(); c.moveTo(x0 + 1, y0 + .6); c.lineTo(x1 - 1, y1 - .6); c.moveTo(x1 - 1, y0 + .6); c.lineTo(x0 + 1, y1 - .6); c.stroke(); }
+  else if (nation === 'fr'){ c.fillStyle = '#c9a227'; c.beginPath(); c.arc(mx, my, .8, 0, 7); c.fill(); }
+  c.restore();
+  c.strokeStyle = 'rgba(0,0,0,.4)'; c.lineWidth = .35; c.stroke(path);
+}
+function shipBody(c, color){
+  c.lineJoin = 'round'; c.lineCap = 'round';
+  c.strokeStyle = '#2a1a0d'; c.lineWidth = 1.1;
+  c.beginPath(); c.moveTo(0, -1); c.lineTo(0, -30); c.moveTo(8.5, -2); c.lineTo(8.5, -24); c.moveTo(-9, -6); c.lineTo(-9, -21); c.moveTo(14, -6); c.lineTo(24, -12); c.moveTo(-17.2, -11); c.lineTo(-19.5, -17); c.stroke();
+  c.lineWidth = .9; c.beginPath(); c.moveTo(-7.5, -19.5); c.lineTo(7.5, -19.5); c.moveTo(-5.5, -28); c.lineTo(5.5, -28); c.moveTo(3, -15.5); c.lineTo(14, -15.5); c.moveTo(4.5, -22.5); c.lineTo(12.5, -22.5); c.stroke();
+  c.strokeStyle = 'rgba(40,25,12,.55)'; c.lineWidth = .45;
+  c.beginPath(); c.moveTo(0, -30); c.lineTo(15, -6); c.moveTo(0, -30); c.lineTo(-15, -9); c.moveTo(8.5, -24); c.lineTo(23, -11.5); c.moveTo(-9, -21); c.lineTo(-17, -10);
+  for (let i = 0; i < 4; i++){ c.moveTo(-3 + i*1.6, -2); c.lineTo(-1.5 + i*.5, -19.5); } c.stroke();
+  const sail = (x1, y1, w1, x2, y2, w2, belly) => {
+    const g = c.createLinearGradient(x1 - w1/2, 0, x1 + w1/2, 0); g.addColorStop(0, '#d9ccab'); g.addColorStop(.55, '#f4ecd6'); g.addColorStop(1, '#e6dbbd');
+    c.fillStyle = g; c.strokeStyle = 'rgba(110,90,60,.8)'; c.lineWidth = .5;
+    c.beginPath(); c.moveTo(x1 - w1/2, y1); c.lineTo(x1 + w1/2, y1);
+    c.quadraticCurveTo(x2 + w2/2 + belly, (y1 + y2)/2, x2 + w2/2, y2); c.quadraticCurveTo(x2, y2 + belly*.55, x2 - w2/2, y2);
+    c.quadraticCurveTo(x2 - w2/2 + belly*.6, (y1 + y2)/2, x1 - w1/2, y1); c.closePath(); c.fill(); c.stroke();
+    c.strokeStyle = 'rgba(150,130,95,.35)'; c.beginPath(); c.moveTo(x1 - w1/4, y1); c.quadraticCurveTo(x2 - w2/4 + belly*.5, (y1 + y2)/2, x2 - w2/4, y2); c.moveTo(x1 + w1/4, y1); c.quadraticCurveTo(x2 + w2/4 + belly*.8, (y1 + y2)/2, x2 + w2/4, y2); c.stroke();
+  };
+  sail(0, -28, 10, .5, -21, 12, 2.2); sail(0, -19.5, 15, .8, -8.5, 17, 3.2); sail(8.5, -22.5, 8, 9, -17, 9.5, 1.8); sail(8.5, -15.5, 11, 9, -7.5, 12.5, 2.6);
+  c.strokeStyle = color; c.lineWidth = 1.7; c.beginPath(); c.moveTo(1.3, -17.6); c.lineTo(1.6, -10.4); c.moveTo(-2.4, -14.3); c.lineTo(5.3, -14.1); c.stroke();
+  c.strokeStyle = '#2a1a0d'; c.lineWidth = .9; c.beginPath(); c.moveTo(-16.5, -8); c.lineTo(-4, -24); c.stroke();
+  c.fillStyle = '#ece2c6'; c.strokeStyle = 'rgba(110,90,60,.8)'; c.lineWidth = .5; c.beginPath(); c.moveTo(-15.6, -9.2); c.lineTo(-4.6, -23.2); c.quadraticCurveTo(-3, -14, -8.5, -7.3); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle = '#e8ddc0'; c.beginPath(); c.moveTo(18, -9.5); c.lineTo(23, -12); c.lineTo(23.6, -6.5); c.quadraticCurveTo(20.5, -5.2, 18.4, -5.6); c.closePath(); c.fill(); c.stroke();
+  const hull = c.createLinearGradient(0, -10, 0, 7); hull.addColorStop(0, '#7a5230'); hull.addColorStop(.55, '#5a3a1f'); hull.addColorStop(1, '#2e1d0f');
+  c.fillStyle = hull; c.strokeStyle = '#1f1309'; c.lineWidth = .8;
+  c.beginPath(); c.moveTo(-17.5, -11); c.lineTo(-9, -10.2); c.lineTo(-8, -4.2); c.quadraticCurveTo(0, -1.6, 9, -3.6); c.lineTo(10, -8.6); c.lineTo(16.5, -8.2); c.lineTo(15.5, -4.4);
+  c.lineTo(19, -5.6); c.quadraticCurveTo(15.5, 2.5, 9, 6.2); c.lineTo(-11, 6.2); c.quadraticCurveTo(-16.5, 3.5, -17.8, -3.5); c.closePath(); c.fill(); c.stroke();
+  c.strokeStyle = '#d2a35a'; c.lineWidth = .7; c.beginPath(); c.moveTo(-17.4, -6.4); c.lineTo(-8.3, -6.1); c.moveTo(-8.2, -1.4); c.quadraticCurveTo(0, 1, 9.2, -.8); c.lineTo(17.6, -2.6); c.moveTo(10.2, -6.4); c.lineTo(16, -6.2); c.stroke();
+  c.strokeStyle = 'rgba(20,12,6,.55)'; c.lineWidth = .5; c.beginPath(); c.moveTo(-16.5, 2.6); c.quadraticCurveTo(0, 4.6, 14, 1.2); c.stroke();
+  c.fillStyle = '#1b1008'; for (let i = 0; i < 4; i++) c.fillRect(-5.5 + i*4.2, .6 + Math.abs(i - 1.5)*.25, 1.7, 1.4);
+  c.fillStyle = '#f0c76a'; c.fillRect(-16.2, -9.3, 1.6, 1.3); c.fillRect(-13.7, -9.2, 1.6, 1.3);
+  c.fillStyle = 'rgba(20,40,48,.55)'; c.beginPath(); c.moveTo(-15.5, 4.2); c.quadraticCurveTo(0, 6, 13, 3.3); c.lineTo(9, 6.2); c.lineTo(-11, 6.2); c.closePath(); c.fill();
+}
+function busyRing(c, f, x, y, now){ // 문서 읽기·항로 계산 중 표시: 배보다 위에, 어두운 테두리 + 금빛 고리로 바다·육지 어디서나 보이게
+  const rd = [...ST.port.values()].find(ps => ps.reading && ps.reading.f === f), calc = f.status === '항로 계산';
+  if (!rd && !calc) return;
+  const R = 24*shipScale(); c.save(); c.lineCap = 'round';
+  c.strokeStyle = 'rgba(12,9,4,.72)'; c.lineWidth = 9; c.beginPath(); c.arc(x, y, R, 0, 7); c.stroke();
+  c.shadowColor = 'rgba(255,214,80,.95)'; c.shadowBlur = 10; c.strokeStyle = '#ffd34d'; c.lineWidth = 5;
+  let label;
+  if (rd){ const fr = Math.min(1, (simT - rd.reading.t0)/rd.reading.dur); c.beginPath(); c.arc(x, y, R, -Math.PI/2, -Math.PI/2 + Math.max(.04, fr)*6.283); c.stroke(); label = `읽는 중 ${Math.round(fr*100)}%`; }
+  else { const a = (now/160) % 6.283; c.beginPath(); c.arc(x, y, R, a, a + 1.9); c.stroke(); label = '항로 계산 중'; }
+  c.shadowBlur = 0; c.font = "800 11.5px 'IBM Plex Sans KR',sans-serif"; c.textAlign = 'center'; c.textBaseline = 'middle';
+  const w = c.measureText(label).width + 12, ty = y + R + 13;
+  c.fillStyle = 'rgba(12,9,4,.85)'; c.beginPath(); c.roundRect ? c.roundRect(x - w/2, ty - 9, w, 18, 9) : c.rect(x - w/2, ty - 9, w, 18); c.fill();
+  c.strokeStyle = '#ffd34d'; c.lineWidth = 1.2; c.stroke(); c.fillStyle = '#ffe48a'; c.fillText(label, x, ty + .5); c.restore();
+}
+function bubble(c, text, x, y, color){
+  c.font = "700 12px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 14, h = 22;
+  c.fillStyle = 'rgba(248,240,220,.96)'; c.strokeStyle = color; c.lineWidth = 2; c.beginPath(); c.roundRect ? c.roundRect(x - w/2, y - h, w, h, 5) : c.rect(x - w/2, y - h, w, h); c.fill(); c.stroke();
+  c.fillStyle = '#1c150b'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(text, x, y - h/2);
+}
+
+/* ───────── 상황판 ───────── */
+function log(t, cls){ const el = $('log'), d = document.createElement('div'); if (cls) d.className = cls; d.textContent = t; el.appendChild(d); while (el.children.length > 150) el.removeChild(el.firstChild); el.scrollTop = el.scrollHeight; }
+function stClass(s){ return /충분|완료|보고/.test(s) ? 'ok' : /부족/.test(s) ? 'bad' : /조사|항해|재조사|집필|계산/.test(s) ? 'run' : ''; }
+let fleetsTimer = 0;
+function renderFleets(){ // 잦은 갱신은 한 프레임으로 모은다
+  if (fleetsTimer) return; fleetsTimer = requestAnimationFrame(() => { fleetsTimer = 0;
+  $('fleets').innerHTML = ST.fleets.map(f => `<button type="button" class="fleet" data-i="${f.i}" style="--c:${f.color}">
+    <div class="row"><b>${esc(f.name)}</b><span class="st ${stClass(f.status)}">${esc(f.status)}</span></div>
+    <div class="sec">${esc(f.sec.title)}</div>
+    <small>${esc(f.sec.role)} · ${esc(NATIONS[f.nation].name)} 깃발 · 출항 거점 «${esc(P.get(f.base).name)}» · 시작 «${esc(f.sec.seed ? P.get(f.sec.seed).name : '자율')}»</small>
+    <div class="pips">${Array.from({length:f.budget}, (_, k) => `<i class="${k < f.used ? 'used' : ''}"></i>`).join('')}</div>
+    <div class="cargo">${f.read.map(id => `<span class="${ST.reads.find(r => r.f === f.i && r.id === id && r.dup) ? 'dup' : ''}">${esc(P.get(id).name)}</span>`).join('')}</div></button>`).join('')
+    + `<p class="note" style="padding:2px 2px 0">명령서는 본부(♛)에서 거점으로 가고, 함대는 그 거점에서 출항합니다. 실선은 바닷길, 점선은 상륙 행군. 함대를 누르면 해도가 그 배로 이동합니다.</p>`; });
+}
+function renderRes(){
+  const reads = ST.reads.length, uniq = new Set(ST.reads.map(r => r.id)).size;
+  $('res').innerHTML = [['함대', `${ST.fleets.length}척`], ['읽은 문서', `${uniq}`], ['중복', `${reads - uniq}`], ['LLM 호출', `${ST.calls}회`], ['비용', `₩${Math.round(ST.won).toLocaleString()}`]].map(([a, b]) => `<div>${a} <b>${b}</b></div>`).join('');
+}
+const MDEF = [['ground','근거 비율','%','조사 깊이·재위임'],['fake','허위 인용','건','경보 · 0이어야 함'],['unused','읽고 안 쓴','건','배정 품질'],['bias','최다 문서 편중','%','배정·구역'],['dup','중복률','%','배정·구역'],['iso','본부가 본 글자','%','컨텍스트 격리']];
+function renderMetrics(){ const m = ST.metrics; $('metrics').innerHTML = MDEF.map(([k, n, u, h]) => `<div class="m ${m && k === 'fake' ? (m.fake ? 'alarm' : 'good') : ''}"><b>${m ? m[k] + u : '—'}</b><span>${n}</span><i>${h}</i></div>`).join(''); }
+function renderDoc(){
+  if (ST.replay){ const R = ST.replay, end = R.events.find(e => e.type === 'run_end') || {}, m = ST.metrics || {ground:'—', fake:0};
+    const t = (R.report.match(/^# (.+)$/m) || [null, ST.plan.q])[1];
+    $('doc').innerHTML = `<header><div><h3>${esc(t)}</h3><div class="meta">질문: ${esc(ST.plan.q)} · ${esc(R.mode)} 실제 실행 · 함대 ${ST.fleets.length}척 · 근거율 ${m.ground}% · 허위 인용 ${m.fake}건 · ₩${end.won ?? '?'}</div></div><button type="button" class="close" id="closeDoc">해도로 돌아가기</button></header>
+    <div class="notice">실제 실행 기록의 보고서 원문 그대로입니다 (graph.py → output/reports/${esc(R.run_id)}.md). 붉은 바탕 인용은 아무 함대도 읽지 않은 문서입니다. 인용이 제자리에 붙었는지(오귀속)는 지표가 잡지 못하니 원문과 대조해 읽어 보세요.</div>${mdReport(R.report)}`;
+    $('closeDoc').onclick = () => { $('doc').hidden = true; $('openDoc').focus(); }; return; }
+  const r = ST.report, m = ST.metrics;
+  $('doc').innerHTML = `<header><div><h3>${esc(ST.plan.q)}</h3><div class="meta">${esc(NATIONS[ST.plan.hqNation].board)} 보고서 · 함대 ${ST.fleets.length}척 · 조사한 문서 ${new Set(ST.reads.map(x => x.id)).size}건 · 근거 비율 ${m.ground}% · 허위 인용 ${m.fake}건</div></div><button type="button" class="close" id="closeDoc">해도로 돌아가기</button></header>
+  <div class="notice">예시 보고서입니다. LLM을 부르지 않았기 때문에, 각 절에는 함대가 실제로 읽은 문서(영어 위키백과 History 절)의 첫 문장을 근거로 붙였습니다. 실제 버전에서는 이 자리에 서브에이전트가 쓴 한국어 원고가 들어가고, 문장마다 «지명» 인용이 붙습니다.</div>
+  ${r.map(({f, cites}) => `<section style="--c:${f.color}"><h4><i></i>${esc(f.sec.title)}</h4><div class="who">${esc(f.name)} · ${esc(f.sec.role)} · ${esc(P.get(f.base).name)}에서 출항 · ${f.read.length}곳 조사</div>
+    ${cites.map(ci => { const p = P.get(ci.id); return ci.fake ? `<p class="fake"><span class="cite">«${esc(p.name)}»</span> — 아무 함대도 이 문서를 읽지 않았는데 인용했습니다. 허위 인용 경보.</p>`
+      : `<p class="${ci.used ? '' : 'unused'}"><span class="cite">«${esc(p.name)}»</span> <q>${esc(p.excerpt)}</q>${ci.used ? '' : ' (읽었지만 원고에 쓰지 않음)'}</p>`; }).join('')}</section>`).join('')}`;
+  $('closeDoc').onclick = () => { $('doc').hidden = true; $('openDoc').focus(); };
+}
+function renderCorpus(){
+  const s = DATA.corpus, ok = s['총토큰_o200k'] > 128000;
+  $('corpus').innerHTML = `<dl><dt>출처</dt><dd>영어 위키백과 지명 문서의 History 절 (data/corpus.json)</dd><dt>문서 수</dt><dd>${s['문서수']}건 · 3,000자 이상 ${s['3000자이상']}건 · 권역 묶음 ${Object.keys(GROUP).length}개</dd><dt>총 글자</dt><dd>${s['총글자'].toLocaleString()}자</dd><dt>총 토큰</dt><dd class="${ok ? 'ok-t' : 'bad-t'}">${s['총토큰_o200k'].toLocaleString()} — 컨텍스트 128,000의 ${(s['총토큰_o200k']/128000).toFixed(2)}배 ${ok ? '✓' : '✗'}</dd><dt>링크</dt><dd>총 ${s['링크총수']}개 · 문서당 중앙값 ${s['링크수_중앙값']}개</dd><dt>링크 없는 문서</dt><dd>${s['링크0개'].length}건 (해도에 · 표시)</dd><dt>음악</dt><dd>${TRACKS.map(t => esc(t.name)).join(' · ')} — 모두 <a href="https://musopen.org" style="color:var(--gold)">Musopen</a> 녹음, 퍼블릭 도메인 (위키미디어 공용)</dd><dt>출항 거점</dt><dd>${Object.values(NATIONS).map(n => `${n.name}: ${n.bases.map(id => P.get(id).name).join('·')}`).join(' / ')}</dd></dl>
+  <p class="note">배는 0.25° 바다 격자(약 28km) 위에서만 길을 찾습니다. 좁은 해협 ${DATA.sea.channels.length}곳(${DATA.sea.channels.slice(0, 6).join(', ')} 등)은 실제 수로를 따라 열어 두었습니다. 역사 항로 띠 위를 그 방향으로 지날 때는 비용이 낮아, 가능하면 역사 항로를 탑니다. 지형(사막·밀림·초원·산맥·강)은 손으로 단순화한 윤곽이고, 함대 이동과 지표는 예시 연출이며 LLM은 호출하지 않습니다.</p>`;
+  $('routes').innerHTML = HIST.map(h => `<div style="--c:${h.color}"><b>${esc(h.name)}</b>${h.dir ? '' : ' (양방향)'}<br>${esc(h.note)}</div>`).join('');
+}
+function showEvent(title, body, alarm){ const e = $('event'); e.className = 'event' + (alarm ? ' alarm' : ''); e.innerHTML = `<b>${esc(title)}</b><p>${esc(body)}</p>`; e.hidden = false; ST.event = {until:simT + (alarm ? 3400 : 2600)}; }
+
+/* ───────── 배경 음악: Musopen 녹음 (퍼블릭 도메인) 중에서 고른다 ───────── */
+const TRACKS = [ // 잔잔한 곡만 둔다 (크게 터지는 곡은 넣지 않는다)
+  {src:'audio/new-world-ii-largo.ogg', name:'드보르자크 「신세계로부터」 2악장 라르고', note:'잉글리시 호른의 느린 선율'},
+  {src:'audio/pastoral-ii.ogg', name:'베토벤 「전원」 2악장 (시냇가의 정경)', note:'잔잔히 흐르는 물결 같은 현'},
+];
+const Music = (() => { // 셔플 재생: 곡이 끝나면 다른 곡을 무작위로. 직접 재생이 막히면 음원을 받아 blob 주소로 다시 시도한다.
+  const el = new Audio(); el.preload = 'none';
+  let on = false, vol = .55, fade = 0, idx = 0, mode = 'direct', userOff = false;
+  const blobs = {};
+  const stat = t => { const e = $('mstat'); if (e) e.textContent = t; };
+  ['loadstart','waiting','playing','pause','stalled','suspend','canplay'].forEach(ev => el.addEventListener(ev, () => stat({loadstart:'불러오는 중…', waiting:'불러오는 중…', playing:`재생 중 (${mode === 'direct' ? '직접' : '우회'})`, pause:on ? '멈춤' : '', stalled:'받는 중 멈춤…', suspend:el.readyState >= 3 ? '' : '대기', canplay:'재생 준비됨'}[ev] ?? '')));
+  const why = e => { const c = e && e.code; return c === 4 ? '이 브라우저가 ogg 음원을 지원하지 않거나 음원 접근이 막혔습니다.' : c === 3 ? '음원을 해독하지 못했습니다.' : c === 2 ? '음원을 내려받지 못했습니다 (네트워크).' : `음원을 재생하지 못했습니다${e && e.message ? ` (${e.message})` : ''}.`; };
+  const ramp = (to, ms, done) => { cancelAnimationFrame(fade); const from = el.volume, t0 = performance.now();
+    const st = now => { const k = Math.min(1, (now - t0)/ms); el.volume = Math.max(0, Math.min(1, from + (to - from)*k)); if (k < 1) fade = requestAnimationFrame(st); else if (done) done(); }; fade = requestAnimationFrame(st); };
+  async function srcOf(t){
+    if (mode === 'direct') return t.src;
+    if (!blobs[t.src]){ stat('음원 받는 중 (우회)…'); const r = await fetch(t.src); if (!r.ok) throw new Error('HTTP ' + r.status); blobs[t.src] = URL.createObjectURL(new Blob([await r.blob()], {type:'audio/ogg'})); }
+    return blobs[t.src];
+  }
+  async function load(i){ idx = i; $('track').value = String(i); el.src = await srcOf(TRACKS[i]); }
+  async function playFromStart(){
+    el.volume = 0;
+    try { await el.play(); }
+    catch (e){
+      if (e && e.name === 'NotAllowedError') throw e;   // 자동 재생 정책으로 막힌 것은 우회 대상이 아니다
+      if (mode !== 'direct') throw e;
+      stat(`직접 재생 실패(${e.name || e.message}) → 우회 시도…`); mode = 'blob'; await load(idx); await el.play();   // 직접 재생이 막혔으면 한 번만 우회
+    }
+    ramp(vol, 1500);
+  }
+  el.addEventListener('ended', () => { if (on) next(); });
+  el.addEventListener('error', async () => {
+    if (!on) return;
+    if (mode === 'direct'){ try { mode = 'blob'; await load(idx); await playFromStart(); } catch (e){ fail(why(el.error || e)); } }
+    else fail(why(el.error));
+  });
+  function fail(msg){ on = false; el.pause(); setBtn(); showEvent('음악', msg); stat('실패: ' + msg); }
+  async function next(){ let j = idx; if (TRACKS.length > 1) while (j === idx) j = Math.floor(Math.random()*TRACKS.length); try { await load(j); await playFromStart(); } catch (e){ fail(why(e)); } }
+  return {
+    async toggle(){
+      on = !on; userOff = !on;
+      if (!on){ ramp(0, 600, () => el.pause()); return; }
+      try { if (!el.src) await load(idx); await playFromStart(); } catch (e){ fail(why(el.error || e)); }
+    },
+    async pick(i){ if (!on){ idx = i; el.removeAttribute('src'); return; } ramp(0, 500, async () => { el.pause(); try { await load(i); await playFromStart(); } catch (e){ fail(why(e)); } }); },
+    volume(v){ vol = v; if (on) el.volume = v; },
+    get on(){ return on; },
+    async auto(){ // 기본값: 열자마자 재생. 브라우저가 막으면 화면을 처음 누르는 순간 시작한다.
+      if (on) return; on = true;
+      try { if (!el.src) await load(idx); await playFromStart(); }
+      catch (e){
+        on = false;
+        if (!(e && e.name === 'NotAllowedError')){ fail(why(el.error || e)); return; }
+        stat('화면을 한 번 누르면 음악이 시작됩니다');
+        const go = ev => { document.removeEventListener('pointerdown', go, true); document.removeEventListener('keydown', go, true);
+          if (userOff || on || (ev.target && ev.target.closest && ev.target.closest('#music'))) return; // 음악 버튼은 버튼이 알아서
+          Music.toggle().then(setBtn); setBtn(); };
+        document.addEventListener('pointerdown', go, true); document.addEventListener('keydown', go, true);
+      }
+    },
+  };
+})();
+function setBtn(){ $('music').setAttribute('aria-pressed', Music.on ? 'true' : 'false'); $('music').textContent = Music.on ? '♪ 음악 끄기' : '♪ 음악'; }
+$('track').innerHTML = TRACKS.map((t, i) => `<option value="${i}">${esc(t.name)}</option>`).join('');
+$('track').onchange = e => Music.pick(+e.target.value);
+$('music').onclick = async () => { const p = Music.toggle(); setBtn(); await p; setBtn(); };
+$('vol').oninput = e => Music.volume(+e.target.value/100);
+Music.auto().then(setBtn); setBtn();
+
+/* ───────── 조작 ───────── */
+/* ───────── 질문 · 실행 기록 고르기 — 화면은 실제 LLM 실행만 보여 준다 ───────── */
+let RUNS = DATA.runs || [];        // 실제 LLM 실행 기록 (최신순). app.py 로 열면 서버에서 새로 받는다
+let LIVE = null;                   // app.py 로 열었을 때만 {live, busy, today_won, daily_won, runs_left}
+let selQ = null;
+const QS = DATA.questions || [];
+const runsOf = q => RUNS.filter(r => r.question === q);
+const verName = v => String(v || '').replace(/^\d{4}-\d{2}-\d{2}/, '') || v;
+function qKeys(){ // 질문 세트 10개 + 기록에만 있는 직접 질문
+  const extra = [...new Set(RUNS.map(r => r.question))].filter(q => !QS.some(x => x.q === q));
+  return [...QS.map(x => ({q:x.q, tag:x.type})), ...extra.map(q => ({q, tag:'직접'}))];
+}
+const pickDefault = list => list.find(r => r.cond === '전체') || list[0];
+function renderQList(){
+  $('qlist').innerHTML = qKeys().map((x, i) => { const n = runsOf(x.q).length;
+    return `<button type="button" class="preset${n ? '' : ' off'}" data-q="${i}" aria-pressed="${x.q === selQ}"><em>${esc(x.tag)}</em><span>${esc(x.q)}</span><small>${n ? `기록 ${n}` : '기록 없음'}</small></button>`; }).join('');
+}
+function renderRunList(){
+  const box = $('runlist'); if (!selQ){ box.innerHTML = ''; return; }
+  const list = runsOf(selQ), on = !!(LIVE && LIVE.live);
+  if (!list.length){
+    box.innerHTML = on ? `<p class="note">이 질문은 아직 실제로 돌린 기록이 없습니다.</p><button type="button" class="runbtn go" id="runThis">이 질문을 실제 LLM으로 돌리기</button>`
+      : `<p class="note">이 질문은 아직 실제로 돌린 기록이 없습니다. 새 실행은 API 키가 있는 서버(app.py)에서만 됩니다.</p>`;
+    return;
+  }
+  const cur = ST && ST.replay ? ST.replay.run_id : '';
+  box.innerHTML = `<p class="note">실제 실행 ${list.length}개 — 누르면 기록 그대로 재생합니다</p>` + list.map(r =>
+    `<button type="button" class="runbtn" data-run="${esc(r.run_id)}" aria-pressed="${r.run_id === cur}"><b>${esc(r.cond)}</b><span>${esc(r.time)} · 판 ${esc(verName(r.version))}</span><span>근거율 ${r.ground ?? '—'}% · ₩${r.won ?? '?'}</span></button>`).join('');
+}
+function applyLive(){
+  const on = !!(LIVE && LIVE.live);
+  $('ask').disabled = !on; $('askBtn').disabled = !on || !!(LIVE && LIVE.busy);
+  $('ask').placeholder = on ? '새 질문 — 실제 LLM으로 조사합니다' : '새 질문은 키가 있는 서버(app.py)에서만';
+  $('liveNote').innerHTML = on
+    ? `새 질문은 실제 gpt-4o-mini로 돌립니다 (1회 약 ₩5, 1~2분). 오늘 ₩${LIVE.today_won} / ₩${LIVE.daily_won} · 이 접속 남은 횟수 ${LIVE.runs_left}${LIVE.busy ? ' · 지금 다른 질문을 조사 중' : ''}`
+    : (LIVE ? '이 서버에는 API 키가 없어 기록 재생만 됩니다.' : '이 페이지는 실제 LLM으로 돌린 기록만 재생합니다. 질문을 고르고 실행 기록을 누르세요.');
+  renderRunList();
+}
+async function refreshHealth(){ try { const r = await fetch('api/health', {cache:'no-store'}); if (r.ok){ LIVE = await r.json(); applyLive(); } } catch {} }
+
+function start(R){
+  RUN++; waiters = []; simT = 0;
+  CUR = planFromRun(R); newState(CUR); ST.replay = R;
+  $('log').innerHTML = ''; $('event').hidden = true; $('doc').hidden = true; $('openDoc').hidden = true; $('judge').textContent = '기록을 불러오는 중…';
+  setStage(0); renderFleets(); renderRes(); renderMetrics(); dirty = true;
+  selQ = R.question; renderQList(); renderRunList();
+  const run = RUN; replayStory(run).catch(e => { if (e !== CANCEL) console.error(e); });
+}
+
+// app.py: 새 질문을 실제 LLM으로 돌리고, 진행을 기록 파일에서 받아 보여 준 뒤, 끝나면 그 기록을 그대로 재생한다
+function liveLine(e){
+  const sec = i => `${(i ?? 0) + 1}절`;
+  if (e.type === 'plan'){ setStage(2); if (e.out_of_scope) log(`① 기획: 범위 밖 — ${e.out_of_scope}`, 'w'); else log(`① 기획 목차 ${e.toc.length}절 · ` + e.toc.map(t => `${t['역할']}→«${t['시작문서'] || '자율'}»`).join(' · '), 'k'); }
+  else if (e.type === 'fix') log(`   코드가 배정을 바로잡음: «${e.given}» → «${e.used || '없음'}»`, 'w');
+  else if (e.type === 'read'){ setStage(3); log(`  ${sec(e.sec)} «${e.doc}» 읽음${e.irrelevant ? ' — 관련 없음' : ''}${e.round > 1 ? ' (재위임)' : ''}`, e.irrelevant ? 'w' : ''); }
+  else if (e.type === 'write') log(`  ${sec(e.sec)} 원고 ${e.chars}자 · 인용 ${e.cites}곳 · ${e.enough ? '충분' : '부족 신고'}`);
+  else if (e.type === 'recite') log(`  ${sec(e.sec)} 인용이 빠진 원고를 한 번 되돌려 씀 (${e.before} → ${e.after})`);
+  else if (e.type === 'review'){ setStage(4); log(`④ 점검 — ${e.gaps.length ? `${e.gaps.length}절 재위임` : e.reason}`, 'k'); }
+  else if (e.type === 'synth'){ setStage(5); log('⑤ 종합', 'k'); }
+  else if (e.type === 'evaluate'){ setStage(6); log('⑥ 평가', 'k'); }
+  else if (e.type === 'abort') log(`멈춤: ${e.reason}`, 'w');
+}
+async function ask(q){
+  $('askBtn').disabled = true;
+  let r, j;
+  try { r = await fetch('api/ask', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({question:q})}); j = await r.json(); }
+  catch { $('liveNote').textContent = '서버에 닿지 못했습니다.'; $('askBtn').disabled = false; return; }
+  if (!r.ok){ await refreshHealth(); $('liveNote').innerHTML = `<b style="color:#ff9b86">${esc(j.error || '실행을 시작하지 못했습니다.')}</b>`; return; }
+  watch(j.run_id, q);
+}
+async function watch(runId, q){
+  RUN++; const my = RUN; waiters = []; simT = 0;
+  CUR = {...plan(q), q, sections:[], type:'실행 중', why:''}; newState(CUR); ST.replay = null;
+  $('log').innerHTML = ''; $('event').hidden = true; $('doc').hidden = true; $('openDoc').hidden = true;
+  setStage(1); renderFleets(); renderRes(); renderMetrics(); dirty = true;
+  selQ = q; renderQList(); $('runlist').innerHTML = '';
+  ST.hqBubble = say('목차 짜는 중…', 600000);
+  log(`질문 접수: ${q}`, 'k'); log('실제 LLM(gpt-4o-mini)으로 조사합니다. 끝나면 이 실행 기록을 해도에서 그대로 재생합니다.');
+  const t0 = performance.now(); let seen = 0;
+  while (my === RUN){
+    await new Promise(res => setTimeout(res, 1200));
+    if (my !== RUN) break;
+    let j; try { j = await (await fetch('api/job?run_id=' + encodeURIComponent(runId), {cache:'no-store'})).json(); } catch { continue; }
+    for (const e of (j.events || []).slice(seen)) liveLine(e);
+    seen = (j.events || []).length;
+    $('judge').innerHTML = `<b>실제 LLM 실행 중</b> · ${Math.round((performance.now() - t0)/1000)}초 · 기록된 사건 ${seen}개 · 실행 <code>${esc(runId)}</code>`;
+    if (j.status === 'done' && j.record){ RUNS = [j.record, ...RUNS.filter(x => x.run_id !== j.record.run_id)]; await refreshHealth(); start(j.record); return; }
+    if (j.status === 'error'){ log(`실행 실패: ${j.error}`, 'w'); $('judge').innerHTML = `<b>실행 실패</b> · ${esc(j.error)}`; ST.hqBubble = null; await refreshHealth(); return; }
+  }
+  refreshHealth();
+}
+
+$('qlist').addEventListener('click', e => { const b = e.target.closest('.preset'); if (!b) return; const x = qKeys()[+b.dataset.q]; selQ = x.q; $('ask').value = x.q;
+  const list = runsOf(x.q); if (list.length) start(pickDefault(list)); else { renderQList(); renderRunList(); } });
+$('runlist').addEventListener('click', e => { if (e.target.closest('#runThis')){ ask(selQ); return; }
+  const b = e.target.closest('.runbtn[data-run]'); if (!b) return; const R = RUNS.find(x => x.run_id === b.dataset.run); if (R) start(R); });
+$('askform').addEventListener('submit', e => { e.preventDefault(); const q = $('ask').value.trim(); if (q && LIVE && LIVE.live) ask(q); });
+$('showRoutes').onchange = () => { baseKey = ''; dirty = true; };
+$('showLinks').onchange = () => { dirty = true; };
+$('openDoc').onclick = () => { $('doc').hidden = false; };
+document.querySelectorAll('.speed button').forEach(b => b.onclick = () => { speed = +b.dataset.s; document.querySelectorAll('.speed button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); });
+function zoomAt(f, sx, sy){ const k0 = view.k; view.k = Math.max(1, Math.min(10, view.k*f)); const r = view.k/k0; view.x = sx - (sx - view.x)*r; view.y = sy - (sy - view.y)*r; clampView(); lastInteract = userMoved = performance.now(); }
+$('zin').onclick = () => zoomAt(1.5, W/2, H/2); $('zout').onclick = () => zoomAt(1/1.5, W/2, H/2); $('zfit').onclick = () => { userMoved = performance.now(); fitView(); };
+$('follow').onclick = () => { follow = !follow; $('follow').setAttribute('aria-pressed', String(follow)); if (follow) userMoved = -1e9; };
+cv.addEventListener('wheel', e => { e.preventDefault(); const r = cv.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.18 : 1/1.18, e.clientX - r.left, e.clientY - r.top); }, {passive:false});
+let drag = null, moved = 0;
+cv.addEventListener('pointerdown', e => { drag = {x:e.clientX, y:e.clientY, vx:view.x, vy:view.y}; moved = 0; cv.setPointerCapture(e.pointerId); cv.classList.add('drag'); });
+cv.addEventListener('pointermove', e => {
+  const r = cv.getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top;
+  if (drag){ moved += Math.abs(e.movementX) + Math.abs(e.movementY); view.x = drag.vx + e.clientX - drag.x; view.y = drag.vy + e.clientY - drag.y; clampView(); lastInteract = userMoved = performance.now(); }
+  let best = null, bd = 12; for (const p of PLACES){ const s = toScr(p.b), d = Math.hypot(s.x - mx, s.y - my); if (d < bd){ bd = d; best = p; } }
+  const hv = best ? best.id : null; if (hv !== ST.hover){ ST.hover = hv; dirty = true; }
+  const tip = $('tip');
+  if (best && !drag){ const ps = ST.port.get(best.id); tip.innerHTML = `<b>${esc(best.name)}</b><span>${esc(best.title)} · ${esc(GROUP[best.group] || '')}</span><br>${best.chars.toLocaleString()}자 · ${best.tokens.toLocaleString()}토큰 · ${esc(best.source)}<br>다른 지명으로 가는 링크 ${best.links.length}개${best.inland ? ' · 내륙 (상륙 행군)' : ''}${ALL_BASES.has(best.id) ? ' · 출항 거점' : ''}${ps.readers.size ? `<br>읽은 함대: ${[...ps.readers].map(i => SHIPS[i]).join(', ')}` : ''}`; tip.hidden = false; tip.style.left = Math.min(W - 280, mx + 14) + 'px'; tip.style.top = Math.min(H - 120, my + 12) + 'px'; }
+  else tip.hidden = true;
+});
+cv.addEventListener('pointerup', () => { if (drag && moved < 5){ ST.sel = ST.hover && ST.sel !== ST.hover ? ST.hover : null; dirty = true; } drag = null; cv.classList.remove('drag'); });
+cv.addEventListener('pointerleave', () => { if (ST.hover){ ST.hover = null; dirty = true; } $('tip').hidden = true; });
+$('fleets').addEventListener('click', e => { const b = e.target.closest('.fleet'); if (!b) return; const f = ST.fleets[+b.dataset.i]; view.k = Math.max(view.k, 2.6); view.x = W/2 - f.b.x*view.k; view.y = H/2 - f.b.y*view.k; clampView(); });
+// 점검용: 무작위 항구 쌍의 항로가 바다로만 가는지 센다 (상륙 행군 구간은 제외)
+const segOnSea = (a, b) => { let [lo1, la1] = a, [lo2, la2] = b; if (Math.abs(lo2 - lo1) > 180) lo2 += lo2 < lo1 ? 360 : -360; const n = Math.max(2, Math.ceil(Math.hypot(lo2 - lo1, la2 - la1)/.05)); for (let t = 1; t < n; t++){ let lo = lo1 + (lo2 - lo1)*t/n; if (lo > 180) lo -= 360; if (lo < -180) lo += 360; if (!isSea(cellOf(lo, la1 + (la2 - la1)*t/n))) return false; } return true; };
+window.__checkRoutes = async (n = 60) => { let segs = 0, bad = 0, fail = 0; const ex = []; let s = 11; const rnd = () => (s = (s*16807) % 2147483647)/2147483647;
+  for (let i = 0; i < n; i++){ const a = PLACES[Math.floor(rnd()*PLACES.length)], b = PLACES[Math.floor(rnd()*PLACES.length)]; if (a === b) continue; const r = await findPath(a.cell, b.cell); if (!r.pts){ fail++; continue; }
+    for (let k = 1; k < r.pts.length; k++){ segs++; if (!segOnSea(r.pts[k - 1], r.pts[k])){ bad++; if (ex.length < 5) ex.push(`${a.name}→${b.name} ${JSON.stringify(r.pts[k - 1])}→${JSON.stringify(r.pts[k])}`); } } }
+  const hist = HIST.reduce((acc, h) => { for (let k = 1; k < h.pts.length; k++){ acc.n++; if (!segOnSea(h.pts[k - 1], h.pts[k])) acc.bad++; } return acc; }, {n:0, bad:0});
+  return {pairs:n, segments:segs, landSegments:bad, noPath:fail, examples:ex, histSegments:hist.n, histLand:hist.bad}; };
+let rzT = 0; window.addEventListener('resize', () => { clearTimeout(rzT); rzT = setTimeout(resize, 120); });
+resize(); renderCorpus();
+(function boot(){
+  const q4 = (QS.find(x => x.id === 'Q4') || {}).q, first = (q4 && runsOf(q4).length) ? pickDefault(runsOf(q4)) : RUNS[0];
+  applyLive(); if (first) start(first); else renderQList();
+  (async () => { try { const r = await fetch('api/health', {cache:'no-store'}); if (!r.ok) return; LIVE = await r.json();
+    const rr = await fetch('api/runs', {cache:'no-store'}); if (rr.ok) RUNS = await rr.json(); renderQList(); applyLive(); } catch {} })();
+})();
+requestAnimationFrame(frame);
+})();
+</script>

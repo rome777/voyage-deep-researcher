@@ -1,0 +1,21 @@
+{"t": 0.001, "type": "run_start", "run_id": "20261106-163940-live-Q4-off-assign", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}, "sections": 5, "budget": 3}
+{"t": 2.989, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구를 정리한다.", "역할": "항로 담당", "시작문서": "", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구를 정리한다.", "역할": "항로 담당", "시작문서": "", "예산": 3}], "switches": {"roles": true, "assign": false, "zones": true, "redelegate": true}}
+{"t": 2.991, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 3.708, "type": "pick", "sec": 1, "cand": 134, "frontier": false, "chose": "브리스틀"}
+{"t": 3.945, "type": "pick", "sec": 0, "cand": 134, "frontier": false, "chose": "암스테르담"}
+{"t": 5.082, "type": "read", "sec": 1, "doc": "브리스틀", "chars": 12292, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 5.717, "type": "pick", "sec": 1, "cand": 3, "frontier": true, "chose": "광저우"}
+{"t": 8.624, "type": "read", "sec": 0, "doc": "암스테르담", "chars": 16128, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 9.028, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 9.448, "type": "pick", "sec": 0, "cand": 15, "frontier": true, "chose": "안트베르펜"}
+{"t": 9.671, "type": "pick", "sec": 1, "cand": 17, "frontier": true, "chose": "닝보"}
+{"t": 12.656, "type": "read", "sec": 1, "doc": "닝보", "chars": 6770, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 19.394, "type": "write", "sec": 1, "chars": 579, "cites": 12, "enough": true, "gap": "", "round": 1}
+{"t": 19.626, "type": "read", "sec": 0, "doc": "안트베르펜", "chars": 10897, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 20.515, "type": "pick", "sec": 0, "cand": 15, "frontier": true, "chose": "미델뷔르흐"}
+{"t": 23.272, "type": "read", "sec": 0, "doc": "미델뷔르흐", "chars": 3381, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 32.256, "type": "write", "sec": 0, "chars": 753, "cites": 11, "enough": true, "gap": "", "round": 1}
+{"t": 32.258, "type": "review", "gaps": [], "reason": "빈 칸 없음", "round": 1}
+{"t": 35.79, "type": "synth", "chars": 1649, "sections": 2}
+{"t": 35.793, "type": "evaluate", "metrics": {"문장수": 29, "근거율": 75.9, "허위인용": [], "엉뚱한인용": [], "읽은문서": 6, "읽고안쓴": ["브리스틀"], "편중": 26.1, "중복률": 0.0, "인용수": 23, "보고서자수": 1649, "격리율": 21.3, "LLM호출": 16, "원": 4.82}, "alarms": []}
+{"t": 35.796, "type": "run_end", "seconds": 35.8, "calls": 16, "won": 4.82, "tok_in": 24906, "tok_cached": 20224, "tok_out": 2044}

@@ -1,0 +1,19 @@
+{"t": 0.002, "type": "run_start", "run_id": "20261106-164214-live-Q4-off-redelegate", "qid": "Q4", "question": "네덜란드와 영국은 어떤 항구들로 아시아 무역에 뛰어들었나?", "mode": "gpt-4o-mini", "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}, "sections": 5, "budget": 3}
+{"t": 2.589, "type": "plan", "title": "네덜란드와 영국의 아시아 무역 항구", "toc": [{"절": "네덜란드의 아시아 무역 항구", "지시": "네덜란드가 아시아 무역에 사용한 주요 항구를 정리한다.", "역할": "항로 담당", "시작문서": "바타비아", "예산": 3}, {"절": "영국의 아시아 무역 항구", "지시": "영국이 아시아 무역에 사용한 주요 항구를 정리한다.", "역할": "항로 담당", "시작문서": "마드라스", "예산": 3}], "switches": {"roles": true, "assign": true, "zones": true, "redelegate": false}}
+{"t": 2.591, "type": "dispatch", "round": 1, "sections": [0, 1]}
+{"t": 5.2, "type": "read", "sec": 1, "doc": "마드라스", "chars": 4265, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 6.095, "type": "pick", "sec": 1, "cand": 15, "frontier": true, "chose": "광저우"}
+{"t": 8.022, "type": "read", "sec": 0, "doc": "바타비아", "chars": 5977, "assigned": true, "round": 1, "irrelevant": false}
+{"t": 9.144, "type": "pick", "sec": 0, "cand": 18, "frontier": true, "chose": "마닐라"}
+{"t": 9.373, "type": "read", "sec": 1, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 9.899, "type": "read", "sec": 0, "doc": "마닐라", "chars": 24000, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 10.601, "type": "pick", "sec": 1, "cand": 19, "frontier": true, "chose": "나가파티남"}
+{"t": 10.702, "type": "pick", "sec": 0, "cand": 24, "frontier": true, "chose": "광저우"}
+{"t": 11.523, "type": "read", "sec": 0, "doc": "광저우", "chars": 17853, "assigned": false, "round": 1, "irrelevant": true}
+{"t": 13.848, "type": "read", "sec": 1, "doc": "나가파티남", "chars": 4010, "assigned": false, "round": 1, "irrelevant": false}
+{"t": 17.481, "type": "write", "sec": 0, "chars": 392, "cites": 6, "enough": false, "gap": "마닐라와 광저우에 대한 내용이 부족함.", "round": 1}
+{"t": 22.288, "type": "write", "sec": 1, "chars": 637, "cites": 7, "enough": true, "gap": "", "round": 1}
+{"t": 22.29, "type": "review", "gaps": [], "reason": "재위임 꺼짐", "round": 1}
+{"t": 25.015, "type": "synth", "chars": 1304, "sections": 2}
+{"t": 25.016, "type": "evaluate", "metrics": {"문장수": 20, "근거율": 65.0, "허위인용": [], "엉뚱한인용": [], "읽은문서": 5, "읽고안쓴": ["마닐라"], "편중": 46.2, "중복률": 16.7, "인용수": 13, "보고서자수": 1304, "격리율": 20.1, "LLM호출": 14, "원": 4.32}, "alarms": []}
+{"t": 25.017, "type": "run_end", "seconds": 25.0, "calls": 14, "won": 4.32, "tok_in": 25454, "tok_cached": 22656, "tok_out": 1613}
